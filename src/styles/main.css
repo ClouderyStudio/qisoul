@@ -1,0 +1,44 @@
+/* src/styles/main.css */
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f6f3f0;
+  --color-card: rgba(255, 250, 245, 0.75);
+  --color-card-hover: rgba(255, 252, 248, 0.8);
+  --color-border: rgba(230, 215, 200, 0.3);
+  --color-border-hover: #dfd2c6;
+  --color-text-primary: #4f4842;
+  --color-text-secondary: #6d6259;
+  --color-text-muted: #8a7e74;
+  --color-accent: #dccfc4;
+  --color-btn: #ece3db;
+  --color-btn-hover: #e0d3c8;
+}
+
+/* 全局 */
+body {
+  background-color: #f6f3f0;
+  font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+  color: #3e3a36;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f6f3f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #dccfc4;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cebdb0;
+}
+
+::selection {
+  background: #dccfc4;
+  color: #3e3530;
+}
