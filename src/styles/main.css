@@ -18,7 +18,12 @@
 /* 全局 */
 body {
   background-color: #f6f3f0;
-  font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Segoe UI",
+    "Roboto",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: #3e3a36;
   -webkit-font-smoothing: antialiased;
 }
@@ -48,39 +53,39 @@ body {
 .markdown-preview ol,
 .prose ul,
 .prose ol {
-    padding-left: 1.5em !important;
-    margin: 0.5em 0 !important;
+  padding-left: 1.5em !important;
+  margin: 0.5em 0 !important;
 }
 
 .markdown-preview ul,
 .prose ul {
-    list-style-type: disc !important;
+  list-style-type: disc !important;
 }
 
 .markdown-preview ol,
 .prose ol {
-    list-style-type: decimal !important;
+  list-style-type: decimal !important;
 }
 
 .markdown-preview li,
 .prose li {
-    display: list-item !important;
-    margin: 0.2em 0 !important;
+  display: list-item !important;
+  margin: 0.2em 0 !important;
 }
 
 /* 确保 marker 可见 */
 .markdown-preview li::marker,
 .prose li::marker {
-    color: #8a7e74 !important;
+  color: #8a7e74 !important;
 }
 
 /* 嵌套列表 */
 .markdown-preview ul ul,
 .prose ul ul {
-    list-style-type: circle !important;
+  list-style-type: circle !important;
 }
 
 .markdown-preview ul ul ul,
 .prose ul ul ul {
-    list-style-type: square !important;
+  list-style-type: square !important;
 }
