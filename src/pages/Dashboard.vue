@@ -67,13 +67,14 @@
                         <p class="text-xs mt-1 font-light" style="color: #b8aa98;">点击「记录心情」开始你的第一次记录</p>
                     </div>
 
+                    <!-- 近期心情列表 -->
                     <div v-else class="space-y-2">
                         <div v-for="item in recentMoods" :key="item.id"
-                            class="flex items-center justify-between p-3 rounded-full transition-all"
+                            class="flex items-center justify-between p-3 rounded-full transition-all group"
                             style="border-bottom: 1px solid rgba(231, 219, 208, 0.3);"
                             @mouseenter="e => e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)'"
                             @mouseleave="e => e.currentTarget.style.background = 'transparent'">
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-3 flex-1">
                                 <span class="text-xl">{{ getMoodIcon(item.moodType) }}</span>
                                 <div>
                                     <div class="text-sm font-light" style="color: #4f4842;">{{ item.moodLabel }}</div>
@@ -81,8 +82,45 @@
                                     </div>
                                 </div>
                             </div>
-                            <span class="text-xs font-light" style="color: #b8aa98;">{{ formatTime(item.recordDate)
-                            }}</span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-light" style="color: #b8aa98;">{{ formatTime(item.recordDate)
+                                    }}</span>
+                                <!-- ✅ 删除按钮 -->
+                                <button @click="confirmDeleteMood(item.id)"
+                                    class="text-xs transition-colors opacity-0 group-hover:opacity-100"
+                                    style="color: #b8aa98;" @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                                    @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                                    ✕
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====== 删除心情确认弹窗 ====== -->
+                <div v-if="showDeleteMoodModal" class="fixed inset-0 z-50 flex items-center justify-center px-4"
+                    style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px);">
+                    <div class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
+                        style="background: rgba(255, 250, 245, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(230, 215, 200, 0.3); box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);">
+                        <div class="text-4xl mb-4">💭</div>
+                        <h3 class="text-lg font-light tracking-wide" style="color: #4f4842;">确认删除</h3>
+                        <p class="text-sm font-light mt-2" style="color: #6d6259;">确定要删除这条心情记录吗？此操作不可撤销。</p>
+                        <div class="flex gap-3 mt-6">
+                            <button @click="deleteMood"
+                                class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                                style="background: #e85a65; color: white; border: 1px solid #e85a65;"
+                                @mouseenter="e => e.currentTarget.style.background = '#cc404a'"
+                                @mouseleave="e => e.currentTarget.style.background = '#e85a65'">
+                                确认删除
+                            </button>
+                            <button @click="showDeleteMoodModal = false"
+                                class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                                style="background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;"
+                                @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
+                                @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
+                                取消
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -151,9 +189,9 @@
                         </p>
                         <div class="flex items-center justify-between mt-2">
                             <span class="text-xs font-light" style="color: #8a7e74;">{{ post.username || '匿名用户'
-                            }}</span>
+                                }}</span>
                             <span class="text-xs font-light" style="color: #b8aa98;">{{ formatTime(post.createdAt)
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
                 </div>
@@ -242,6 +280,30 @@ const stats = ref<StatsResponse>({
     trends: [],
     distribution: [],
 })
+
+const showDeleteMoodModal = ref(false)
+const deleteMoodId = ref<string | null>(null)
+
+const confirmDeleteMood = (id: string) => {
+    deleteMoodId.value = id
+    showDeleteMoodModal.value = true
+}
+
+const deleteMood = async () => {
+    if (!deleteMoodId.value) return
+
+    try {
+        await moodService.deleteRecord(deleteMoodId.value)
+        // 从列表中移除
+        recentMoods.value = recentMoods.value.filter(m => m.id !== deleteMoodId.value)
+        showDeleteMoodModal.value = false
+        deleteMoodId.value = null
+        await loadData() // 刷新数据
+    } catch (error) {
+        console.error('删除心情记录失败:', error)
+        alert('删除失败，请重试')
+    }
+}
 
 const viewPostDetail = (postId: string) => {
     router.push(`/community/post/${postId}`)
