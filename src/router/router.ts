@@ -34,7 +34,13 @@ const routes = [
         path: "/resources",
         name: "资源",
         component: () => import("../pages/Resources.vue"),
-    }
+    },
+     {
+            path: '/community/post/:id',
+            name: 'post-detail',
+            component: () => import('../pages/community/PostDetail.vue'),
+            meta: { requiresAuth: false },
+        },
 ];
 
 export const router = createRouter({

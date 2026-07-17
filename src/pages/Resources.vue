@@ -164,7 +164,7 @@
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">{{ selectedPractice?.icon }}</span>
                         <h2 class="text-xl font-light tracking-wide" style="color: #4f4842;">{{ selectedPractice?.title
-                        }}</h2>
+                            }}</h2>
                     </div>
                     <button @click="closePracticeModal" class="text-xl transition-colors" style="color: #b8aa98;"
                         @mouseenter="e => e.currentTarget.style.color = '#4f4842'"

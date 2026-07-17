@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen" style="background: #f6f3f0;">
-    <!-- 极柔背景装饰 -->
     <div class="fixed -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none"
       style="background: radial-gradient(circle at 30% 30%, rgba(215, 195, 180, 0.08) 0%, transparent 60%);"></div>
     <div class="fixed -bottom-40 -left-40 w-96 h-96 rounded-full pointer-events-none"

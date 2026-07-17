@@ -41,11 +41,20 @@
                 </div>
             </div>
 
-            <!-- ====== 三栏 Flex 布局：左便签 | 中间帖子 | 右便签 ====== -->
+            <!-- ====== 三栏 Flex 布局 ====== -->
             <div class="flex gap-5 items-start">
 
                 <!-- ====== 左侧：便签栏 ====== -->
                 <div class="hidden lg:block w-[180px] flex-shrink-0 space-y-3">
+                    <!-- 加载状态 -->
+                    <div v-if="loading && leftStickies.length === 0" class="text-center py-6">
+                        <div
+                            class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto">
+                        </div>
+                        <span class="text-xs font-light mt-2 block" style="color: #b8aa98;">加载中...</span>
+                    </div>
+
+                    <!-- 便签列表 -->
                     <div v-for="item in leftStickies" :key="item.id" class="p-3 transition-all rounded-2xl" :style="{
                         background: item.color || 'rgba(255, 250, 245, 0.6)',
                         border: '1px solid #efe7e0',
@@ -54,33 +63,51 @@
                         e.currentTarget.style.boxShadow = '0 4px 16px rgba(150, 130, 110, 0.08)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
                     }" @mouseleave="e => {
-                            e.currentTarget.style.borderColor = '#efe7e0';
-                            e.currentTarget.style.boxShadow = 'none';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                        }">
+                        e.currentTarget.style.borderColor = '#efe7e0';
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                    }">
                         <div class="flex items-start justify-between mb-1">
                             <span class="text-sm">{{ item.icon || '📌' }}</span>
-                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ formatTime(item.createdAt)
+                                }}</span>
                         </div>
-                        <p class="text-xs font-light leading-relaxed" style="color: #4b423c; line-height: 1.5;">{{
-                            item.content }}</p>
+                        <p class="text-xs font-light leading-relaxed"
+                            style="color: #4b423c; line-height: 1.5; word-break: break-word;">{{ item.content }}</p>
                         <div class="flex items-center justify-between mt-1.5 pt-1"
                             style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
-                            <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
-                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
+                            <button @click="likeSticky(item.id)"
+                                class="text-[10px] font-light transition-colors flex items-center gap-1"
+                                style="color: #8a7e74;" @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                                @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                                💛 {{ item.likes }}
+                            </button>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.username || '匿名用户'
+                                    }}</span>
+                                <!-- ✅ 删除按钮（仅自己的便签） -->
+                                <button v-if="isMySticky(item)" @click="confirmDeleteSticky(item.id)"
+                                    class="text-[10px] font-light transition-colors" style="color: #b8aa98;"
+                                    @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                                    @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                                    ✕
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div v-if="leftStickies.length === 0" class="text-center py-6"
+
+                    <!-- 空状态 -->
+                    <div v-if="!loading && leftStickies.length === 0" class="text-center py-6"
                         style="border: 1px dashed #e7dbd0; border-radius: 1.5rem;">
                         <span class="text-2xl block mb-1">📌</span>
                         <span class="text-xs font-light" style="color: #b8aa98;">便签会出现在这里</span>
                     </div>
                 </div>
 
-                <!-- ====== 中间：帖子（主要区域） ====== -->
+                <!-- ====== 中间：帖子 ====== -->
                 <div class="flex-1 min-w-0">
 
-                    <!-- ====== 帖子分类筛选 ====== -->
+                    <!-- 分类筛选 -->
                     <div class="flex flex-wrap gap-2 mb-5">
                         <button v-for="cat in postCategories" :key="cat.value" @click="selectedCategory = cat.value"
                             class="px-4 py-1.5 text-xs font-light transition-all rounded-full" :style="selectedCategory === cat.value
@@ -92,8 +119,17 @@
                         </button>
                     </div>
 
-                    <!-- 帖子列表 -->
-                    <div v-if="filteredPosts.length === 0" class="text-center py-16"
+                    <!-- 加载状态 -->
+                    <div v-if="loading && filteredPosts.length === 0" class="text-center py-16"
+                        style="background: rgba(255, 250, 245, 0.3); border-radius: 3rem; border: 1px dashed #e7dbd0;">
+                        <div
+                            class="w-10 h-10 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto">
+                        </div>
+                        <p class="text-sm font-light mt-4" style="color: #8a7e74;">加载中...</p>
+                    </div>
+
+                    <!-- 空状态 -->
+                    <div v-else-if="filteredPosts.length === 0" class="text-center py-16"
                         style="background: rgba(255, 250, 245, 0.3); border-radius: 3rem; border: 1px dashed #e7dbd0;">
                         <div class="text-5xl mb-4">🌱</div>
                         <p class="text-sm font-light" style="color: #8a7e74;">
@@ -104,13 +140,16 @@
                         </p>
                     </div>
 
+                    <!-- 帖子列表 -->
                     <div v-else class="space-y-4">
                         <div v-for="post in filteredPosts" :key="post.id" class="p-6 transition-all rounded-[2.5rem]"
                             style="background: rgba(255, 250, 245, 0.6); border: 1px solid #efe7e0;"
                             @mouseenter="e => { e.currentTarget.style.borderColor = '#dfd2c6'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(150, 130, 110, 0.06)'; }"
                             @mouseleave="e => { e.currentTarget.style.borderColor = '#efe7e0'; e.currentTarget.style.boxShadow = 'none'; }">
+
                             <div class="flex items-start justify-between">
                                 <div class="flex-1">
+                                    <!-- 标题行 -->
                                     <div class="flex items-center gap-3 mb-2">
                                         <span class="text-lg">{{ post.icon || '📖' }}</span>
                                         <h3 class="text-base font-light" style="color: #4f4842;">{{ post.title }}</h3>
@@ -118,17 +157,53 @@
                                             style="background: rgba(236, 227, 219, 0.4); color: #6d6259; border: 1px solid #e7dbd0; flex-shrink: 0;">{{
                                                 post.category }}</span>
                                     </div>
-                                    <p class="text-sm font-light leading-relaxed"
-                                        style="color: #6d6259; white-space: pre-line;">{{ post.content }}</p>
+
+                                    <!-- 内容 -->
+                                    <p class="text-sm font-light leading-relaxed whitespace-pre-line"
+                                        style="color: #6d6259;">
+                                        {{ truncateSmart(truncateByLines(post.content, 3)) }}
+                                    </p>
+
+                                    <!-- 查看详情 -->
+                                    <div v-if="post.content.length > 100 || post.content.split('\n').length > 3"
+                                        class="mt-2">
+                                        <button @click="viewPostDetail(post.id)"
+                                            class="text-xs font-light transition-colors flex items-center gap-1"
+                                            style="color: #8a7e74;"
+                                            @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                                            @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                                            查看详情 →
+                                        </button>
+                                    </div>
+
+                                    <!-- 底部信息 -->
                                     <div class="flex flex-wrap items-center gap-4 mt-3 pt-2"
                                         style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
-                                        <span class="text-xs font-light" style="color: #8a7e74;">👤 {{ post.author
-                                        }}</span>
-                                        <span class="text-xs font-light" style="color: #b8aa98;">{{ post.time }}</span>
-                                        <span class="text-xs font-light" style="color: #8a7e74;">💛 {{ post.likes
-                                        }}</span>
-                                        <span class="text-xs font-light" style="color: #8a7e74;">💬 {{ post.comments
-                                        }}</span>
+                                        <span class="text-xs font-light" style="color: #8a7e74;">👤 {{ post.username ||
+                                            '匿名用户' }}</span>
+                                        <span class="text-xs font-light" style="color: #b8aa98;">{{
+                                            formatTime(post.createdAt) }}</span>
+
+                                        <!-- 点赞按钮 -->
+                                        <button @click="likePost(post.id)"
+                                            class="text-xs font-light transition-colors flex items-center gap-1"
+                                            style="color: #8a7e74;"
+                                            @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                                            @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                                            💛 {{ post.likes }}
+                                        </button>
+
+                                        <span class="text-xs font-light" style="color: #8a7e74;">💬 {{ post.comments ||
+                                            0 }}</span>
+
+                                        <!-- 删除按钮（仅自己的帖子） -->
+                                        <button v-if="isMyPost(post)" @click="confirmDeletePost(post.id)"
+                                            class="text-xs font-light transition-colors flex items-center gap-1 ml-auto"
+                                            style="color: #b8aa98;"
+                                            @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                                            @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                                            🗑️ 删除
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -136,18 +211,28 @@
                     </div>
 
                     <!-- 加载更多 -->
-                    <div class="text-center mt-6">
-                        <button class="px-8 py-2 text-sm font-light transition-all rounded-full"
+                    <div v-if="hasMore" class="text-center mt-6">
+                        <button @click="loadMore" :disabled="loadingMore"
+                            class="px-8 py-2 text-sm font-light transition-all rounded-full"
                             style="color: #8a7e74; border: 1px solid #e7dbd0;"
                             @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
                             @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
-                            加载更多
+                            {{ loadingMore ? '加载中...' : '加载更多' }}
                         </button>
                     </div>
                 </div>
 
                 <!-- ====== 右侧：便签栏 ====== -->
                 <div class="hidden lg:block w-[180px] flex-shrink-0 space-y-3">
+                    <!-- 加载状态 -->
+                    <div v-if="loading && rightStickies.length === 0" class="text-center py-6">
+                        <div
+                            class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto">
+                        </div>
+                        <span class="text-xs font-light mt-2 block" style="color: #b8aa98;">加载中...</span>
+                    </div>
+
+                    <!-- 便签列表 -->
                     <div v-for="item in rightStickies" :key="item.id" class="p-3 transition-all rounded-2xl" :style="{
                         background: item.color || 'rgba(255, 250, 245, 0.6)',
                         border: '1px solid #efe7e0',
@@ -156,23 +241,41 @@
                         e.currentTarget.style.boxShadow = '0 4px 16px rgba(150, 130, 110, 0.08)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
                     }" @mouseleave="e => {
-                            e.currentTarget.style.borderColor = '#efe7e0';
-                            e.currentTarget.style.boxShadow = 'none';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                        }">
+                        e.currentTarget.style.borderColor = '#efe7e0';
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                    }">
                         <div class="flex items-start justify-between mb-1">
                             <span class="text-sm">{{ item.icon || '📌' }}</span>
-                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ formatTime(item.createdAt)
+                                }}</span>
                         </div>
-                        <p class="text-xs font-light leading-relaxed" style="color: #4b423c; line-height: 1.5;">{{
-                            item.content }}</p>
+                        <p class="text-xs font-light leading-relaxed"
+                            style="color: #4b423c; line-height: 1.5; word-break: break-word;">{{ item.content }}</p>
                         <div class="flex items-center justify-between mt-1.5 pt-1"
                             style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
-                            <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
-                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
+                            <button @click="likeSticky(item.id)"
+                                class="text-[10px] font-light transition-colors flex items-center gap-1"
+                                style="color: #8a7e74;" @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                                @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                                💛 {{ item.likes }}
+                            </button>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.username || '匿名用户'
+                                    }}</span>
+                                <!-- ✅ 删除按钮（仅自己的便签） -->
+                                <button v-if="isMySticky(item)" @click="confirmDeleteSticky(item.id)"
+                                    class="text-[10px] font-light transition-colors" style="color: #b8aa98;"
+                                    @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                                    @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                                    ✕
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div v-if="rightStickies.length === 0" class="text-center py-6"
+
+                    <!-- 空状态 -->
+                    <div v-if="!loading && rightStickies.length === 0" class="text-center py-6"
                         style="border: 1px dashed #e7dbd0; border-radius: 1.5rem;">
                         <span class="text-2xl block mb-1">📌</span>
                         <span class="text-xs font-light" style="color: #b8aa98;">便签会出现在这里</span>
@@ -181,10 +284,11 @@
 
             </div>
 
-            <!-- ====== 移动端：便签折叠展示 ====== -->
+            <!-- ====== 移动端：便签折叠 ====== -->
             <div class="lg:hidden mt-8">
                 <details class="group">
-                    <summary class="flex items-center gap-2 cursor-pointer text-sm font-light" style="color: #8a7e74;"
+                    <summary class="flex items-center gap-2 cursor-pointer text-sm font-light"
+                        style="color: #8a7e74; list-style: none;"
                         @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
                         @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
                         <span>📌</span> 查看便签
@@ -199,13 +303,29 @@
                             }">
                             <div class="flex items-start justify-between mb-1">
                                 <span class="text-sm">{{ item.icon || '📌' }}</span>
-                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
+                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{
+                                    formatTime(item.createdAt) }}</span>
                             </div>
-                            <p class="text-xs font-light leading-relaxed" style="color: #4b423c;">{{ item.content }}</p>
+                            <p class="text-xs font-light leading-relaxed"
+                                style="color: #4b423c; word-break: break-word;">{{ item.content }}</p>
                             <div class="flex items-center justify-between mt-1.5 pt-1"
                                 style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
-                                <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
-                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
+                                <button @click="likeSticky(item.id)"
+                                    class="text-[10px] font-light transition-colors flex items-center gap-1"
+                                    style="color: #8a7e74;" @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                                    @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                                    💛 {{ item.likes }}
+                                </button>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.username ||
+                                        '匿名用户' }}</span>
+                                    <button v-if="isMySticky(item)" @click="confirmDeleteSticky(item.id)"
+                                        class="text-[10px] font-light transition-colors" style="color: #b8aa98;"
+                                        @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                                        @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                                        ✕
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -310,13 +430,66 @@
                 </div>
 
                 <div class="flex gap-3 mt-6">
-                    <button @click="submitShare" class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                    <button @click="submitShare" :disabled="submitting"
+                        class="flex-1 py-2.5 text-sm font-light transition-all rounded-full disabled:opacity-50"
                         style="background: #ece3db; color: #4d443d; border: 1px solid #e2d5ca;"
-                        @mouseenter="e => { e.currentTarget.style.background = '#e0d3c8'; e.currentTarget.style.borderColor = '#cebdb0'; }"
-                        @mouseleave="e => { e.currentTarget.style.background = '#ece3db'; e.currentTarget.style.borderColor = '#e2d5ca'; }">
-                        发布分享
+                        @mouseenter="e => { if (!submitting) { e.currentTarget.style.background = '#e0d3c8'; e.currentTarget.style.borderColor = '#cebdb0'; } }"
+                        @mouseleave="e => { if (!submitting) { e.currentTarget.style.background = '#ece3db'; e.currentTarget.style.borderColor = '#e2d5ca'; } }">
+                        {{ submitting ? '发布中...' : '发布分享' }}
                     </button>
                     <button @click="closeModal" class="px-6 py-2.5 text-sm font-light transition-all rounded-full"
+                        style="background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;"
+                        @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
+                        @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
+                        取消
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 删除确认弹窗（帖子） ====== -->
+        <div v-if="showDeletePostModal" class="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px);">
+            <div class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
+                style="background: rgba(255, 250, 245, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(230, 215, 200, 0.3); box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);">
+                <div class="text-4xl mb-4">🗑️</div>
+                <h3 class="text-lg font-light tracking-wide" style="color: #4f4842;">确认删除帖子</h3>
+                <p class="text-sm font-light mt-2" style="color: #6d6259;">确定要删除这篇帖子吗？此操作不可撤销。</p>
+                <div class="flex gap-3 mt-6">
+                    <button @click="deletePost" class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                        style="background: #e85a65; color: white; border: 1px solid #e85a65;"
+                        @mouseenter="e => e.currentTarget.style.background = '#cc404a'"
+                        @mouseleave="e => e.currentTarget.style.background = '#e85a65'">
+                        确认删除
+                    </button>
+                    <button @click="closeDeletePostModal"
+                        class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                        style="background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;"
+                        @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
+                        @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
+                        取消
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== 删除确认弹窗（便签） ====== -->
+        <div v-if="showDeleteStickyModal" class="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px);">
+            <div class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
+                style="background: rgba(255, 250, 245, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(230, 215, 200, 0.3); box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);">
+                <div class="text-4xl mb-4">📌</div>
+                <h3 class="text-lg font-light tracking-wide" style="color: #4f4842;">确认删除便签</h3>
+                <p class="text-sm font-light mt-2" style="color: #6d6259;">确定要删除这条便签吗？此操作不可撤销。</p>
+                <div class="flex gap-3 mt-6">
+                    <button @click="deleteSticky" class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
+                        style="background: #e85a65; color: white; border: 1px solid #e85a65;"
+                        @mouseenter="e => e.currentTarget.style.background = '#cc404a'"
+                        @mouseleave="e => e.currentTarget.style.background = '#e85a65'">
+                        确认删除
+                    </button>
+                    <button @click="closeDeleteStickyModal"
+                        class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
                         style="background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;"
                         @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
                         @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
@@ -329,12 +502,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { postService, stickyService, type PostResponse, type StickyResponse } from '@/services'
+import { truncateByLines, truncateSmart } from '@/utils/text'
 
+const router = useRouter()
 const userStore = useUserStore()
 
-// ====== 帖子分类筛选 ======
+// ====== 状态 ======
+const loading = ref(true)
+const loadingMore = ref(false)
+const submitting = ref(false)
+
+const posts = ref<PostResponse[]>([])
+const stickies = ref<StickyResponse[]>([])
+const pagination = ref({
+    page: 1,
+    pageSize: 20,
+    total: 0,
+    totalPages: 1,
+})
+
+// ====== 删除帖子相关 ======
+const showDeletePostModal = ref(false)
+const deletePostId = ref<string | null>(null)
+
+// ====== 删除便签相关 ======
+const showDeleteStickyModal = ref(false)
+const deleteStickyId = ref<string | null>(null)
+
+// ====== 分类筛选 ======
 const selectedCategory = ref('all')
 const postCategories = ref([
     { value: 'all', label: '全部', icon: '✦' },
@@ -345,123 +544,9 @@ const postCategories = ref([
     { value: '日常小技巧', label: '日常小技巧', icon: '✨' },
 ])
 
-// ====== 便签数据 ======
-const stickies = ref([
-    {
-        id: 1,
-        content: '每天给自己 5 分钟，什么都不做，只是安静地呼吸。',
-        author: '匿名用户',
-        time: '今天 10:30',
-        likes: 24,
-        icon: '🌿',
-        color: 'rgba(236, 227, 219, 0.45)',
-    },
-    {
-        id: 2,
-        content: '情绪来的时候，试着给它命名。看见它，接纳它，它就会慢慢流过。',
-        author: '匿名用户',
-        time: '昨天 22:15',
-        likes: 18,
-        icon: '💛',
-        color: 'rgba(215, 195, 180, 0.35)',
-    },
-    {
-        id: 3,
-        content: '写一封不寄出的信，把心里的话都写在纸上。',
-        author: '匿名用户',
-        time: '昨天 14:20',
-        likes: 12,
-        icon: '✉️',
-        color: 'rgba(220, 207, 196, 0.4)',
-    },
-    {
-        id: 4,
-        content: '当焦虑来袭，把手放在胸口，感受自己的心跳。',
-        author: '匿名用户',
-        time: '前天 09:10',
-        likes: 31,
-        icon: '🫂',
-        color: 'rgba(245, 230, 220, 0.4)',
-    },
-    {
-        id: 5,
-        content: '阳光是最好的疗愈师。每天至少晒 15 分钟太阳。',
-        author: '匿名用户',
-        time: '前天 16:45',
-        likes: 9,
-        icon: '☀️',
-        color: 'rgba(236, 227, 219, 0.35)',
-    },
-    {
-        id: 6,
-        content: '和信任的人说说话，哪怕只是简单的一句"我今天不太好"。',
-        author: '匿名用户',
-        time: '3天前 20:30',
-        likes: 22,
-        icon: '💬',
-        color: 'rgba(200, 180, 165, 0.3)',
-    },
-])
-
-// ====== 帖子数据 ======
-const posts = ref([
-    {
-        id: 1,
-        title: '我如何通过晨间日记走出抑郁情绪',
-        content: '三年前我被诊断为抑郁症，尝试了各种方法后，我发现晨间日记是最有效的。每天早上醒来，我不急着看手机，而是拿起笔记本，写下三件事：昨晚的梦境、醒来时的第一感受、今天想完成的一件事。这个方法让我重新建立了与自己内心的连接。',
-        author: '匿名用户',
-        time: '昨天 09:00',
-        likes: 45,
-        comments: 12,
-        category: '心理调节',
-        icon: '📓'
-    },
-    {
-        id: 2,
-        title: '社交焦虑的 5 个小技巧',
-        content: '1. 提前准备话题清单\n2. 深呼吸三次再开口\n3. 专注倾听比说话更重要\n4. 允许自己有沉默的时刻\n5. 结束后给自己一个积极的反馈。这些小技巧帮我慢慢走出了社交恐惧。',
-        author: '匿名用户',
-        time: '前天 16:30',
-        likes: 32,
-        comments: 8,
-        category: '日常小技巧',
-        icon: '🌱'
-    },
-    {
-        id: 3,
-        title: '接纳不完美的自己',
-        content: '完美主义是我焦虑的来源。后来我学会对自己说：我允许自己犯错，允许自己不完美。这个简单的自我对话，让我从焦虑中解放出来。',
-        author: '匿名用户',
-        time: '3天前 20:10',
-        likes: 28,
-        comments: 6,
-        category: '心理调节',
-        icon: '🕊️'
-    },
-    {
-        id: 4,
-        title: '我的社交支持系统',
-        content: '我建立了三个层级的支持系统：亲密朋友（3人）、支持小组（每周线上）、专业咨询师（每月）。在状态不好的时候，我知道可以向谁求助。这让我感到安全。',
-        author: '匿名用户',
-        time: '4天前 11:20',
-        likes: 19,
-        comments: 5,
-        category: '社交支持',
-        icon: '🤝'
-    },
-])
-
-// ====== 筛选 ======
+// ====== 便签 ======
 const filteredStickies = computed(() => stickies.value)
 
-const filteredPosts = computed(() => {
-    if (selectedCategory.value === 'all') {
-        return posts.value
-    }
-    return posts.value.filter(p => p.category === selectedCategory.value)
-})
-
-// ====== 便签分布：左右交替 ======
 const leftStickies = computed(() => {
     return filteredStickies.value.filter((_, i) => i % 2 === 0)
 })
@@ -470,7 +555,185 @@ const rightStickies = computed(() => {
     return filteredStickies.value.filter((_, i) => i % 2 === 1)
 })
 
-// ====== 弹窗 ======
+// ====== 帖子 ======
+const filteredPosts = computed(() => {
+    if (selectedCategory.value === 'all') {
+        return posts.value
+    }
+    return posts.value.filter(p => p.category === selectedCategory.value)
+})
+
+const hasMore = computed(() => {
+    return pagination.value.page < pagination.value.totalPages
+})
+
+// ====== 判断是否为自己的帖子 ======
+const isMyPost = (post: PostResponse): boolean => {
+    const currentUser = userStore.user?.username
+    return currentUser ? post.username === currentUser : false
+}
+
+// ====== 判断是否为自己的便签 ======
+const isMySticky = (sticky: StickyResponse): boolean => {
+    const currentUser = userStore.user?.username
+    return currentUser ? sticky.username === currentUser : false
+}
+
+// ====== 时间格式化 ======
+const formatTime = (dateStr: string) => {
+    if (!dateStr) return '刚刚'
+    const date = new Date(dateStr)
+    const now = new Date()
+    const diff = now.getTime() - date.getTime()
+
+    if (diff < 60000) return '刚刚'
+    if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`
+    if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`
+    if (diff < 172800000) return '昨天'
+    if (diff < 259200000) return '前天'
+    return `${date.getMonth() + 1}月${date.getDate()}日`
+}
+
+// ====== 加载数据 ======
+const loadData = async () => {
+    loading.value = true
+    try {
+        const [postsResult, stickiesResult] = await Promise.all([
+            postService.getPosts('all', 1, 20),
+            stickyService.getStickies(20),
+        ])
+        posts.value = postsResult.data
+        pagination.value = postsResult.pagination
+        stickies.value = stickiesResult
+    } catch (error) {
+        console.error('加载社区数据失败:', error)
+    } finally {
+        loading.value = false
+    }
+}
+
+const loadMore = async () => {
+    if (loadingMore.value || !hasMore.value) return
+
+    loadingMore.value = true
+    try {
+        const nextPage = pagination.value.page + 1
+        const result = await postService.getPosts(
+            selectedCategory.value === 'all' ? undefined : selectedCategory.value,
+            nextPage,
+            pagination.value.pageSize
+        )
+        posts.value = [...posts.value, ...result.data]
+        pagination.value = result.pagination
+    } catch (error) {
+        console.error('加载更多失败:', error)
+    } finally {
+        loadingMore.value = false
+    }
+}
+
+// ====== 分类切换 ======
+const onCategoryChange = async (category: string) => {
+    selectedCategory.value = category
+    pagination.value.page = 1
+    loading.value = true
+    try {
+        const result = await postService.getPosts(
+            category === 'all' ? undefined : category,
+            1,
+            pagination.value.pageSize
+        )
+        posts.value = result.data
+        pagination.value = result.pagination
+    } catch (error) {
+        console.error('切换分类加载失败:', error)
+    } finally {
+        loading.value = false
+    }
+}
+
+watch(selectedCategory, (newVal) => {
+    if (!loading.value) {
+        onCategoryChange(newVal)
+    }
+})
+
+// ====== 点赞帖子 ======
+const likePost = async (id: string) => {
+    try {
+        const result = await postService.likePost(id)
+        const post = posts.value.find(p => p.id === id)
+        if (post) post.likes = result.likes
+    } catch (error) {
+        console.error('点赞失败:', error)
+    }
+}
+
+// ====== 点赞便签 ======
+const likeSticky = async (id: string) => {
+    try {
+        const result = await stickyService.likeSticky(id)
+        const sticky = stickies.value.find(s => s.id === id)
+        if (sticky) sticky.likes = result.likes
+    } catch (error) {
+        console.error('点赞便签失败:', error)
+    }
+}
+
+// ====== 删除帖子 ======
+const confirmDeletePost = (id: string) => {
+    deletePostId.value = id
+    showDeletePostModal.value = true
+}
+
+const closeDeletePostModal = () => {
+    showDeletePostModal.value = false
+    deletePostId.value = null
+}
+
+const deletePost = async () => {
+    if (!deletePostId.value) return
+
+    try {
+        await postService.deletePost(deletePostId.value)
+        posts.value = posts.value.filter(p => p.id !== deletePostId.value)
+        closeDeletePostModal()
+    } catch (error) {
+        console.error('删除帖子失败:', error)
+        alert('删除失败，请重试')
+    }
+}
+
+// ====== 删除便签 ======
+const confirmDeleteSticky = (id: string) => {
+    deleteStickyId.value = id
+    showDeleteStickyModal.value = true
+}
+
+const closeDeleteStickyModal = () => {
+    showDeleteStickyModal.value = false
+    deleteStickyId.value = null
+}
+
+const deleteSticky = async () => {
+    if (!deleteStickyId.value) return
+
+    try {
+        await stickyService.deleteSticky(deleteStickyId.value)
+        stickies.value = stickies.value.filter(s => s.id !== deleteStickyId.value)
+        closeDeleteStickyModal()
+    } catch (error) {
+        console.error('删除便签失败:', error)
+        alert('删除失败，请重试')
+    }
+}
+
+// ====== 查看详情 ======
+const viewPostDetail = (postId: string) => {
+    router.push(`/community/post/${postId}`)
+}
+
+// ====== 创建分享弹窗 ======
 const showCreateModal = ref(false)
 const shareType = ref<'sticky' | 'post'>('sticky')
 
@@ -495,7 +758,6 @@ const postTitle = ref('')
 const postCategory = ref('心理调节')
 const postContent = ref('')
 
-// ====== 方法 ======
 const openCreateModal = () => {
     showCreateModal.value = true
     shareType.value = 'sticky'
@@ -516,50 +778,60 @@ const resetForm = () => {
     selectedIcon.value = '📌'
 }
 
-const submitShare = () => {
+const submitShare = async () => {
     if (shareType.value === 'sticky') {
         if (!stickyContent.value.trim()) {
             alert('请写下你的便签内容')
             return
         }
-        const newSticky = {
-            id: Date.now(),
-            content: stickyContent.value.trim(),
-            author: userStore.getUsername || '匿名用户',
-            time: '刚刚',
-            likes: 0,
-            icon: selectedIcon.value,
-            color: selectedColor.value,
+        submitting.value = true
+        try {
+            const newSticky = await stickyService.createSticky({
+                content: stickyContent.value.trim(),
+                icon: selectedIcon.value,
+                color: selectedColor.value,
+            })
+            stickies.value.unshift(newSticky)
+            closeModal()
+        } catch (error) {
+            console.error('发布便签失败:', error)
+            alert('发布失败，请重试')
+        } finally {
+            submitting.value = false
         }
-        stickies.value.unshift(newSticky)
     } else {
         if (!postTitle.value.trim() || !postContent.value.trim()) {
             alert('请填写标题和内容')
             return
         }
-        const newPost = {
-            id: Date.now(),
-            title: postTitle.value.trim(),
-            content: postContent.value.trim(),
-            author: userStore.getUsername || '匿名用户',
-            time: '刚刚',
-            likes: 0,
-            comments: 0,
-            category: postCategory.value,
-            icon: '📖',
+        submitting.value = true
+        try {
+            const newPost = await postService.createPost({
+                title: postTitle.value.trim(),
+                content: postContent.value.trim(),
+                category: postCategory.value,
+                icon: '📖',
+            })
+            posts.value.unshift(newPost)
+            closeModal()
+        } catch (error) {
+            console.error('发布帖子失败:', error)
+            alert('发布失败，请重试')
+        } finally {
+            submitting.value = false
         }
-        posts.value.unshift(newPost)
     }
-    closeModal()
 }
 
+// ====== 生命周期 ======
 onMounted(() => {
     userStore.restoreUser()
+    loadData()
 })
 </script>
 
 <style scoped>
-/* 滚动条美化 */
+/* ====== 滚动条美化 ====== */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -573,12 +845,27 @@ onMounted(() => {
     border-radius: 9999px;
 }
 
-/* 移动端折叠面板 */
+/* ====== 移动端折叠面板 ====== */
 details summary {
     list-style: none;
 }
 
 details summary::-webkit-details-marker {
     display: none;
+}
+
+/* ====== 旋转动画 ====== */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 0.8s linear infinite;
 }
 </style>
