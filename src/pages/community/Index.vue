@@ -70,7 +70,7 @@
                         <div class="flex items-start justify-between mb-1">
                             <span class="text-sm">{{ item.icon || '📌' }}</span>
                             <span class="text-[10px] font-light" style="color: #b8aa98;">{{ formatTime(item.createdAt)
-                                }}</span>
+                            }}</span>
                         </div>
                         <p class="text-xs font-light leading-relaxed"
                             style="color: #4b423c; line-height: 1.5; word-break: break-word;">{{ item.content }}</p>
@@ -84,7 +84,7 @@
                             </button>
                             <div class="flex items-center gap-1.5">
                                 <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.username || '匿名用户'
-                                    }}</span>
+                                }}</span>
                                 <!-- ✅ 删除按钮（仅自己的便签） -->
                                 <button v-if="isMySticky(item)" @click="confirmDeleteSticky(item.id)"
                                     class="text-[10px] font-light transition-colors" style="color: #b8aa98;"
@@ -161,7 +161,7 @@
                                     <!-- 内容 -->
                                     <p class="text-sm font-light leading-relaxed whitespace-pre-line"
                                         style="color: #6d6259;">
-                                        {{ truncateSmart(truncateByLines(post.content, 3)) }}
+                                        {{ truncateSmart(truncateByLines(stripMarkdown(post.content), 3)) }}
                                     </p>
 
                                     <!-- 查看详情 -->
@@ -248,7 +248,7 @@
                         <div class="flex items-start justify-between mb-1">
                             <span class="text-sm">{{ item.icon || '📌' }}</span>
                             <span class="text-[10px] font-light" style="color: #b8aa98;">{{ formatTime(item.createdAt)
-                                }}</span>
+                            }}</span>
                         </div>
                         <p class="text-xs font-light leading-relaxed"
                             style="color: #4b423c; line-height: 1.5; word-break: break-word;">{{ item.content }}</p>
@@ -262,7 +262,7 @@
                             </button>
                             <div class="flex items-center gap-1.5">
                                 <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.username || '匿名用户'
-                                    }}</span>
+                                }}</span>
                                 <!-- ✅ 删除按钮（仅自己的便签） -->
                                 <button v-if="isMySticky(item)" @click="confirmDeleteSticky(item.id)"
                                     class="text-[10px] font-light transition-colors" style="color: #b8aa98;"
@@ -397,6 +397,7 @@
 
                 <!-- 帖子表单 -->
                 <div v-else class="space-y-4">
+                    <!-- 标题 -->
                     <div>
                         <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">标题</label>
                         <input v-model="postTitle" type="text"
@@ -405,6 +406,8 @@
                             placeholder="给你的方法起个标题..." @focus="e => e.currentTarget.style.borderColor = '#dccfc4'"
                             @blur="e => e.currentTarget.style.borderColor = '#e7dbd0'" />
                     </div>
+
+                    <!-- 分类 -->
                     <div>
                         <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">分类</label>
                         <select v-model="postCategory"
@@ -419,13 +422,11 @@
                             <option value="日常小技巧">日常小技巧</option>
                         </select>
                     </div>
+
+                    <!-- ✅ Markdown 编辑器 -->
                     <div>
                         <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">内容</label>
-                        <textarea v-model="postContent" rows="6"
-                            class="w-full p-3 text-sm transition-all resize-none rounded-[1.5rem]"
-                            style="background: rgba(245, 238, 232, 0.3); border: 1px solid #e7dbd0; color: #4b423c; font-weight: 300; font-family: 'Segoe UI', sans-serif;"
-                            placeholder="详细分享你的经验和方法..." @focus="e => e.currentTarget.style.borderColor = '#dccfc4'"
-                            @blur="e => e.currentTarget.style.borderColor = '#e7dbd0'"></textarea>
+                        <MarkdownEditor v-model="postContent" placeholder="详细分享你的经验和方法... 支持 Markdown 语法" />
                     </div>
                 </div>
 
@@ -506,7 +507,8 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { postService, stickyService, type PostResponse, type StickyResponse } from '@/services'
-import { truncateByLines, truncateSmart } from '@/utils/text'
+import { truncateByLines, truncateSmart, stripMarkdown } from '@/utils/text'
+import MarkdownEditor from '@/components/MarkdownEditor.vue'
 
 const router = useRouter()
 const userStore = useUserStore()

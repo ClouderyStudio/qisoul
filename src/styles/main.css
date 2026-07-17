@@ -42,3 +42,45 @@ body {
   background: #dccfc4;
   color: #3e3530;
 }
+
+/* 全局 Markdown 列表样式 */
+.markdown-preview ul,
+.markdown-preview ol,
+.prose ul,
+.prose ol {
+    padding-left: 1.5em !important;
+    margin: 0.5em 0 !important;
+}
+
+.markdown-preview ul,
+.prose ul {
+    list-style-type: disc !important;
+}
+
+.markdown-preview ol,
+.prose ol {
+    list-style-type: decimal !important;
+}
+
+.markdown-preview li,
+.prose li {
+    display: list-item !important;
+    margin: 0.2em 0 !important;
+}
+
+/* 确保 marker 可见 */
+.markdown-preview li::marker,
+.prose li::marker {
+    color: #8a7e74 !important;
+}
+
+/* 嵌套列表 */
+.markdown-preview ul ul,
+.prose ul ul {
+    list-style-type: circle !important;
+}
+
+.markdown-preview ul ul ul,
+.prose ul ul ul {
+    list-style-type: square !important;
+}

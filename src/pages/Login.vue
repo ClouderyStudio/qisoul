@@ -81,9 +81,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
+const router = useRouter()
 const loading = ref(false)
+const checkingAuth = ref(true)
+const userStore = useUserStore()
 
 const CASDOOR_CONFIG = {
     serverUrl: 'https://auth.cldery.com',
@@ -114,4 +119,32 @@ const loginWithCasdoor = () => {
 
     window.location.href = `${CASDOOR_CONFIG.serverUrl}/login/oauth/authorize?${params.toString()}`
 }
+
+// ====== 检查登录状态 ======
+const checkAuth = async () => {
+    checkingAuth.value = true
+    try {
+        // 先尝试从 localStorage 恢复
+        const hasLocal = userStore.restoreUser()
+        if (hasLocal) {
+            // 如果有本地缓存，再验证后端状态
+            const isValid = await userStore.checkStatus()
+            if (isValid) {
+                // 已登录，跳转到仪表盘
+                router.replace('/dashboard')
+                return
+            }
+        }
+        // 未登录，显示登录页面
+        checkingAuth.value = false
+    } catch (error) {
+        console.error('检查登录状态失败:', error)
+        checkingAuth.value = false
+    }
+}
+
+// ====== 生命周期 ======
+onMounted(() => {
+    checkAuth()
+})
 </script>

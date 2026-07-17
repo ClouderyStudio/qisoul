@@ -1,3 +1,4 @@
+<!-- src/views/PostDetailView.vue -->
 <template>
     <div class="pt-20 pb-8">
         <div class="max-w-3xl mx-auto px-6">
@@ -32,8 +33,9 @@
                     <span>{{ formatTime(post.createdAt) }}</span>
                 </div>
 
-                <div class="text-sm font-light leading-relaxed whitespace-pre-line" style="color: #4b423c;">
-                    {{ post.content }}
+                <!-- ✅ Markdown 渲染区域 -->
+                <div class="markdown-body markdown-preview prose prose-sm max-w-none"
+                    style="color: #4b423c; font-size: 14px; line-height: 1.8; font-weight: 300;" v-html="renderedHtml">
                 </div>
 
                 <div class="flex items-center gap-6 mt-6 pt-4" style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
@@ -44,7 +46,6 @@
                     </button>
                     <span class="text-sm font-light" style="color: #8a7e74;">💬 {{ post.comments || 0 }}</span>
 
-                    <!-- ✅ 删除按钮（仅自己的帖子） -->
                     <button v-if="isMyPost" @click="confirmDelete"
                         class="text-sm font-light transition-colors flex items-center gap-1 ml-auto"
                         style="color: #b8aa98;" @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
@@ -68,7 +69,7 @@
             </div>
         </div>
 
-        <!-- ====== 删除确认弹窗 ====== -->
+        <!-- 删除确认弹窗 -->
         <div v-if="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center px-4"
             style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px);">
             <div class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
@@ -99,8 +100,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useUserStore } from '../../stores/user'
-import { postService, type PostResponse } from '../../services'
+import { useUserStore } from '@/stores/user'
+import { postService, type PostResponse } from '@/services'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 
 const router = useRouter()
 const route = useRoute()
@@ -109,6 +112,21 @@ const userStore = useUserStore()
 const post = ref<PostResponse | null>(null)
 const loading = ref(true)
 const showDeleteModal = ref(false)
+
+// ====== 渲染 Markdown ======
+const renderedHtml = computed(() => {
+    if (!post.value?.content) return '<p style="color: #b8aa98;">暂无内容</p>'
+    try {
+        const rawHtml = marked(post.value.content)
+        return DOMPurify.sanitize(rawHtml, {
+            ADD_TAGS: ['iframe'],
+            ADD_ATTR: ['target', 'rel', 'class'],
+        })
+    } catch (error) {
+        console.error('Markdown 渲染失败:', error)
+        return '<p style="color: #b8aa98;">内容渲染失败</p>'
+    }
+})
 
 // ====== 判断是否为自己的帖子 ======
 const isMyPost = computed(() => {
@@ -179,7 +197,6 @@ const deletePost = async () => {
     }
 }
 
-// ====== 返回 ======
 const goBack = () => {
     router.push('/community')
 }
@@ -189,3 +206,125 @@ onMounted(() => {
     loadPost()
 })
 </script>
+
+<style scoped>
+/* ====== Markdown 渲染样式 ====== */
+.markdown-body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.markdown-body :deep(h1) {
+    font-size: 1.8em;
+    font-weight: 300;
+    margin: 1.2em 0 0.6em;
+    color: #4f4842;
+    border-bottom: 2px solid rgba(231, 219, 208, 0.3);
+    padding-bottom: 0.3em;
+}
+
+.markdown-body :deep(h2) {
+    font-size: 1.5em;
+    font-weight: 300;
+    margin: 1em 0 0.5em;
+    color: #4f4842;
+    border-bottom: 1px solid rgba(231, 219, 208, 0.2);
+    padding-bottom: 0.2em;
+}
+
+.markdown-body :deep(h3) {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin: 0.8em 0 0.4em;
+    color: #4f4842;
+}
+
+.markdown-body :deep(p) {
+    margin: 0.6em 0;
+    color: #4b423c;
+}
+
+.markdown-body :deep(ul),
+.markdown-body :deep(ol) {
+    padding-left: 1.5em;
+    margin: 0.6em 0;
+}
+
+.markdown-body :deep(li) {
+    margin: 0.2em 0;
+}
+
+.markdown-body :deep(blockquote) {
+    border-left: 4px solid #dccfc4;
+    padding: 0.5em 1em;
+    margin: 0.8em 0;
+    color: #6d6259;
+    font-style: italic;
+    background: rgba(245, 238, 232, 0.3);
+    border-radius: 0 8px 8px 0;
+}
+
+.markdown-body :deep(code) {
+    background: rgba(236, 227, 219, 0.4);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #4f4842;
+    font-family: 'Courier New', monospace;
+}
+
+.markdown-body :deep(pre) {
+    background: rgba(236, 227, 219, 0.3);
+    padding: 1em 1.2em;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 0.8em 0;
+}
+
+.markdown-body :deep(pre code) {
+    background: transparent;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+.markdown-body :deep(a) {
+    color: #8a7e74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.markdown-body :deep(a:hover) {
+    color: #4f4842;
+}
+
+.markdown-body :deep(img) {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 0.8em 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.markdown-body :deep(hr) {
+    border: none;
+    border-top: 2px solid rgba(231, 219, 208, 0.3);
+    margin: 1.5em 0;
+}
+
+.markdown-body :deep(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8em 0;
+}
+
+.markdown-body :deep(th),
+.markdown-body :deep(td) {
+    border: 1px solid rgba(231, 219, 208, 0.3);
+    padding: 0.5em 0.8em;
+    text-align: left;
+}
+
+.markdown-body :deep(th) {
+    background: rgba(245, 238, 232, 0.3);
+    font-weight: 400;
+}
+</style>

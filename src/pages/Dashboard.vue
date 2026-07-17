@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <span class="text-xs font-light" style="color: #b8aa98;">{{ formatTime(item.recordDate)
-                                }}</span>
+                            }}</span>
                         </div>
                     </div>
                 </div>
@@ -147,13 +147,13 @@
                         @mouseleave="e => e.currentTarget.style.borderColor = 'rgba(239, 231, 224, 0.6)'"
                         @click="viewPostDetail(post.id)">
                         <p class="text-sm leading-relaxed font-light" style="color: #4b423c;">
-                            "{{ truncateText(post.content, 60) }}"
+                            "{{ truncateText(stripMarkdown(post.content), 60) }}"
                         </p>
                         <div class="flex items-center justify-between mt-2">
                             <span class="text-xs font-light" style="color: #8a7e74;">{{ post.username || '匿名用户'
-                                }}</span>
+                            }}</span>
                             <span class="text-xs font-light" style="color: #b8aa98;">{{ formatTime(post.createdAt)
-                                }}</span>
+                            }}</span>
                         </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { moodService, postService, statsService, type MoodRecordResponse, type PostResponse, type StatsResponse } from '../services'
-import { truncateText } from '../utils/text'
+import { truncateText, stripMarkdown } from '../utils/text'
 
 const router = useRouter()
 const userStore = useUserStore()

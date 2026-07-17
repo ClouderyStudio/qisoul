@@ -41,7 +41,7 @@ export const getWordCount = (text: string): number => {
 export const truncateSmart = (text: string, maxLength: number = 100): string => {
     if (!text) return ''
     if (text.length <= maxLength) return text
-    
+
     // 尝试在句号、问号、感叹号处截断
     const sentenceEnd = /[。！？.!?]\s*/g
     let match
@@ -53,11 +53,41 @@ export const truncateSmart = (text: string, maxLength: number = 100): string => 
             break
         }
     }
-    
+
     if (lastMatchIndex > 0) {
         return text.substring(0, lastMatchIndex) + '...'
     }
-    
+
     // 找不到合适的句子边界，直接截断
     return text.substring(0, maxLength) + '...'
+}
+
+/**
+ * 从 Markdown 中提取纯文本（用于列表预览）
+ */
+export const stripMarkdown = (markdown: string): string => {
+    if (!markdown) return ''
+    let text = markdown
+    // 移除图片 ![alt](url)
+    text = text.replace(/!\[.*?\]\(.*?\)/g, '')
+    // 移除链接 [text](url)
+    text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // 移除标题 # 
+    text = text.replace(/^#+\s+/gm, '')
+    // 移除粗体 **text**
+    text = text.replace(/\*\*(.*?)\*\*/g, '$1')
+    // 移除斜体 *text*
+    text = text.replace(/\*(.*?)\*/g, '$1')
+    // 移除代码块 ```code```
+    text = text.replace(/```[\s\S]*?```/g, '')
+    // 移除行内代码 `code`
+    text = text.replace(/`([^`]+)`/g, '$1')
+    // 移除引用 > 
+    text = text.replace(/^>\s+/gm, '')
+    // 移除列表标记 - 和数字
+    text = text.replace(/^[\s]*[-*+]\s+/gm, '')
+    text = text.replace(/^[\s]*\d+\.\s+/gm, '')
+    // 移除多余空行
+    text = text.replace(/\n{3,}/g, '\n\n')
+    return text.trim()
 }
