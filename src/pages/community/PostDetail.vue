@@ -28,8 +28,11 @@
                             post.category }}</span>
                 </div>
 
-                <div class="flex items-center gap-4 mb-6 text-xs font-light" style="color: #8a7e74;">
-                    <span>👤 {{ post.username || '匿名用户' }}</span>
+                <div class="flex items-center gap-2 mb-6 text-xs font-light" style="color: #8a7e74;">
+                    <img :src="post.userAvatar || '/default-avatar.png'" alt="头像"
+                        class="w-5 h-5 rounded-full object-cover" style="border: 1px solid rgba(231, 219, 208, 0.3);"
+                        @error="e => { (e.target as HTMLImageElement).src = '/default-avatar.png' }" />
+                    <span> {{ post.username || '匿名用户' }}</span>
                     <span>{{ formatTime(post.createdAt) }}</span>
                 </div>
 
@@ -38,6 +41,7 @@
                     style="color: #4b423c; font-size: 14px; line-height: 1.8; font-weight: 300;" v-html="renderedHtml">
                 </div>
 
+                <!-- 底部操作栏 -->
                 <div class="flex items-center gap-6 mt-6 pt-4" style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
                     <button @click="likePost" class="text-sm font-light transition-colors flex items-center gap-2"
                         style="color: #8a7e74;" @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
@@ -46,12 +50,21 @@
                     </button>
                     <span class="text-sm font-light" style="color: #8a7e74;">💬 {{ post.comments || 0 }}</span>
 
-                    <button v-if="isMyPost" @click="confirmDelete"
-                        class="text-sm font-light transition-colors flex items-center gap-1 ml-auto"
-                        style="color: #b8aa98;" @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
-                        @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
-                        🗑️ 删除
-                    </button>
+                    <!-- ✅ 编辑和删除按钮（仅自己的帖子） -->
+                    <div v-if="isMyPost" class="flex items-center gap-3 ml-auto">
+                        <button @click="openEditModal"
+                            class="text-sm font-light transition-colors flex items-center gap-1" style="color: #8a7e74;"
+                            @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                            @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                            ✏️ 编辑
+                        </button>
+                        <button @click="confirmDelete"
+                            class="text-sm font-light transition-colors flex items-center gap-1" style="color: #b8aa98;"
+                            @mouseenter="e => e.currentTarget.style.color = '#e85a65'"
+                            @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">
+                            🗑️ 删除
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -94,6 +107,71 @@
                 </div>
             </div>
         </div>
+
+        <!-- ====== 编辑帖子弹窗 ====== -->
+        <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style="background: rgba(44, 36, 28, 0.2); backdrop-filter: blur(4px);">
+            <div class="w-full max-w-lg p-8 rounded-[3rem]"
+                style="background: rgba(255, 250, 245, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(230, 215, 200, 0.3); box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08); max-height: 90vh; overflow-y: auto;">
+
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-light tracking-wide" style="color: #4f4842;">编辑帖子</h2>
+                    <button @click="closeEditModal" class="text-xl transition-colors" style="color: #b8aa98;"
+                        @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                        @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">✕</button>
+                </div>
+
+                <!-- 标题 -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">标题</label>
+                        <input v-model="editPostTitle" type="text"
+                            class="w-full p-3 text-sm transition-all rounded-[1.5rem]"
+                            style="background: rgba(245, 238, 232, 0.3); border: 1px solid #e7dbd0; color: #4b423c; font-weight: 300; font-family: 'Segoe UI', sans-serif;"
+                            placeholder="标题..." @focus="e => e.currentTarget.style.borderColor = '#dccfc4'"
+                            @blur="e => e.currentTarget.style.borderColor = '#e7dbd0'" />
+                    </div>
+
+                    <!-- 分类 -->
+                    <div>
+                        <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">分类</label>
+                        <select v-model="editPostCategory"
+                            class="w-full p-3 text-sm transition-all rounded-[1.5rem] appearance-none"
+                            style="background: rgba(245, 238, 232, 0.3); border: 1px solid #e7dbd0; color: #4b423c; font-weight: 300; font-family: 'Segoe UI', sans-serif; cursor: pointer;"
+                            @focus="e => e.currentTarget.style.borderColor = '#dccfc4'"
+                            @blur="e => e.currentTarget.style.borderColor = '#e7dbd0'">
+                            <option value="心理调节">心理调节</option>
+                            <option value="生活习惯">生活习惯</option>
+                            <option value="社交支持">社交支持</option>
+                            <option value="专业帮助">专业帮助</option>
+                            <option value="日常小技巧">日常小技巧</option>
+                        </select>
+                    </div>
+
+                    <!-- 内容 -->
+                    <div>
+                        <label class="text-xs font-light block mb-1.5" style="color: #6d6259;">内容</label>
+                        <MarkdownEditor v-model="editPostContent" placeholder="更新你的分享内容..." />
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-6">
+                    <button @click="submitEdit" :disabled="editing"
+                        class="flex-1 py-2.5 text-sm font-light transition-all rounded-full disabled:opacity-50"
+                        style="background: #ece3db; color: #4d443d; border: 1px solid #e2d5ca;"
+                        @mouseenter="e => { if (!editing) { e.currentTarget.style.background = '#e0d3c8'; e.currentTarget.style.borderColor = '#cebdb0'; } }"
+                        @mouseleave="e => { if (!editing) { e.currentTarget.style.background = '#ece3db'; e.currentTarget.style.borderColor = '#e2d5ca'; } }">
+                        {{ editing ? '保存中...' : '保存修改' }}
+                    </button>
+                    <button @click="closeEditModal" class="px-6 py-2.5 text-sm font-light transition-all rounded-full"
+                        style="background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;"
+                        @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
+                        @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
+                        取消
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -102,6 +180,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { postService, type PostResponse } from '@/services'
+import MarkdownEditor from '@/components/MarkdownEditor.vue'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 
@@ -127,6 +206,51 @@ const renderedHtml = computed(() => {
         return '<p style="color: #b8aa98;">内容渲染失败</p>'
     }
 })
+// ====== 编辑帖子 ======
+const showEditModal = ref(false)
+const editing = ref(false)
+const editPostTitle = ref('')
+const editPostCategory = ref('')
+const editPostContent = ref('')
+
+const openEditModal = () => {
+    if (!post.value) return
+    editPostTitle.value = post.value.title
+    editPostCategory.value = post.value.category
+    editPostContent.value = post.value.content
+    showEditModal.value = true
+}
+
+const closeEditModal = () => {
+    showEditModal.value = false
+    editPostTitle.value = ''
+    editPostCategory.value = ''
+    editPostContent.value = ''
+}
+
+const submitEdit = async () => {
+    if (!post.value) return
+    if (!editPostTitle.value.trim() || !editPostContent.value.trim()) {
+        alert('请填写标题和内容')
+        return
+    }
+
+    editing.value = true
+    try {
+        const updated = await postService.updatePost(post.value.id, {
+            title: editPostTitle.value.trim(),
+            content: editPostContent.value.trim(),
+            category: editPostCategory.value,
+        })
+        post.value = updated
+        closeEditModal()
+    } catch (error) {
+        console.error('更新帖子失败:', error)
+        alert('更新失败，请重试')
+    } finally {
+        editing.value = false
+    }
+}
 
 // ====== 判断是否为自己的帖子 ======
 const isMyPost = computed(() => {
