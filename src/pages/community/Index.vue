@@ -1,6 +1,7 @@
+<!-- src/views/CommunityView.vue -->
 <template>
     <div class="pt-20 pb-8">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6">
 
             <!-- ====== 页面头部 ====== -->
             <section class="mb-10">
@@ -26,16 +27,10 @@
             </section>
 
             <!-- ====== 激励横幅 ====== -->
-            <div class="relative mb-6 px-6 py-4 rounded-[2rem] text-center overflow-hidden"
+            <div class="relative mb-8 px-6 py-4 rounded-[2rem] text-center overflow-hidden"
                 style="background: linear-gradient(135deg, rgba(236, 227, 219, 0.4), rgba(245, 238, 232, 0.6)); border: 1px solid rgba(230, 215, 200, 0.3);">
-                <!-- 装饰小点 -->
-                <div class="absolute -top-4 -right-4 text-4xl opacity-10">✦</div>
-                <div class="absolute -bottom-4 -left-4 text-4xl opacity-10">✦</div>
-
                 <p class="text-sm font-light leading-relaxed" style="color: #4f4842;">
-                    💛 每一个声音都值得被听见。<br class="sm:hidden">
-                    <span class="hidden sm:inline"> </span>
-                    你的分享，或许正是此刻某个人需要的光。
+                    💛 每一个声音都值得被听见。你的分享，或许正是此刻某个人需要的光。
                 </p>
                 <div class="flex items-center justify-center gap-3 mt-2">
                     <span class="text-xs font-light" style="color: #8a7e74;">✨ 勇敢发声</span>
@@ -46,68 +41,71 @@
                 </div>
             </div>
 
-            <!-- ====== 内容区：帖子居中，便签左右环绕 ====== -->
-            <div class="relative">
+            <!-- ====== 三栏 Flex 布局：左便签 | 中间帖子 | 右便签 ====== -->
+            <div class="flex gap-5 items-start">
 
-                <!-- 空状态 -->
-                <div v-if="filteredPosts.length === 0 && filteredStickies.length === 0" class="text-center py-16"
-                    style="background: rgba(255, 250, 245, 0.3); border-radius: 3rem; border: 1px dashed #e7dbd0;">
-                    <div class="text-5xl mb-4">🌱</div>
-                    <p class="text-sm font-light" style="color: #8a7e74;">还没有分享</p>
-                    <p class="text-xs font-light mt-1" style="color: #b8aa98;">成为第一个分享抵抗方法的人吧</p>
-                </div>
-
-                <!-- 有内容时 -->
-                <div v-else>
-
-                    <!-- ====== 便签 - 左侧浮动 ====== -->
-                    <div class="sticky-side left">
-                        <div v-for="(item, index) in leftStickies" :key="item.id" class="sticky-note sticky-left"
-                            :style="{
-                                background: item.color || 'rgba(255, 250, 245, 0.6)',
-                                border: '1px solid #efe7e0',
-                                transform: `rotate(${item.rotate || -1.5}deg)`,
-                                animationDelay: `${index * 0.08}s`
-                            }" @mouseenter="e => {
-                                e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)';
-                                e.currentTarget.style.borderColor = '#dfd2c6';
-                                e.currentTarget.style.boxShadow = '0 12px 28px rgba(150, 130, 110, 0.1)';
-                                e.currentTarget.style.zIndex = '20';
-                            }" @mouseleave="e => {
-                                e.currentTarget.style.transform = `rotate(${item.rotate || -1.5}deg) scale(1)`;
-                                e.currentTarget.style.borderColor = '#efe7e0';
-                                e.currentTarget.style.boxShadow = 'none';
-                                e.currentTarget.style.zIndex = '1';
-                            }">
-                            <div class="flex items-start justify-between mb-1.5">
-                                <span class="text-base">{{ item.icon || '📌' }}</span>
-                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
-                            </div>
-                            <p class="text-xs font-light leading-relaxed" style="color: #4b423c;">{{ item.content }}</p>
-                            <div class="flex items-center justify-between mt-2 pt-1.5"
-                                style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
-                                <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
-                                <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
-                            </div>
+                <!-- ====== 左侧：便签栏 ====== -->
+                <div class="hidden lg:block w-[180px] flex-shrink-0 space-y-3">
+                    <div v-for="item in leftStickies" :key="item.id" class="p-3 transition-all rounded-2xl" :style="{
+                        background: item.color || 'rgba(255, 250, 245, 0.6)',
+                        border: '1px solid #efe7e0',
+                    }" @mouseenter="e => {
+                        e.currentTarget.style.borderColor = '#dfd2c6';
+                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(150, 130, 110, 0.08)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                    }" @mouseleave="e => {
+                            e.currentTarget.style.borderColor = '#efe7e0';
+                            e.currentTarget.style.boxShadow = 'none';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }">
+                        <div class="flex items-start justify-between mb-1">
+                            <span class="text-sm">{{ item.icon || '📌' }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
+                        </div>
+                        <p class="text-xs font-light leading-relaxed" style="color: #4b423c; line-height: 1.5;">{{
+                            item.content }}</p>
+                        <div class="flex items-center justify-between mt-1.5 pt-1"
+                            style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
+                            <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
                         </div>
                     </div>
+                    <div v-if="leftStickies.length === 0" class="text-center py-6"
+                        style="border: 1px dashed #e7dbd0; border-radius: 1.5rem;">
+                        <span class="text-2xl block mb-1">📌</span>
+                        <span class="text-xs font-light" style="color: #b8aa98;">便签会出现在这里</span>
+                    </div>
+                </div>
 
-                    <!-- ====== 帖子 - 居中 ====== -->
-                    <div class="post-center">
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="text-xs font-light mr-1"
-                                style="color: #8a7e74; line-height: 28px;">帖子分类：</span>
-                            <button v-for="cat in postCategories" :key="cat.value" @click="selectedCategory = cat.value"
-                                class="px-4 py-1 text-xs font-light transition-all rounded-full" :style="selectedCategory === cat.value
-                                    ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
-                                    : 'background: transparent; color: #8a7e74; border: 1px solid transparent;'"
-                                @mouseenter="e => { if (selectedCategory !== cat.value) { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)'; } }"
-                                @mouseleave="e => { if (selectedCategory !== cat.value) { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.background = 'transparent'; } }">
-                                {{ cat.label }}
-                            </button>
-                        </div>
-                        <div v-for="post in filteredPosts" :key="post.id"
-                            class="p-6 transition-all rounded-[2.5rem] mb-2"
+                <!-- ====== 中间：帖子（主要区域） ====== -->
+                <div class="flex-1 min-w-0">
+
+                    <!-- ====== 帖子分类筛选 ====== -->
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <button v-for="cat in postCategories" :key="cat.value" @click="selectedCategory = cat.value"
+                            class="px-4 py-1.5 text-xs font-light transition-all rounded-full" :style="selectedCategory === cat.value
+                                ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
+                                : 'background: transparent; color: #8a7e74; border: 1px solid transparent;'"
+                            @mouseenter="e => { if (selectedCategory !== cat.value) { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)'; } }"
+                            @mouseleave="e => { if (selectedCategory !== cat.value) { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.background = 'transparent'; } }">
+                            {{ cat.icon }} {{ cat.label }}
+                        </button>
+                    </div>
+
+                    <!-- 帖子列表 -->
+                    <div v-if="filteredPosts.length === 0" class="text-center py-16"
+                        style="background: rgba(255, 250, 245, 0.3); border-radius: 3rem; border: 1px dashed #e7dbd0;">
+                        <div class="text-5xl mb-4">🌱</div>
+                        <p class="text-sm font-light" style="color: #8a7e74;">
+                            {{ selectedCategory === 'all' ? '还没有帖子' : '该分类下暂无帖子' }}
+                        </p>
+                        <p class="text-xs font-light mt-1" style="color: #b8aa98;">
+                            {{ selectedCategory === 'all' ? '成为第一个分享抵抗方法的人吧' : '试试其他分类吧' }}
+                        </p>
+                    </div>
+
+                    <div v-else class="space-y-4">
+                        <div v-for="post in filteredPosts" :key="post.id" class="p-6 transition-all rounded-[2.5rem]"
                             style="background: rgba(255, 250, 245, 0.6); border: 1px solid #efe7e0;"
                             @mouseenter="e => { e.currentTarget.style.borderColor = '#dfd2c6'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(150, 130, 110, 0.06)'; }"
                             @mouseleave="e => { e.currentTarget.style.borderColor = '#efe7e0'; e.currentTarget.style.boxShadow = 'none'; }">
@@ -137,50 +135,83 @@
                         </div>
                     </div>
 
-                    <!-- ====== 便签 - 右侧浮动 ====== -->
-                    <div class="sticky-side right">
-                        <div v-for="(item, index) in rightStickies" :key="item.id" class="sticky-note sticky-right"
+                    <!-- 加载更多 -->
+                    <div class="text-center mt-6">
+                        <button class="px-8 py-2 text-sm font-light transition-all rounded-full"
+                            style="color: #8a7e74; border: 1px solid #e7dbd0;"
+                            @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
+                            @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
+                            加载更多
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ====== 右侧：便签栏 ====== -->
+                <div class="hidden lg:block w-[180px] flex-shrink-0 space-y-3">
+                    <div v-for="item in rightStickies" :key="item.id" class="p-3 transition-all rounded-2xl" :style="{
+                        background: item.color || 'rgba(255, 250, 245, 0.6)',
+                        border: '1px solid #efe7e0',
+                    }" @mouseenter="e => {
+                        e.currentTarget.style.borderColor = '#dfd2c6';
+                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(150, 130, 110, 0.08)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                    }" @mouseleave="e => {
+                            e.currentTarget.style.borderColor = '#efe7e0';
+                            e.currentTarget.style.boxShadow = 'none';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }">
+                        <div class="flex items-start justify-between mb-1">
+                            <span class="text-sm">{{ item.icon || '📌' }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
+                        </div>
+                        <p class="text-xs font-light leading-relaxed" style="color: #4b423c; line-height: 1.5;">{{
+                            item.content }}</p>
+                        <div class="flex items-center justify-between mt-1.5 pt-1"
+                            style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
+                            <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
+                            <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
+                        </div>
+                    </div>
+                    <div v-if="rightStickies.length === 0" class="text-center py-6"
+                        style="border: 1px dashed #e7dbd0; border-radius: 1.5rem;">
+                        <span class="text-2xl block mb-1">📌</span>
+                        <span class="text-xs font-light" style="color: #b8aa98;">便签会出现在这里</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ====== 移动端：便签折叠展示 ====== -->
+            <div class="lg:hidden mt-8">
+                <details class="group">
+                    <summary class="flex items-center gap-2 cursor-pointer text-sm font-light" style="color: #8a7e74;"
+                        @mouseenter="e => e.currentTarget.style.color = '#4f4842'"
+                        @mouseleave="e => e.currentTarget.style.color = '#8a7e74'">
+                        <span>📌</span> 查看便签
+                        <span class="text-xs transition-transform group-open:rotate-180">▼</span>
+                        <span class="text-xs font-light" style="color: #b8aa98;">{{ filteredStickies.length }}</span>
+                    </summary>
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <div v-for="item in filteredStickies" :key="item.id" class="p-3 transition-all rounded-2xl"
                             :style="{
                                 background: item.color || 'rgba(255, 250, 245, 0.6)',
                                 border: '1px solid #efe7e0',
-                                transform: `rotate(${item.rotate || 1.5}deg)`,
-                                animationDelay: `${index * 0.08}s`
-                            }" @mouseenter="e => {
-                                e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)';
-                                e.currentTarget.style.borderColor = '#dfd2c6';
-                                e.currentTarget.style.boxShadow = '0 12px 28px rgba(150, 130, 110, 0.1)';
-                                e.currentTarget.style.zIndex = '20';
-                            }" @mouseleave="e => {
-                                e.currentTarget.style.transform = `rotate(${item.rotate || 1.5}deg) scale(1)`;
-                                e.currentTarget.style.borderColor = '#efe7e0';
-                                e.currentTarget.style.boxShadow = 'none';
-                                e.currentTarget.style.zIndex = '1';
                             }">
-                            <div class="flex items-start justify-between mb-1.5">
-                                <span class="text-base">{{ item.icon || '📌' }}</span>
+                            <div class="flex items-start justify-between mb-1">
+                                <span class="text-sm">{{ item.icon || '📌' }}</span>
                                 <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.time }}</span>
                             </div>
                             <p class="text-xs font-light leading-relaxed" style="color: #4b423c;">{{ item.content }}</p>
-                            <div class="flex items-center justify-between mt-2 pt-1.5"
+                            <div class="flex items-center justify-between mt-1.5 pt-1"
                                 style="border-top: 1px solid rgba(231, 219, 208, 0.3);">
                                 <span class="text-[10px] font-light" style="color: #8a7e74;">💛 {{ item.likes }}</span>
                                 <span class="text-[10px] font-light" style="color: #b8aa98;">{{ item.author }}</span>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                </details>
             </div>
 
-            <!-- ====== 加载更多 ====== -->
-            <div class="text-center mt-8">
-                <button class="px-8 py-2 text-sm font-light transition-all rounded-full"
-                    style="color: #8a7e74; border: 1px solid #e7dbd0;"
-                    @mouseenter="e => { e.currentTarget.style.borderColor = '#dccfc4'; e.currentTarget.style.color = '#4f4842'; }"
-                    @mouseleave="e => { e.currentTarget.style.borderColor = '#e7dbd0'; e.currentTarget.style.color = '#8a7e74'; }">
-                    加载更多
-                </button>
-            </div>
         </div>
 
         <!-- ====== 创建分享弹窗 ====== -->
@@ -196,7 +227,6 @@
                         @mouseleave="e => e.currentTarget.style.color = '#b8aa98'">✕</button>
                 </div>
 
-                <!-- 选择分享形式 -->
                 <div class="flex gap-3 mb-6">
                     <button v-for="type in shareTypes" :key="type.value" @click="shareType = type.value"
                         class="flex-1 py-3 text-sm font-light transition-all rounded-full text-center" :style="shareType === type.value
@@ -304,13 +334,16 @@ import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 
-// ====== 分类 ======
-const tabs = ref([
-    { value: 'all', label: '全部' },
-    { value: 'sticky', label: '📌 便签' },
-    { value: 'post', label: '📖 帖子' },
+// ====== 帖子分类筛选 ======
+const selectedCategory = ref('all')
+const postCategories = ref([
+    { value: 'all', label: '全部', icon: '✦' },
+    { value: '心理调节', label: '心理调节', icon: '🧠' },
+    { value: '生活习惯', label: '生活习惯', icon: '🌱' },
+    { value: '社交支持', label: '社交支持', icon: '🤝' },
+    { value: '专业帮助', label: '专业帮助', icon: '💼' },
+    { value: '日常小技巧', label: '日常小技巧', icon: '✨' },
 ])
-const activeTab = ref('all')
 
 // ====== 便签数据 ======
 const stickies = ref([
@@ -322,7 +355,6 @@ const stickies = ref([
         likes: 24,
         icon: '🌿',
         color: 'rgba(236, 227, 219, 0.45)',
-        rotate: -1.5
     },
     {
         id: 2,
@@ -332,7 +364,6 @@ const stickies = ref([
         likes: 18,
         icon: '💛',
         color: 'rgba(215, 195, 180, 0.35)',
-        rotate: 2
     },
     {
         id: 3,
@@ -342,7 +373,6 @@ const stickies = ref([
         likes: 12,
         icon: '✉️',
         color: 'rgba(220, 207, 196, 0.4)',
-        rotate: -0.8
     },
     {
         id: 4,
@@ -352,7 +382,6 @@ const stickies = ref([
         likes: 31,
         icon: '🫂',
         color: 'rgba(245, 230, 220, 0.4)',
-        rotate: 1.2
     },
     {
         id: 5,
@@ -362,7 +391,6 @@ const stickies = ref([
         likes: 9,
         icon: '☀️',
         color: 'rgba(236, 227, 219, 0.35)',
-        rotate: -2
     },
     {
         id: 6,
@@ -372,7 +400,6 @@ const stickies = ref([
         likes: 22,
         icon: '💬',
         color: 'rgba(200, 180, 165, 0.3)',
-        rotate: 1.8
     },
 ])
 
@@ -411,32 +438,28 @@ const posts = ref([
         category: '心理调节',
         icon: '🕊️'
     },
+    {
+        id: 4,
+        title: '我的社交支持系统',
+        content: '我建立了三个层级的支持系统：亲密朋友（3人）、支持小组（每周线上）、专业咨询师（每月）。在状态不好的时候，我知道可以向谁求助。这让我感到安全。',
+        author: '匿名用户',
+        time: '4天前 11:20',
+        likes: 19,
+        comments: 5,
+        category: '社交支持',
+        icon: '🤝'
+    },
 ])
 
 // ====== 筛选 ======
-// 便签全部显示
-const filteredStickies = computed(() => {
-    return stickies.value
-})
+const filteredStickies = computed(() => stickies.value)
 
-// 帖子按分类筛选
 const filteredPosts = computed(() => {
     if (selectedCategory.value === 'all') {
         return posts.value
     }
     return posts.value.filter(p => p.category === selectedCategory.value)
 })
-
-// ====== 帖子分类筛选 ======
-const selectedCategory = ref('all')
-const postCategories = ref([
-    { value: 'all', label: '全部' },
-    { value: '心理调节', label: '心理调节' },
-    { value: '生活习惯', label: '生活习惯' },
-    { value: '社交支持', label: '社交支持' },
-    { value: '专业帮助', label: '专业帮助' },
-    { value: '日常小技巧', label: '日常小技巧' },
-])
 
 // ====== 便签分布：左右交替 ======
 const leftStickies = computed(() => {
@@ -456,7 +479,6 @@ const shareTypes = ref([
     { value: 'post', icon: '📖', label: '帖子' },
 ])
 
-// 便签相关
 const stickyContent = ref('')
 const selectedColor = ref('rgba(236, 227, 219, 0.45)')
 const selectedIcon = ref('📌')
@@ -469,7 +491,6 @@ const stickyColors = ref([
 ])
 const stickyIcons = ref(['📌', '🌿', '💛', '✨', '🕊️', '☀️', '🌸', '🌙', '✉️', '🌟', '🫂', '🌱', '💬'])
 
-// 帖子相关
 const postTitle = ref('')
 const postCategory = ref('心理调节')
 const postContent = ref('')
@@ -509,7 +530,6 @@ const submitShare = () => {
             likes: 0,
             icon: selectedIcon.value,
             color: selectedColor.value,
-            rotate: (Math.random() - 0.5) * 4,
         }
         stickies.value.unshift(newSticky)
     } else {
@@ -539,71 +559,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* ====== 帖子居中，便签左右环绕 ====== */
-.sticky-side {
-    position: absolute;
-    top: 0;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.sticky-side.left {
-    left: 0px;
-}
-
-.sticky-side.right {
-    right: 0px;
-}
-
-/* 底部便签行 */
-.sticky-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px dashed rgba(231, 219, 208, 0.4);
-}
-
-.sticky-bottom-item {
-    max-width: 200px;
-    flex-shrink: 0;
-}
-
-/* 单个便签 */
-.sticky-note {
-    padding: 10px 14px;
-    border-radius: 1rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
-    animation: stickyAppear 0.5s ease-out forwards;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    font-size: 12px;
-    cursor: default;
-}
-
-/* 便签出现动画 */
-@keyframes stickyAppear {
-    from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* 帖子居中区域 */
-.post-center {
-    max-width: 640px;
-    margin: 0 auto;
-}
-
 /* 滚动条美化 */
 ::-webkit-scrollbar {
     width: 4px;
@@ -618,17 +573,12 @@ onMounted(() => {
     border-radius: 9999px;
 }
 
-@media (max-width: 992px) {
-    .sticky-side {
-        display: none;
-    }
+/* 移动端折叠面板 */
+details summary {
+    list-style: none;
+}
 
-    .post-center {
-        max-width: 100%;
-    }
-
-    .sticky-bottom {
-        display: flex;
-    }
+details summary::-webkit-details-marker {
+    display: none;
 }
 </style>
