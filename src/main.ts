@@ -3,7 +3,6 @@ import './styles/main.css'
 import App from './App.vue'
 import { router } from './router/router.ts'
 import Casdoor from 'casdoor-vue-sdk'
-// import SSOInterceptor from '@ztzx/vue-sso-interceptor'
 import { createPinia } from 'pinia'
 
 const casdoorConfig = {

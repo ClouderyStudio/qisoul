@@ -1,4 +1,3 @@
-// src/stores/user.ts
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
