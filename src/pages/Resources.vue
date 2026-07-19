@@ -19,7 +19,10 @@
             <p class="text-sm font-light" style="color: var(--c-text-2)">
               一些温暖的工具、知识和陪伴，在你需要的时候给你力量。
             </p>
-            <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
+            <div
+              class="w-12 h-px mt-3"
+              style="background: var(--c-accent)"
+            ></div>
           </div>
         </div>
       </section>
@@ -127,9 +130,16 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-block mt-3 text-xs font-light transition-colors"
-                style="color: var(--c-text-3); border-bottom: 1px dotted var(--c-accent)"
-                @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-                @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+                style="
+                  color: var(--c-text-3);
+                  border-bottom: 1px dotted var(--c-accent);
+                "
+                @mouseenter="
+                  (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                "
+                @mouseleave="
+                  (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                "
               >
                 访问网站 →
               </a>
@@ -215,17 +225,26 @@
                 class="flex items-center gap-3 mt-3 pt-2"
                 style="border-top: 1px solid var(--c-divider)"
               >
-                <span class="text-xs font-light" style="color: var(--c-text-3)">{{
-                  item.feature
-                }}</span>
+                <span
+                  class="text-xs font-light"
+                  style="color: var(--c-text-3)"
+                  >{{ item.feature }}</span
+                >
                 <a
                   :href="item.url"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-xs font-light transition-colors"
-                  style="color: var(--c-text-3); border-bottom: 1px dotted var(--c-accent)"
-                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+                  style="
+                    color: var(--c-text-3);
+                    border-bottom: 1px dotted var(--c-accent);
+                  "
+                  @mouseenter="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  "
+                  @mouseleave="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                  "
                 >
                   了解 →
                 </a>
@@ -306,13 +325,13 @@
                 @mouseenter="
                   (e) => {
                     e.currentTarget.style.background = 'var(--c-btn-hover)';
-                    e.currentTarget.style.borderColor = 'var(--c-accent-border)';
+                    e.currentTarget.style.borderColor =
+                      'var(--c-accent-border)';
                   }
                 "
                 @mouseleave="
                   (e) => {
-                    e.currentTarget.style.background =
-                      'var(--c-tag-bg)';
+                    e.currentTarget.style.background = 'var(--c-tag-bg)';
                     e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   }
                 "
@@ -363,7 +382,10 @@
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <span class="text-3xl">{{ selectedPractice?.icon }}</span>
-            <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
+            <h2
+              class="text-xl font-light tracking-wide"
+              style="color: var(--c-text-1)"
+            >
               {{ selectedPractice?.title }}
             </h2>
           </div>
@@ -371,8 +393,12 @@
             @click="closePracticeModal"
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+            @mouseenter="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+            "
           >
             ✕
           </button>
@@ -389,9 +415,11 @@
           >
             {{ selectedPractice?.category }}
           </span>
-          <span class="ml-2 text-xs font-light" style="color: var(--c-text-3)">{{
-            selectedPractice?.type
-          }}</span>
+          <span
+            class="ml-2 text-xs font-light"
+            style="color: var(--c-text-3)"
+            >{{ selectedPractice?.type }}</span
+          >
         </div>
 
         <p
@@ -409,7 +437,9 @@
             border: 1px solid var(--c-divider);
           "
         >
-          <p class="text-xs font-light" style="color: var(--c-text-3)">💡 小贴士</p>
+          <p class="text-xs font-light" style="color: var(--c-text-3)">
+            💡 小贴士
+          </p>
           <p class="text-sm font-light mt-1" style="color: var(--c-text-1)">
             {{ selectedPractice.tips }}
           </p>
@@ -418,7 +448,11 @@
         <button
           @click="closePracticeModal"
           class="w-full mt-6 py-2.5 text-sm font-light transition-all rounded-full"
-          style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
+          style="
+            background: var(--c-btn-bg);
+            color: var(--c-text-btn);
+            border: 1px solid var(--c-btn-border);
+          "
           @mouseenter="
             (e) => {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
@@ -491,7 +525,7 @@ const websites = ref([
   {
     id: 5,
     icon: "📊",
-    title: "云术心理测量平台",
+    title: "",
     description:
       "提供 PHQ-9、GAD-7、SDS、SAS 等专业心理测评量表，科学评估心理健康状态。",
     url: "https://pt.cldery.com",
