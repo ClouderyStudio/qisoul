@@ -20,7 +20,10 @@
             <p class="text-sm font-light" style="color: var(--c-text-2)">
               分享你的方法，倾听他人的故事。在这里，我们互为光亮。
             </p>
-            <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
+            <div
+              class="w-12 h-px mt-3"
+              style="background: var(--c-accent)"
+            ></div>
           </div>
           <button
             @click="openCreateModal"
@@ -56,7 +59,10 @@
           border: 1px solid var(--c-border-1);
         "
       >
-        <p class="text-sm font-light leading-relaxed" style="color: var(--c-text-1)">
+        <p
+          class="text-sm font-light leading-relaxed"
+          style="color: var(--c-text-1)"
+        >
           💛 每一个声音都值得被听见。你的分享，或许正是此刻某个人需要的光。
         </p>
         <div class="flex items-center justify-center gap-3 mt-2">
@@ -86,7 +92,9 @@
             <div
               class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
             ></div>
-            <span class="text-xs font-light mt-2 block" style="color: var(--c-text-4)"
+            <span
+              class="text-xs font-light mt-2 block"
+              style="color: var(--c-text-4)"
               >加载中...</span
             >
           </div>
@@ -118,13 +126,19 @@
           >
             <div class="flex items-start justify-between mb-1">
               <span class="text-sm">{{ item.icon || "📌" }}</span>
-              <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                formatTime(item.createdAt)
-              }}</span>
+              <span
+                class="text-[10px] font-light"
+                style="color: var(--c-text-4)"
+                >{{ formatTime(item.createdAt) }}</span
+              >
             </div>
             <p
               class="text-xs font-light leading-relaxed"
-              style="color: var(--c-text-content); line-height: 1.5; word-break: break-word"
+              style="
+                color: var(--c-text-content);
+                line-height: 1.5;
+                word-break: break-word;
+              "
             >
               {{ item.content }}
             </p>
@@ -136,24 +150,45 @@
                 @click="likeSticky(item.id)"
                 :disabled="likedStickies.has(item.id)"
                 class="text-[10px] font-light transition-colors flex items-center gap-1"
-                :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
-                @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
-                @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
+                :style="{
+                  color: likedStickies.has(item.id)
+                    ? '#e8a0a0'
+                    : 'var(--c-text-3)',
+                  cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
+                }"
+                @mouseenter="
+                  (e) => {
+                    if (!likedStickies.has(item.id))
+                      e.currentTarget.style.color = 'var(--c-text-1)';
+                  }
+                "
+                @mouseleave="
+                  (e) => {
+                    if (!likedStickies.has(item.id))
+                      e.currentTarget.style.color = 'var(--c-text-3)';
+                  }
+                "
               >
-                {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
+                {{ likedStickies.has(item.id) ? "❤️" : "💛" }} {{ item.likes }}
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                  item.username || "匿名用户"
-                }}</span>
+                <span
+                  class="text-[10px] font-light"
+                  style="color: var(--c-text-4)"
+                  >{{ item.username || "匿名用户" }}</span
+                >
                 <!-- ✅ 删除按钮（仅自己的便签） -->
                 <button
                   v-if="isMySticky(item)"
                   @click="confirmDeleteSticky(item.id)"
                   class="text-[10px] font-light transition-colors"
                   style="color: var(--c-text-4)"
-                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+                  @mouseenter="
+                    (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                  "
+                  @mouseleave="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                  "
                 >
                   ✕
                 </button>
@@ -192,8 +227,7 @@
                 (e) => {
                   if (selectedCategory !== cat.value) {
                     e.currentTarget.style.borderColor = 'var(--c-accent)';
-                    e.currentTarget.style.background =
-                      'var(--c-accent-soft)';
+                    e.currentTarget.style.background = 'var(--c-accent-soft)';
                   }
                 }
               "
@@ -282,7 +316,10 @@
                   <!-- 标题行 -->
                   <div class="flex items-center gap-3 mb-2">
                     <span class="text-lg">{{ post.icon || "📖" }}</span>
-                    <h3 class="text-base font-light" style="color: var(--c-text-1)">
+                    <h3
+                      class="text-base font-light"
+                      style="color: var(--c-text-1)"
+                    >
                       {{ post.title }}
                     </h3>
                     <span
@@ -352,29 +389,48 @@
                         }
                       "
                     />
-                    <span class="text-xs font-light" style="color: var(--c-text-3)">
+                    <span
+                      class="text-xs font-light"
+                      style="color: var(--c-text-3)"
+                    >
                       {{ post.username || "匿名用户" }}</span
                     >
-                    <span class="text-xs font-light" style="color: var(--c-text-4)">{{
-                      formatTime(post.createdAt)
-                    }}</span>
+                    <span
+                      class="text-xs font-light"
+                      style="color: var(--c-text-4)"
+                      >{{ formatTime(post.createdAt) }}</span
+                    >
 
                     <button
                       @click="likePost(post.id)"
                       :disabled="likedPosts.has(post.id)"
                       class="text-xs font-light transition-colors flex items-center gap-1"
-                      :style="{ color: likedPosts.has(post.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedPosts.has(post.id) ? 'default' : 'pointer' }"
+                      :style="{
+                        color: likedPosts.has(post.id)
+                          ? '#e8a0a0'
+                          : 'var(--c-text-3)',
+                        cursor: likedPosts.has(post.id) ? 'default' : 'pointer',
+                      }"
                       @mouseenter="
-                        (e) => { if (!likedPosts.has(post.id)) e.currentTarget.style.color = 'var(--c-text-1)' }
+                        (e) => {
+                          if (!likedPosts.has(post.id))
+                            e.currentTarget.style.color = 'var(--c-text-1)';
+                        }
                       "
                       @mouseleave="
-                        (e) => { if (!likedPosts.has(post.id)) e.currentTarget.style.color = 'var(--c-text-3)' }
+                        (e) => {
+                          if (!likedPosts.has(post.id))
+                            e.currentTarget.style.color = 'var(--c-text-3)';
+                        }
                       "
                     >
-                      {{ likedPosts.has(post.id) ? '❤️' : '💛' }} {{ post.likes }}
+                      {{ likedPosts.has(post.id) ? "❤️" : "💛" }}
+                      {{ post.likes }}
                     </button>
 
-                    <span class="text-xs font-light" style="color: var(--c-text-3)"
+                    <span
+                      class="text-xs font-light"
+                      style="color: var(--c-text-3)"
                       >💬 {{ post.comments || 0 }}</span
                     >
 
@@ -388,10 +444,12 @@
                         class="text-xs font-light transition-colors flex items-center gap-1"
                         style="color: var(--c-text-3)"
                         @mouseenter="
-                          (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                          (e) =>
+                            (e.currentTarget.style.color = 'var(--c-text-1)')
                         "
                         @mouseleave="
-                          (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                          (e) =>
+                            (e.currentTarget.style.color = 'var(--c-text-3)')
                         "
                       >
                         ✏️ 编辑
@@ -401,10 +459,12 @@
                         class="text-xs font-light transition-colors flex items-center gap-1"
                         style="color: var(--c-text-4)"
                         @mouseenter="
-                          (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                          (e) =>
+                            (e.currentTarget.style.color = 'var(--c-danger)')
                         "
                         @mouseleave="
-                          (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                          (e) =>
+                            (e.currentTarget.style.color = 'var(--c-text-4)')
                         "
                       >
                         🗑️ 删除
@@ -420,10 +480,7 @@
           <div
             v-if="showEditModal"
             class="fixed inset-0 z-50 flex items-center justify-center px-4"
-            style="
-              background: var(--c-overlay);
-              backdrop-filter: blur(4px);
-            "
+            style="background: var(--c-overlay); backdrop-filter: blur(4px)"
           >
             <div
               class="w-full max-w-lg p-8 rounded-[3rem]"
@@ -447,8 +504,12 @@
                   @click="closeEditModal"
                   class="text-xl transition-colors"
                   style="color: var(--c-text-4)"
-                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+                  @mouseenter="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  "
+                  @mouseleave="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                  "
                 >
                   ✕
                 </button>
@@ -475,10 +536,13 @@
                     "
                     placeholder="标题..."
                     @focus="
-                      (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                      (e) =>
+                        (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                      (e) =>
+                        (e.currentTarget.style.borderColor =
+                          'var(--c-border-2)')
                     "
                   />
                 </div>
@@ -502,10 +566,13 @@
                       cursor: pointer;
                     "
                     @focus="
-                      (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                      (e) =>
+                        (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                      (e) =>
+                        (e.currentTarget.style.borderColor =
+                          'var(--c-border-2)')
                     "
                   >
                     <option value="心理调节">心理调节</option>
@@ -544,7 +611,8 @@
                     (e) => {
                       if (!editing) {
                         e.currentTarget.style.background = 'var(--c-btn-hover)';
-                        e.currentTarget.style.borderColor = 'var(--c-accent-border)';
+                        e.currentTarget.style.borderColor =
+                          'var(--c-accent-border)';
                       }
                     }
                   "
@@ -552,7 +620,8 @@
                     (e) => {
                       if (!editing) {
                         e.currentTarget.style.background = 'var(--c-btn-bg)';
-                        e.currentTarget.style.borderColor = 'var(--c-btn-border)';
+                        e.currentTarget.style.borderColor =
+                          'var(--c-btn-border)';
                       }
                     }
                   "
@@ -592,7 +661,10 @@
               @click="loadMore"
               :disabled="loadingMore"
               class="px-8 py-2 text-sm font-light transition-all rounded-full"
-              style="color: var(--c-text-3); border: 1px solid var(--c-border-2)"
+              style="
+                color: var(--c-text-3);
+                border: 1px solid var(--c-border-2);
+              "
               @mouseenter="
                 (e) => {
                   e.currentTarget.style.borderColor = 'var(--c-accent)';
@@ -621,7 +693,9 @@
             <div
               class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
             ></div>
-            <span class="text-xs font-light mt-2 block" style="color: var(--c-text-4)"
+            <span
+              class="text-xs font-light mt-2 block"
+              style="color: var(--c-text-4)"
               >加载中...</span
             >
           </div>
@@ -653,13 +727,19 @@
           >
             <div class="flex items-start justify-between mb-1">
               <span class="text-sm">{{ item.icon || "📌" }}</span>
-              <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                formatTime(item.createdAt)
-              }}</span>
+              <span
+                class="text-[10px] font-light"
+                style="color: var(--c-text-4)"
+                >{{ formatTime(item.createdAt) }}</span
+              >
             </div>
             <p
               class="text-xs font-light leading-relaxed"
-              style="color: var(--c-text-content); line-height: 1.5; word-break: break-word"
+              style="
+                color: var(--c-text-content);
+                line-height: 1.5;
+                word-break: break-word;
+              "
             >
               {{ item.content }}
             </p>
@@ -671,24 +751,45 @@
                 @click="likeSticky(item.id)"
                 :disabled="likedStickies.has(item.id)"
                 class="text-[10px] font-light transition-colors flex items-center gap-1"
-                :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
-                @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
-                @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
+                :style="{
+                  color: likedStickies.has(item.id)
+                    ? '#e8a0a0'
+                    : 'var(--c-text-3)',
+                  cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
+                }"
+                @mouseenter="
+                  (e) => {
+                    if (!likedStickies.has(item.id))
+                      e.currentTarget.style.color = 'var(--c-text-1)';
+                  }
+                "
+                @mouseleave="
+                  (e) => {
+                    if (!likedStickies.has(item.id))
+                      e.currentTarget.style.color = 'var(--c-text-3)';
+                  }
+                "
               >
-                {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
+                {{ likedStickies.has(item.id) ? "❤️" : "💛" }} {{ item.likes }}
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                  item.username || "匿名用户"
-                }}</span>
+                <span
+                  class="text-[10px] font-light"
+                  style="color: var(--c-text-4)"
+                  >{{ item.username || "匿名用户" }}</span
+                >
                 <!-- 删除按钮（仅自己的便签） -->
                 <button
                   v-if="isMySticky(item)"
                   @click="confirmDeleteSticky(item.id)"
                   class="text-[10px] font-light transition-colors"
                   style="color: var(--c-text-4)"
-                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+                  @mouseenter="
+                    (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                  "
+                  @mouseleave="
+                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                  "
                 >
                   ✕
                 </button>
@@ -716,8 +817,12 @@
           <summary
             class="flex items-center gap-2 cursor-pointer text-sm font-light"
             style="color: var(--c-text-3); list-style: none"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+            @mouseenter="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+            "
           >
             <span>📌</span> 查看便签
             <span class="text-xs transition-transform group-open:rotate-180"
@@ -739,9 +844,11 @@
             >
               <div class="flex items-start justify-between mb-1">
                 <span class="text-sm">{{ item.icon || "📌" }}</span>
-                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                  formatTime(item.createdAt)
-                }}</span>
+                <span
+                  class="text-[10px] font-light"
+                  style="color: var(--c-text-4)"
+                  >{{ formatTime(item.createdAt) }}</span
+                >
               </div>
               <p
                 class="text-xs font-light leading-relaxed"
@@ -757,16 +864,34 @@
                   @click="likeSticky(item.id)"
                   :disabled="likedStickies.has(item.id)"
                   class="text-[10px] font-light transition-colors flex items-center gap-1"
-                  :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
-                  @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
-                  @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
+                  :style="{
+                    color: likedStickies.has(item.id)
+                      ? '#e8a0a0'
+                      : 'var(--c-text-3)',
+                    cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
+                  }"
+                  @mouseenter="
+                    (e) => {
+                      if (!likedStickies.has(item.id))
+                        e.currentTarget.style.color = 'var(--c-text-1)';
+                    }
+                  "
+                  @mouseleave="
+                    (e) => {
+                      if (!likedStickies.has(item.id))
+                        e.currentTarget.style.color = 'var(--c-text-3)';
+                    }
+                  "
                 >
-                  {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
+                  {{ likedStickies.has(item.id) ? "❤️" : "💛" }}
+                  {{ item.likes }}
                 </button>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
-                    item.username || "匿名用户"
-                  }}</span>
+                  <span
+                    class="text-[10px] font-light"
+                    style="color: var(--c-text-4)"
+                    >{{ item.username || "匿名用户" }}</span
+                  >
                   <button
                     v-if="isMySticky(item)"
                     @click="confirmDeleteSticky(item.id)"
@@ -807,15 +932,22 @@
         "
       >
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
+          <h2
+            class="text-xl font-light tracking-wide"
+            style="color: var(--c-text-1)"
+          >
             分享你的方法
           </h2>
           <button
             @click="closeModal"
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+            @mouseenter="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+            "
           >
             ✕
           </button>
@@ -873,8 +1005,12 @@
                 font-family: &quot;Segoe UI&quot;, sans-serif;
               "
               placeholder="写一个简短的小方法或暖心提醒..."
-              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+              @focus="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              "
+              @blur="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              "
             ></textarea>
           </div>
           <div>
@@ -926,8 +1062,7 @@
                   (e) => {
                     if (selectedIcon !== icon) {
                       e.currentTarget.style.borderColor = 'var(--c-accent)';
-                      e.currentTarget.style.background =
-                        'var(--c-accent-soft)';
+                      e.currentTarget.style.background = 'var(--c-accent-soft)';
                     }
                   }
                 "
@@ -967,8 +1102,12 @@
                 font-family: &quot;Segoe UI&quot;, sans-serif;
               "
               placeholder="给你的方法起个标题..."
-              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+              @focus="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              "
+              @blur="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              "
             />
           </div>
 
@@ -990,8 +1129,12 @@
                 font-family: &quot;Segoe UI&quot;, sans-serif;
                 cursor: pointer;
               "
-              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+              @focus="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              "
+              @blur="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              "
             >
               <option value="心理调节">心理调节</option>
               <option value="生活习惯">生活习惯</option>
@@ -1087,7 +1230,10 @@
         "
       >
         <div class="text-4xl mb-4">🗑️</div>
-        <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
+        <h3
+          class="text-lg font-light tracking-wide"
+          style="color: var(--c-text-1)"
+        >
           确认删除帖子
         </h3>
         <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
@@ -1097,9 +1243,18 @@
           <button
             @click="deletePost"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
-            style="background: var(--c-danger); color: white; border: 1px solid var(--c-danger)"
-            @mouseenter="(e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')"
-            @mouseleave="(e) => (e.currentTarget.style.background = 'var(--c-danger)')"
+            style="
+              background: var(--c-danger);
+              color: white;
+              border: 1px solid var(--c-danger);
+            "
+            @mouseenter="
+              (e) =>
+                (e.currentTarget.style.background = 'var(--c-danger-hover)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+            "
           >
             确认删除
           </button>
@@ -1146,7 +1301,10 @@
         "
       >
         <div class="text-4xl mb-4">📌</div>
-        <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
+        <h3
+          class="text-lg font-light tracking-wide"
+          style="color: var(--c-text-1)"
+        >
           确认删除便签
         </h3>
         <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
@@ -1156,9 +1314,18 @@
           <button
             @click="deleteSticky"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
-            style="background: var(--c-danger); color: white; border: 1px solid var(--c-danger)"
-            @mouseenter="(e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')"
-            @mouseleave="(e) => (e.currentTarget.style.background = 'var(--c-danger)')"
+            style="
+              background: var(--c-danger);
+              color: white;
+              border: 1px solid var(--c-danger);
+            "
+            @mouseenter="
+              (e) =>
+                (e.currentTarget.style.background = 'var(--c-danger-hover)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+            "
           >
             确认删除
           </button>
@@ -1625,6 +1792,7 @@ const submitShare = async () => {
       alert("发布失败，请重试");
     } finally {
       submitting.value = false;
+      loadData();
     }
   } else {
     if (!postTitle.value.trim() || !postContent.value.trim()) {
@@ -1646,6 +1814,7 @@ const submitShare = async () => {
       alert("发布失败，请重试");
     } finally {
       submitting.value = false;
+      loadData();
     }
   }
 };
