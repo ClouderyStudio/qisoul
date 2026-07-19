@@ -11,15 +11,15 @@
               <span class="text-2xl">🧘</span>
               <h1
                 class="text-2xl font-light tracking-wide"
-                style="color: #4f4842"
+                style="color: var(--c-text-1)"
               >
                 心灵资源
               </h1>
             </div>
-            <p class="text-sm font-light" style="color: #6d6259">
+            <p class="text-sm font-light" style="color: var(--c-text-2)">
               一些温暖的工具、知识和陪伴，在你需要的时候给你力量。
             </p>
-            <div class="w-12 h-px mt-3" style="background: #dccfc4"></div>
+            <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
           </div>
         </div>
       </section>
@@ -33,14 +33,14 @@
           class="px-5 py-1.5 text-xs font-light transition-all rounded-full"
           :style="
             activeCategory === cat.value
-              ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
-              : 'background: transparent; color: #8a7e74; border: 1px solid transparent;'
+              ? 'background: var(--c-accent-light); color: var(--c-text-1); border: 1px solid var(--c-accent);'
+              : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
           "
           @mouseenter="
             (e) => {
               if (activeCategory !== cat.value) {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.background = 'var(--c-accent-soft)';
               }
             }
           "
@@ -67,11 +67,11 @@
             <span class="text-xl">🌐</span>
             <h2
               class="text-base font-light tracking-wide"
-              style="color: #4f4842"
+              style="color: var(--c-text-1)"
             >
               心理帮助网站
             </h2>
-            <span class="text-xs font-light" style="color: #b8aa98"
+            <span class="text-xs font-light" style="color: var(--c-text-4)"
               >专业 · 温暖 · 可靠</span
             >
           </div>
@@ -81,12 +81,12 @@
               :key="item.id"
               class="p-6 transition-all rounded-[2rem]"
               style="
-                background: rgba(255, 250, 245, 0.6);
-                border: 1px solid #efe7e0;
+                background: var(--c-card-bg);
+                border: 1px solid var(--c-border-1);
               "
               @mouseenter="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#dfd2c6';
+                  e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
@@ -94,7 +94,7 @@
               "
               @mouseleave="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#efe7e0';
+                  e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }
@@ -105,20 +105,20 @@
                 <span
                   class="px-2 py-0.5 text-[10px] rounded-full"
                   style="
-                    background: rgba(220, 207, 196, 0.3);
-                    color: #6d6259;
-                    border: 1px solid #e7dbd0;
+                    background: var(--c-tag-bg-2);
+                    color: var(--c-text-2);
+                    border: 1px solid var(--c-border-2);
                   "
                 >
                   {{ item.type }}
                 </span>
               </div>
-              <h3 class="text-base font-light" style="color: #4f4842">
+              <h3 class="text-base font-light" style="color: var(--c-text-1)">
                 {{ item.title }}
               </h3>
               <p
                 class="text-sm font-light leading-relaxed mt-1"
-                style="color: #6d6259"
+                style="color: var(--c-text-2)"
               >
                 {{ item.description }}
               </p>
@@ -127,9 +127,9 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-block mt-3 text-xs font-light transition-colors"
-                style="color: #8a7e74; border-bottom: 1px dotted #dccfc4"
-                @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+                style="color: var(--c-text-3); border-bottom: 1px dotted var(--c-accent)"
+                @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+                @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
               >
                 访问网站 →
               </a>
@@ -143,11 +143,11 @@
             <span class="text-xl">📱</span>
             <h2
               class="text-base font-light tracking-wide"
-              style="color: #4f4842"
+              style="color: var(--c-text-1)"
             >
               实用 APP 推荐
             </h2>
-            <span class="text-xs font-light" style="color: #b8aa98"
+            <span class="text-xs font-light" style="color: var(--c-text-4)"
               >用心设计 · 陪伴日常</span
             >
           </div>
@@ -157,12 +157,12 @@
               :key="item.id"
               class="p-6 transition-all rounded-[2rem]"
               style="
-                background: rgba(255, 250, 245, 0.6);
-                border: 1px solid #efe7e0;
+                background: var(--c-card-bg);
+                border: 1px solid var(--c-border-1);
               "
               @mouseenter="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#dfd2c6';
+                  e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
@@ -170,7 +170,7 @@
               "
               @mouseleave="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#efe7e0';
+                  e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }
@@ -182,9 +182,9 @@
                   <span
                     class="px-2 py-0.5 text-[10px] rounded-full"
                     style="
-                      background: rgba(220, 207, 196, 0.3);
-                      color: #6d6259;
-                      border: 1px solid #e7dbd0;
+                      background: var(--c-tag-bg-2);
+                      color: var(--c-text-2);
+                      border: 1px solid var(--c-border-2);
                     "
                   >
                     {{ item.platform }}
@@ -194,28 +194,28 @@
                   v-if="item.recommend"
                   class="text-[10px] font-light px-2 py-0.5 rounded-full"
                   style="
-                    background: rgba(236, 227, 219, 0.5);
-                    color: #8a7e74;
-                    border: 1px solid #e7dbd0;
+                    background: var(--c-accent-light);
+                    color: var(--c-text-3);
+                    border: 1px solid var(--c-border-2);
                   "
                 >
                   {{ item.recommend }}
                 </span>
               </div>
-              <h3 class="text-base font-light" style="color: #4f4842">
+              <h3 class="text-base font-light" style="color: var(--c-text-1)">
                 {{ item.title }}
               </h3>
               <p
                 class="text-sm font-light leading-relaxed mt-1"
-                style="color: #6d6259"
+                style="color: var(--c-text-2)"
               >
                 {{ item.description }}
               </p>
               <div
                 class="flex items-center gap-3 mt-3 pt-2"
-                style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+                style="border-top: 1px solid var(--c-divider)"
               >
-                <span class="text-xs font-light" style="color: #8a7e74">{{
+                <span class="text-xs font-light" style="color: var(--c-text-3)">{{
                   item.feature
                 }}</span>
                 <a
@@ -223,9 +223,9 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-xs font-light transition-colors"
-                  style="color: #8a7e74; border-bottom: 1px dotted #dccfc4"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+                  style="color: var(--c-text-3); border-bottom: 1px dotted var(--c-accent)"
+                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
                 >
                   了解 →
                 </a>
@@ -240,11 +240,11 @@
             <span class="text-xl">📖</span>
             <h2
               class="text-base font-light tracking-wide"
-              style="color: #4f4842"
+              style="color: var(--c-text-1)"
             >
               学习方法与练习
             </h2>
-            <span class="text-xs font-light" style="color: #b8aa98"
+            <span class="text-xs font-light" style="color: var(--c-text-4)"
               >每日实践 · 慢慢成长</span
             >
           </div>
@@ -254,12 +254,12 @@
               :key="item.id"
               class="p-6 transition-all rounded-[2rem]"
               style="
-                background: rgba(255, 250, 245, 0.6);
-                border: 1px solid #efe7e0;
+                background: var(--c-card-bg);
+                border: 1px solid var(--c-border-1);
               "
               @mouseenter="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#dfd2c6';
+                  e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
                   e.currentTarget.style.transform = 'translateY(-4px)';
@@ -267,7 +267,7 @@
               "
               @mouseleave="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#efe7e0';
+                  e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }
@@ -278,20 +278,20 @@
                 <span
                   class="px-2 py-0.5 text-[10px] rounded-full"
                   style="
-                    background: rgba(220, 207, 196, 0.3);
-                    color: #6d6259;
-                    border: 1px solid #e7dbd0;
+                    background: var(--c-tag-bg-2);
+                    color: var(--c-text-2);
+                    border: 1px solid var(--c-border-2);
                   "
                 >
                   {{ item.category }}
                 </span>
               </div>
-              <h3 class="text-base font-light" style="color: #4f4842">
+              <h3 class="text-base font-light" style="color: var(--c-text-1)">
                 {{ item.title }}
               </h3>
               <p
                 class="text-sm font-light leading-relaxed mt-1"
-                style="color: #6d6259"
+                style="color: var(--c-text-2)"
               >
                 {{ item.description }}
               </p>
@@ -299,21 +299,21 @@
                 @click="openPractice(item)"
                 class="mt-3 px-4 py-1 text-xs font-light transition-all rounded-full"
                 style="
-                  background: rgba(236, 227, 219, 0.4);
-                  color: #6d6259;
-                  border: 1px solid #e7dbd0;
+                  background: var(--c-tag-bg);
+                  color: var(--c-text-2);
+                  border: 1px solid var(--c-border-2);
                 "
                 @mouseenter="
                   (e) => {
-                    e.currentTarget.style.background = '#e0d3c8';
-                    e.currentTarget.style.borderColor = '#cebdb0';
+                    e.currentTarget.style.background = 'var(--c-btn-hover)';
+                    e.currentTarget.style.borderColor = 'var(--c-accent-border)';
                   }
                 "
                 @mouseleave="
                   (e) => {
                     e.currentTarget.style.background =
-                      'rgba(236, 227, 219, 0.4)';
-                    e.currentTarget.style.borderColor = '#e7dbd0';
+                      'var(--c-tag-bg)';
+                    e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   }
                 "
               >
@@ -332,13 +332,13 @@
           "
           class="text-center py-16"
           style="
-            background: rgba(255, 250, 245, 0.3);
+            background: var(--c-card-alt);
             border-radius: 3rem;
-            border: 1px dashed #e7dbd0;
+            border: 1px dashed var(--c-border-2);
           "
         >
           <div class="text-5xl mb-4">🌱</div>
-          <p class="text-sm font-light" style="color: #8a7e74">
+          <p class="text-sm font-light" style="color: var(--c-text-3)">
             该分类下暂无资源
           </p>
         </div>
@@ -349,30 +349,30 @@
     <div
       v-if="showPracticeModal"
       class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style="background: rgba(44, 36, 28, 0.2); backdrop-filter: blur(4px)"
+      style="background: var(--c-overlay); backdrop-filter: blur(4px)"
     >
       <div
         class="w-full max-w-md p-8 rounded-[3rem]"
         style="
-          background: rgba(255, 250, 245, 0.95);
+          background: var(--c-card-solid);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          border: 1px solid var(--c-border-1);
           box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
         "
       >
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <span class="text-3xl">{{ selectedPractice?.icon }}</span>
-            <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+            <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
               {{ selectedPractice?.title }}
             </h2>
           </div>
           <button
             @click="closePracticeModal"
             class="text-xl transition-colors"
-            style="color: #b8aa98"
-            @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-            @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+            style="color: var(--c-text-4)"
+            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
           >
             ✕
           </button>
@@ -382,21 +382,21 @@
           <span
             class="px-2 py-0.5 text-[10px] rounded-full"
             style="
-              background: rgba(236, 227, 219, 0.4);
-              color: #6d6259;
-              border: 1px solid #e7dbd0;
+              background: var(--c-tag-bg);
+              color: var(--c-text-2);
+              border: 1px solid var(--c-border-2);
             "
           >
             {{ selectedPractice?.category }}
           </span>
-          <span class="ml-2 text-xs font-light" style="color: #8a7e74">{{
+          <span class="ml-2 text-xs font-light" style="color: var(--c-text-3)">{{
             selectedPractice?.type
           }}</span>
         </div>
 
         <p
           class="text-sm font-light leading-relaxed mt-3"
-          style="color: #6d6259; white-space: pre-line"
+          style="color: var(--c-text-2); white-space: pre-line"
         >
           {{ selectedPractice?.detail || selectedPractice?.description }}
         </p>
@@ -405,12 +405,12 @@
           v-if="selectedPractice?.tips"
           class="mt-4 p-4 rounded-[1.5rem]"
           style="
-            background: rgba(245, 238, 232, 0.3);
-            border: 1px solid rgba(231, 219, 208, 0.3);
+            background: var(--c-accent-soft);
+            border: 1px solid var(--c-divider);
           "
         >
-          <p class="text-xs font-light" style="color: #8a7e74">💡 小贴士</p>
-          <p class="text-sm font-light mt-1" style="color: #4f4842">
+          <p class="text-xs font-light" style="color: var(--c-text-3)">💡 小贴士</p>
+          <p class="text-sm font-light mt-1" style="color: var(--c-text-1)">
             {{ selectedPractice.tips }}
           </p>
         </div>
@@ -418,17 +418,17 @@
         <button
           @click="closePracticeModal"
           class="w-full mt-6 py-2.5 text-sm font-light transition-all rounded-full"
-          style="background: #ece3db; color: #4d443d; border: 1px solid #e2d5ca"
+          style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
           @mouseenter="
             (e) => {
-              e.currentTarget.style.background = '#e0d3c8';
-              e.currentTarget.style.borderColor = '#cebdb0';
+              e.currentTarget.style.background = 'var(--c-btn-hover)';
+              e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.background = '#ece3db';
-              e.currentTarget.style.borderColor = '#e2d5ca';
+              e.currentTarget.style.background = 'var(--c-btn-bg)';
+              e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }
           "
         >
@@ -673,7 +673,7 @@ const closePracticeModal = () => {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dccfc4;
+  background: var(--c-accent);
   border-radius: 9999px;
 }
 

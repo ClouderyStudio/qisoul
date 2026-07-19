@@ -6,14 +6,14 @@
       <section class="mb-10">
         <div class="flex items-center gap-3 mb-2">
           <span class="text-3xl">❓</span>
-          <h1 class="text-3xl font-light tracking-wide" style="color: #4f4842">
+          <h1 class="text-3xl font-light tracking-wide" style="color: var(--c-text-1)">
             帮助中心
           </h1>
         </div>
-        <p class="text-sm font-light" style="color: #6d6259">
+        <p class="text-sm font-light" style="color: var(--c-text-2)">
           常见问题解答，帮助你更好地使用栖所。
         </p>
-        <div class="w-12 h-px mt-3" style="background: #dccfc4"></div>
+        <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
       </section>
 
       <!-- ====== 搜索框 ====== -->
@@ -24,18 +24,18 @@
             v-model="searchQuery"
             class="w-full p-3 pl-10 text-sm transition-all rounded-[1.5rem]"
             style="
-              background: rgba(255, 250, 245, 0.6);
-              border: 1px solid #e7dbd0;
-              color: #4b423c;
+              background: var(--c-card-bg);
+              border: 1px solid var(--c-border-2);
+              color: var(--c-text-content);
               font-weight: 300;
             "
             placeholder="搜索帮助内容..."
-            @focus="(e) => (e.currentTarget.style.borderColor = '#dccfc4')"
-            @blur="(e) => (e.currentTarget.style.borderColor = '#e7dbd0')"
+            @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+            @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
           />
           <span
             class="absolute left-3 top-1/2 -translate-y-1/2 text-sm"
-            style="color: #b8aa98"
+            style="color: var(--c-text-4)"
             >🔍</span
           >
         </div>
@@ -50,14 +50,14 @@
           class="px-4 py-1.5 text-xs font-light transition-all rounded-full"
           :style="
             activeCategory === cat.value
-              ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
-              : 'background: transparent; color: #8a7e74; border: 1px solid transparent;'
+              ? 'background: var(--c-accent-light); color: var(--c-text-1); border: 1px solid var(--c-accent);'
+              : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
           "
           @mouseenter="
             (e) => {
               if (activeCategory !== cat.value) {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.background = 'var(--c-accent-soft)';
               }
             }
           "
@@ -81,19 +81,19 @@
           :key="item.id"
           class="p-5 transition-all rounded-[2rem] cursor-pointer"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
           "
           @mouseenter="
             (e) => {
-              e.currentTarget.style.borderColor = '#dfd2c6';
+              e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.06)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.borderColor = '#efe7e0';
+              e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
           "
@@ -103,18 +103,18 @@
             <div class="flex-1">
               <div class="flex items-center gap-3">
                 <span class="text-lg">{{ item.icon }}</span>
-                <h3 class="text-base font-light" style="color: #4f4842">
+                <h3 class="text-base font-light" style="color: var(--c-text-1)">
                   {{ item.question }}
                 </h3>
               </div>
               <div
                 v-show="expandedId === item.id"
                 class="mt-3 pt-3"
-                style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+                style="border-top: 1px solid var(--c-divider)"
               >
                 <p
                   class="text-sm font-light leading-relaxed"
-                  style="color: #5f5547; white-space: pre-line"
+                  style="color: var(--c-text-about); white-space: pre-line"
                 >
                   {{ item.answer }}
                 </p>
@@ -122,7 +122,7 @@
             </div>
             <span
               class="text-sm transition-transform"
-              style="color: #b8aa98"
+              style="color: var(--c-text-4)"
               :style="{
                 transform:
                   expandedId === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -139,16 +139,16 @@
         v-if="filteredHelpItems.length === 0"
         class="text-center py-12"
         style="
-          background: rgba(255, 250, 245, 0.3);
+          background: var(--c-card-alt);
           border-radius: 3rem;
-          border: 1px dashed #e7dbd0;
+          border: 1px dashed var(--c-border-2);
         "
       >
         <div class="text-4xl mb-3">🔍</div>
-        <p class="text-sm font-light" style="color: #8a7e74">
+        <p class="text-sm font-light" style="color: var(--c-text-3)">
           没有找到相关帮助内容
         </p>
-        <p class="text-xs font-light mt-1" style="color: #b8aa98">
+        <p class="text-xs font-light mt-1" style="color: var(--c-text-4)">
           试试其他关键词
         </p>
       </div>
@@ -156,27 +156,27 @@
       <!-- ====== 联系支持 ====== -->
       <div
         class="mt-8 p-6 rounded-[2rem] text-center"
-        style="background: rgba(245, 238, 232, 0.3); border: 1px solid #efe7e0"
+        style="background: var(--c-accent-soft); border: 1px solid var(--c-border-1)"
       >
         <span class="text-2xl block mb-2">💌</span>
-        <p class="text-sm font-light" style="color: #5f5547">仍然有问题？</p>
-        <p class="text-xs font-light mt-1" style="color: #8a7e74">
+        <p class="text-sm font-light" style="color: var(--c-text-about)">仍然有问题？</p>
+        <p class="text-xs font-light mt-1" style="color: var(--c-text-3)">
           联系我们，我们会尽快回复你
         </p>
         <a
           href="mailto:admin@cldery.com"
           class="inline-block mt-3 px-6 py-2 text-sm font-light transition-all rounded-full"
-          style="background: #ece3db; color: #4d443d; border: 1px solid #e2d5ca"
+          style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
           @mouseenter="
             (e) => {
-              e.currentTarget.style.background = '#e0d3c8';
-              e.currentTarget.style.borderColor = '#cebdb0';
+              e.currentTarget.style.background = 'var(--c-btn-hover)';
+              e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.background = '#ece3db';
-              e.currentTarget.style.borderColor = '#e2d5ca';
+              e.currentTarget.style.background = 'var(--c-btn-bg)';
+              e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }
           "
         >

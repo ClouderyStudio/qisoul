@@ -4,6 +4,7 @@ import App from './App.vue'
 import { router } from './router/router.ts'
 import Casdoor from 'casdoor-vue-sdk'
 import { createPinia } from 'pinia'
+import { useTheme } from './composables/useTheme'
 
 const casdoorConfig = {
     serverUrl: 'https://auth.cldery.com',
@@ -19,5 +20,9 @@ app.use(createPinia())
 app.use(Casdoor, casdoorConfig)
 
 app.use(router)
+
+// 初始化主题（在 app 挂载前应用，避免闪烁）
+const { initTheme } = useTheme()
+initTheme()
 
 app.mount('#app')

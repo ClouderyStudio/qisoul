@@ -1,6 +1,87 @@
 /* src/styles/main.css */
 @import "tailwindcss";
 
+/* ====== 浅色 / 深色 主题变量 ====== */
+:root {
+  --c-bg: #f6f3f0;
+  --c-card-bg: rgba(255, 250, 245, 0.6);
+  --c-card-solid: rgba(255, 250, 245, 0.95);
+  --c-card-hover: rgba(255, 252, 248, 0.8);
+  --c-card-alt: rgba(255, 250, 245, 0.3);
+  --c-input-bg: rgba(245, 238, 232, 0.3);
+  --c-input-bg-light: rgba(245, 238, 232, 0.15);
+  --c-tag-bg: rgba(236, 227, 219, 0.4);
+  --c-tag-bg-2: rgba(220, 207, 196, 0.3);
+  --c-btn-bg: #ece3db;
+  --c-btn-hover: #e0d3c8;
+  --c-btn-border: #e2d5ca;
+  --c-btn-border-hover: #cebdb0;
+  --c-text-1: #4f4842;
+  --c-text-2: #6d6259;
+  --c-text-3: #8a7e74;
+  --c-text-4: #b8aa98;
+  --c-text-content: #4b423c;
+  --c-text-btn: #4d443d;
+  --c-text-about: #5f5547;
+  --c-border-1: #efe7e0;
+  --c-border-2: #e7dbd0;
+  --c-border-3: #dfd2c6;
+  --c-accent: #dccfc4;
+  --c-accent-border: #cebdb0;
+  --c-accent-light: rgba(236, 227, 219, 0.6);
+  --c-accent-soft: rgba(245, 238, 232, 0.3);
+  --c-overlay: rgba(44, 36, 28, 0.2);
+  --c-overlay-heavy: rgba(44, 36, 28, 0.3);
+  --c-nav-bg: rgba(255, 250, 245, 0.75);
+  --c-footer-border: #e7dbd0;
+  --c-divider: rgba(231, 219, 208, 0.3);
+  --c-danger: #e85a65;
+  --c-danger-hover: #cc404a;
+  --c-gradient-banner: linear-gradient(135deg, rgba(236, 227, 219, 0.4), rgba(245, 238, 232, 0.6));
+  --c-gradient-cta: rgba(245, 238, 232, 0.3);
+  --c-quote-bg: rgba(245, 238, 232, 0.4);
+}
+
+.dark {
+  --c-bg: #181615;
+  --c-card-bg: rgba(38, 34, 30, 0.85);
+  --c-card-solid: rgba(38, 34, 30, 0.96);
+  --c-card-hover: rgba(44, 40, 35, 0.9);
+  --c-card-alt: rgba(38, 34, 30, 0.6);
+  --c-input-bg: rgba(50, 44, 38, 0.5);
+  --c-input-bg-light: rgba(50, 44, 38, 0.25);
+  --c-tag-bg: rgba(60, 52, 44, 0.6);
+  --c-tag-bg-2: rgba(70, 60, 50, 0.5);
+  --c-btn-bg: #3d362e;
+  --c-btn-hover: #4a4238;
+  --c-btn-border: #50483e;
+  --c-btn-border-hover: #62584c;
+  --c-text-1: #d4cec6;
+  --c-text-2: #b0a89e;
+  --c-text-3: #908878;
+  --c-text-4: #70685c;
+  --c-text-content: #c8c0b6;
+  --c-text-btn: #d4cec6;
+  --c-text-about: #c0b8ae;
+  --c-border-1: rgba(80, 72, 62, 0.45);
+  --c-border-2: rgba(90, 82, 70, 0.5);
+  --c-border-3: rgba(110, 98, 84, 0.6);
+  --c-accent: #5c5244;
+  --c-accent-border: #6d6050;
+  --c-accent-light: rgba(70, 62, 52, 0.6);
+  --c-accent-soft: rgba(60, 52, 44, 0.5);
+  --c-overlay: rgba(0, 0, 0, 0.45);
+  --c-overlay-heavy: rgba(0, 0, 0, 0.55);
+  --c-nav-bg: rgba(24, 22, 20, 0.92);
+  --c-footer-border: rgba(80, 72, 62, 0.45);
+  --c-divider: rgba(80, 72, 62, 0.3);
+  --c-danger: #d94a55;
+  --c-danger-hover: #b83a44;
+  --c-gradient-banner: linear-gradient(135deg, rgba(60, 52, 44, 0.4), rgba(50, 44, 38, 0.5));
+  --c-gradient-cta: rgba(50, 44, 38, 0.5);
+  --c-quote-bg: rgba(50, 44, 38, 0.5);
+}
+
 @theme {
   --color-cream: #f6f3f0;
   --color-card: rgba(255, 250, 245, 0.75);
@@ -17,14 +98,14 @@
 
 /* 全局 */
 body {
-  background-color: #f6f3f0;
+  background-color: var(--c-bg);
+  color: var(--c-text-1);
   font-family:
     "Segoe UI",
     "Roboto",
     system-ui,
     -apple-system,
     sans-serif;
-  color: #3e3a36;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -33,19 +114,19 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f6f3f0;
+  background: var(--c-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #dccfc4;
+  background: var(--c-accent);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #cebdb0;
+  background: var(--c-accent-border);
 }
 
 ::selection {
-  background: #dccfc4;
-  color: #3e3530;
+  background: var(--c-accent);
+  color: var(--c-text-1);
 }
 
 /* 全局 Markdown 列表样式 */
@@ -76,7 +157,7 @@ body {
 /* 确保 marker 可见 */
 .markdown-preview li::marker,
 .prose li::marker {
-  color: #8a7e74 !important;
+  color: var(--c-text-3) !important;
 }
 
 /* 嵌套列表 */

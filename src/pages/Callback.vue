@@ -1,7 +1,7 @@
 <template>
   <div
     class="min-h-screen flex items-center justify-center px-4 py-8"
-    style="background: #f6f3f0"
+    style="background: var(--c-bg)"
   >
     <!-- 极柔背景装饰 -->
     <div
@@ -28,14 +28,14 @@
     <div
       class="w-full max-w-md text-center"
       style="
-        background: rgba(255, 250, 245, 0.75);
+        background: var(--c-nav-bg);
         backdrop-filter: blur(2px);
         border-radius: 3rem;
         padding: 2.8rem 2.5rem;
         box-shadow:
           0 12px 30px rgba(140, 120, 100, 0.08),
           0 4px 10px rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(230, 215, 200, 0.3);
+        border: 1px solid var(--c-border-1);
       "
     >
       <!-- ====== 加载状态 ====== -->
@@ -44,17 +44,17 @@
           <div
             class="w-14 h-14 rounded-full"
             style="
-              border: 3px solid #e7dbd0;
-              border-top-color: #b8aa98;
+              border: 3px solid var(--c-border-2);
+              border-top-color: var(--c-text-4);
               animation: spin 0.8s linear infinite;
             "
           ></div>
         </div>
         <div>
-          <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
             正在登录
           </h2>
-          <p class="text-sm font-light mt-1" style="color: #8a7e74">
+          <p class="text-sm font-light mt-1" style="color: var(--c-text-3)">
             请稍候，即将带你回到栖所
           </p>
         </div>
@@ -65,13 +65,13 @@
         <div
           class="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
           style="
-            background: rgba(236, 227, 219, 0.4);
-            border: 1px solid #dccfc4;
+            background: var(--c-tag-bg);
+            border: 1px solid var(--c-accent);
           "
         >
           <svg
             class="w-8 h-8"
-            style="color: #8a7e74"
+            style="color: var(--c-text-3)"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -85,13 +85,13 @@
           </svg>
         </div>
         <div>
-          <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
             欢迎回来
           </h2>
-          <p class="text-base font-light mt-1" style="color: #6d6259">
+          <p class="text-base font-light mt-1" style="color: var(--c-text-2)">
             {{ user?.username }}
           </p>
-          <p class="text-sm font-light mt-0.5" style="color: #8a7e74">
+          <p class="text-sm font-light mt-0.5" style="color: var(--c-text-3)">
             即将跳转...
           </p>
         </div>
@@ -102,13 +102,13 @@
         <div
           class="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
           style="
-            background: rgba(236, 227, 219, 0.3);
-            border: 1px solid #e7dbd0;
+            background: var(--c-tag-bg);
+            border: 1px solid var(--c-border-2);
           "
         >
           <svg
             class="w-8 h-8"
-            style="color: #b8aa98"
+            style="color: var(--c-text-4)"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -122,10 +122,10 @@
           </svg>
         </div>
         <div>
-          <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
             登录遇到一点小问题
           </h2>
-          <p class="text-sm font-light mt-1" style="color: #8a7e74">
+          <p class="text-sm font-light mt-1" style="color: var(--c-text-3)">
             {{ errorMessage }}
           </p>
         </div>
@@ -134,20 +134,20 @@
             @click="retryLogin"
             class="px-8 py-2.5 text-sm font-light transition-all rounded-full"
             style="
-              background: #ece3db;
-              color: #4d443d;
-              border: 1px solid #e2d5ca;
+              background: var(--c-btn-bg);
+              color: var(--c-text-btn);
+              border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.background = '#e0d3c8';
-                e.currentTarget.style.borderColor = '#cebdb0';
+                e.currentTarget.style.background = 'var(--c-btn-hover)';
+                e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.background = '#ece3db';
-                e.currentTarget.style.borderColor = '#e2d5ca';
+                e.currentTarget.style.background = 'var(--c-btn-bg)';
+                e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
             "
           >
@@ -158,19 +158,19 @@
             class="px-8 py-2.5 text-sm font-light transition-all rounded-full"
             style="
               background: transparent;
-              color: #8a7e74;
-              border: 1px solid #e7dbd0;
+              color: var(--c-text-3);
+              border: 1px solid var(--c-border-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.color = '#4f4842';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.color = '#8a7e74';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
           >
@@ -184,7 +184,7 @@
     <div class="fixed bottom-6 left-0 right-0 text-center pointer-events-none">
       <p
         class="text-xs tracking-widest font-light"
-        style="color: #b8aa98; letter-spacing: 0.15em"
+        style="color: var(--c-text-4); letter-spacing: 0.15em"
       >
         ✦ 在这里，你不必独自承受 ✦
       </p>

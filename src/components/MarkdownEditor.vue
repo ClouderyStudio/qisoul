@@ -5,8 +5,8 @@
     <div
       class="toolbar flex flex-wrap gap-1 p-2 rounded-t-[1.5rem]"
       style="
-        background: rgba(245, 238, 232, 0.3);
-        border: 1px solid #e7dbd0;
+        background: var(--c-accent-soft);
+        border: 1px solid var(--c-border-2);
         border-bottom: none;
       "
     >
@@ -15,24 +15,24 @@
         :key="tool.key"
         @mousedown.prevent="insertMarkdown(tool.syntax)"
         class="p-1.5 rounded-lg transition-all text-sm hover:bg-warm-100/50"
-        style="color: #6d6259; min-width: 32px"
+        style="color: var(--c-text-2); min-width: 32px"
         :title="tool.title"
       >
         <span v-html="tool.icon"></span>
       </button>
-      <span class="w-px h-6" style="background: #e7dbd0"></span>
+      <span class="w-px h-6" style="background: var(--c-border-2)"></span>
       <button
         @click="toggleView"
         class="p-1.5 rounded-lg transition-all text-xs"
-        style="color: #8a7e74"
+        style="color: var(--c-text-3)"
         @mouseenter="
-          (e) => (e.currentTarget.style.background = 'rgba(236, 227, 219, 0.4)')
+          (e) => (e.currentTarget.style.background = 'var(--c-tag-bg)')
         "
         @mouseleave="(e) => (e.currentTarget.style.background = 'transparent')"
       >
         {{ isPreview ? "✏️ 编辑" : "👁️ 预览" }}
       </button>
-      <span class="text-xs ml-auto" style="color: #b8aa98"
+      <span class="text-xs ml-auto" style="color: var(--c-text-4)"
         >{{ charCount }} 字符</span
       >
     </div>
@@ -40,7 +40,7 @@
     <!-- 编辑器主体 -->
     <div
       class="editor-body rounded-b-[1.5rem] overflow-hidden"
-      style="border: 1px solid #e7dbd0; background: rgba(245, 238, 232, 0.15)"
+      style="border: 1px solid var(--c-border-2); background: var(--c-input-bg-light)"
     >
       <!-- 编辑模式 -->
       <textarea
@@ -53,7 +53,7 @@
         style="
           min-height: 250px;
           background: transparent;
-          color: #4b423c;
+          color: var(--c-text-content);
           font-size: 14px;
           line-height: 1.8;
           font-weight: 300;
@@ -69,7 +69,7 @@
         class="preview-content markdown-preview p-4 prose prose-sm max-w-none overflow-auto"
         style="
           min-height: 250px;
-          color: #4b423c;
+          color: var(--c-text-content);
           font-size: 14px;
           line-height: 1.8;
           font-weight: 300;
@@ -101,7 +101,7 @@ const charCount = ref(0);
 // ====== 渲染 HTML ======
 const renderedHtml = computed(() => {
   if (!props.modelValue)
-    return '<p style="color: #b8aa98; font-style: italic;">没有内容可预览</p>';
+    return '<p style="color: var(--c-text-4); font-style: italic;">没有内容可预览</p>';
   try {
     const rawHtml = marked(props.modelValue);
     return DOMPurify.sanitize(rawHtml, {
@@ -109,7 +109,7 @@ const renderedHtml = computed(() => {
       ADD_ATTR: ["target", "rel", "class"],
     });
   } catch {
-    return '<p style="color: #b8aa98;">预览渲染失败</p>';
+    return '<p style="color: var(--c-text-4);">预览渲染失败</p>';
   }
 });
 
@@ -297,11 +297,11 @@ watch(
 }
 
 .toolbar button:hover {
-  background: rgba(236, 227, 219, 0.4);
+  background: var(--c-tag-bg);
 }
 
 .editor-body textarea::placeholder {
-  color: #b8aa98;
+  color: var(--c-text-4);
 }
 
 /* 预览样式 */
@@ -317,43 +317,43 @@ watch(
   font-size: 1.8em;
   font-weight: 300;
   margin: 1em 0 0.5em;
-  color: #4f4842;
+  color: var(--c-text-1);
 }
 
 .preview-content :deep(h2) {
   font-size: 1.5em;
   font-weight: 300;
   margin: 0.8em 0 0.4em;
-  color: #4f4842;
+  color: var(--c-text-1);
 }
 
 .preview-content :deep(h3) {
   font-size: 1.2em;
   font-weight: 300;
   margin: 0.6em 0 0.3em;
-  color: #4f4842;
+  color: var(--c-text-1);
 }
 
 .preview-content :deep(blockquote) {
-  border-left: 4px solid #dccfc4;
+  border-left: 4px solid var(--c-accent);
   padding: 0.5em 1em;
   margin: 0.5em 0;
-  color: #6d6259;
+  color: var(--c-text-2);
   font-style: italic;
-  background: rgba(245, 238, 232, 0.3);
+  background: var(--c-accent-soft);
   border-radius: 0 8px 8px 0;
 }
 
 .preview-content :deep(code) {
-  background: rgba(236, 227, 219, 0.4);
+  background: var(--c-tag-bg);
   padding: 0.1em 0.4em;
   border-radius: 4px;
   font-size: 0.9em;
-  color: #4f4842;
+  color: var(--c-text-1);
 }
 
 .preview-content :deep(pre) {
-  background: rgba(236, 227, 219, 0.3);
+  background: var(--c-tag-bg);
   padding: 1em;
   border-radius: 8px;
   overflow-x: auto;
@@ -366,7 +366,7 @@ watch(
 }
 
 .preview-content :deep(a) {
-  color: #8a7e74;
+  color: var(--c-text-3);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -383,7 +383,7 @@ watch(
 
 .preview-content :deep(hr) {
   border: none;
-  border-top: 2px solid rgba(231, 219, 208, 0.3);
+  border-top: 2px solid var(--c-divider);
   margin: 1.5em 0;
 }
 
@@ -395,12 +395,12 @@ watch(
 
 .preview-content :deep(th),
 .preview-content :deep(td) {
-  border: 1px solid rgba(231, 219, 208, 0.3);
+  border: 1px solid var(--c-divider);
   padding: 0.4em 0.8em;
 }
 
 .preview-content :deep(th) {
-  background: rgba(245, 238, 232, 0.3);
+  background: var(--c-accent-soft);
   font-weight: 400;
 }
 
@@ -417,7 +417,7 @@ watch(
 
 .preview-content::-webkit-scrollbar-thumb,
 .editor-body textarea::-webkit-scrollbar-thumb {
-  background: #dccfc4;
+  background: var(--c-accent);
   border-radius: 9999px;
 }
 </style>

@@ -12,34 +12,34 @@
               <span class="text-2xl">💬</span>
               <h1
                 class="text-2xl font-light tracking-wide"
-                style="color: #4f4842"
+                style="color: var(--c-text-1)"
               >
                 温暖社区
               </h1>
             </div>
-            <p class="text-sm font-light" style="color: #6d6259">
+            <p class="text-sm font-light" style="color: var(--c-text-2)">
               分享你的方法，倾听他人的故事。在这里，我们互为光亮。
             </p>
-            <div class="w-12 h-px mt-3" style="background: #dccfc4"></div>
+            <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
           </div>
           <button
             @click="openCreateModal"
             class="px-6 py-2.5 text-sm font-light transition-all rounded-full flex items-center gap-2"
             style="
-              background: #ece3db;
-              color: #4d443d;
-              border: 1px solid #e2d5ca;
+              background: var(--c-btn-bg);
+              color: var(--c-text-btn);
+              border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.background = '#e0d3c8';
-                e.currentTarget.style.borderColor = '#cebdb0';
+                e.currentTarget.style.background = 'var(--c-btn-hover)';
+                e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.background = '#ece3db';
-                e.currentTarget.style.borderColor = '#e2d5ca';
+                e.currentTarget.style.background = 'var(--c-btn-bg)';
+                e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
             "
           >
@@ -52,27 +52,23 @@
       <div
         class="relative mb-8 px-6 py-4 rounded-[2rem] text-center overflow-hidden"
         style="
-          background: linear-gradient(
-            135deg,
-            rgba(236, 227, 219, 0.4),
-            rgba(245, 238, 232, 0.6)
-          );
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          background: var(--c-gradient-banner);
+          border: 1px solid var(--c-border-1);
         "
       >
-        <p class="text-sm font-light leading-relaxed" style="color: #4f4842">
+        <p class="text-sm font-light leading-relaxed" style="color: var(--c-text-1)">
           💛 每一个声音都值得被听见。你的分享，或许正是此刻某个人需要的光。
         </p>
         <div class="flex items-center justify-center gap-3 mt-2">
-          <span class="text-xs font-light" style="color: #8a7e74"
+          <span class="text-xs font-light" style="color: var(--c-text-3)"
             >✨ 勇敢发声</span
           >
-          <span class="w-px h-3" style="background: #dccfc4"></span>
-          <span class="text-xs font-light" style="color: #8a7e74"
+          <span class="w-px h-3" style="background: var(--c-accent)"></span>
+          <span class="text-xs font-light" style="color: var(--c-text-3)"
             >🌱 温暖传递</span
           >
-          <span class="w-px h-3" style="background: #dccfc4"></span>
-          <span class="text-xs font-light" style="color: #8a7e74"
+          <span class="w-px h-3" style="background: var(--c-accent)"></span>
+          <span class="text-xs font-light" style="color: var(--c-text-3)"
             >🫂 彼此照亮</span
           >
         </div>
@@ -90,7 +86,7 @@
             <div
               class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
             ></div>
-            <span class="text-xs font-light mt-2 block" style="color: #b8aa98"
+            <span class="text-xs font-light mt-2 block" style="color: var(--c-text-4)"
               >加载中...</span
             >
           </div>
@@ -101,12 +97,12 @@
             :key="item.id"
             class="p-3 transition-all rounded-2xl"
             :style="{
-              background: item.color || 'rgba(255, 250, 245, 0.6)',
-              border: '1px solid #efe7e0',
+              background: item.color || 'var(--c-card-bg)',
+              border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dfd2c6';
+                e.currentTarget.style.borderColor = 'var(--c-border-3)';
                 e.currentTarget.style.boxShadow =
                   '0 4px 16px rgba(150, 130, 110, 0.08)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -114,7 +110,7 @@
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#efe7e0';
+                e.currentTarget.style.borderColor = 'var(--c-border-1)';
                 e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
               }
@@ -122,31 +118,32 @@
           >
             <div class="flex items-start justify-between mb-1">
               <span class="text-sm">{{ item.icon || "📌" }}</span>
-              <span class="text-[10px] font-light" style="color: #b8aa98">{{
+              <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                 formatTime(item.createdAt)
               }}</span>
             </div>
             <p
               class="text-xs font-light leading-relaxed"
-              style="color: #4b423c; line-height: 1.5; word-break: break-word"
+              style="color: var(--c-text-content); line-height: 1.5; word-break: break-word"
             >
               {{ item.content }}
             </p>
             <div
               class="flex items-center justify-between mt-1.5 pt-1"
-              style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+              style="border-top: 1px solid var(--c-divider)"
             >
               <button
                 @click="likeSticky(item.id)"
+                :disabled="likedStickies.has(item.id)"
                 class="text-[10px] font-light transition-colors flex items-center gap-1"
-                style="color: #8a7e74"
-                @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+                :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
+                @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
+                @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
               >
-                💛 {{ item.likes }}
+                {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-light" style="color: #b8aa98">{{
+                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                   item.username || "匿名用户"
                 }}</span>
                 <!-- ✅ 删除按钮（仅自己的便签） -->
@@ -154,9 +151,9 @@
                   v-if="isMySticky(item)"
                   @click="confirmDeleteSticky(item.id)"
                   class="text-[10px] font-light transition-colors"
-                  style="color: #b8aa98"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#e85a65')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+                  style="color: var(--c-text-4)"
+                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
+                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
                 >
                   ✕
                 </button>
@@ -168,10 +165,10 @@
           <div
             v-if="!loading && leftStickies.length === 0"
             class="text-center py-6"
-            style="border: 1px dashed #e7dbd0; border-radius: 1.5rem"
+            style="border: 1px dashed var(--c-border-2); border-radius: 1.5rem"
           >
             <span class="text-2xl block mb-1">📌</span>
-            <span class="text-xs font-light" style="color: #b8aa98"
+            <span class="text-xs font-light" style="color: var(--c-text-4)"
               >便签会出现在这里</span
             >
           </div>
@@ -188,15 +185,15 @@
               class="px-4 py-1.5 text-xs font-light transition-all rounded-full"
               :style="
                 selectedCategory === cat.value
-                  ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
-                  : 'background: transparent; color: #8a7e74; border: 1px solid transparent;'
+                  ? 'background: var(--c-accent-light); color: var(--c-text-1); border: 1px solid var(--c-accent);'
+                  : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
               "
               @mouseenter="
                 (e) => {
                   if (selectedCategory !== cat.value) {
-                    e.currentTarget.style.borderColor = '#dccfc4';
+                    e.currentTarget.style.borderColor = 'var(--c-accent)';
                     e.currentTarget.style.background =
-                      'rgba(245, 238, 232, 0.3)';
+                      'var(--c-accent-soft)';
                   }
                 }
               "
@@ -218,15 +215,15 @@
             v-if="loading && filteredPosts.length === 0"
             class="text-center py-16"
             style="
-              background: rgba(255, 250, 245, 0.3);
+              background: var(--c-card-alt);
               border-radius: 3rem;
-              border: 1px dashed #e7dbd0;
+              border: 1px dashed var(--c-border-2);
             "
           >
             <div
               class="w-10 h-10 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
             ></div>
-            <p class="text-sm font-light mt-4" style="color: #8a7e74">
+            <p class="text-sm font-light mt-4" style="color: var(--c-text-3)">
               加载中...
             </p>
           </div>
@@ -236,18 +233,18 @@
             v-else-if="filteredPosts.length === 0"
             class="text-center py-16"
             style="
-              background: rgba(255, 250, 245, 0.3);
+              background: var(--c-card-alt);
               border-radius: 3rem;
-              border: 1px dashed #e7dbd0;
+              border: 1px dashed var(--c-border-2);
             "
           >
             <div class="text-5xl mb-4">🌱</div>
-            <p class="text-sm font-light" style="color: #8a7e74">
+            <p class="text-sm font-light" style="color: var(--c-text-3)">
               {{
                 selectedCategory === "all" ? "还没有帖子" : "该分类下暂无帖子"
               }}
             </p>
-            <p class="text-xs font-light mt-1" style="color: #b8aa98">
+            <p class="text-xs font-light mt-1" style="color: var(--c-text-4)">
               {{
                 selectedCategory === "all"
                   ? "成为第一个分享抵抗方法的人吧"
@@ -263,19 +260,19 @@
               :key="post.id"
               class="p-6 transition-all rounded-[2.5rem]"
               style="
-                background: rgba(255, 250, 245, 0.6);
-                border: 1px solid #efe7e0;
+                background: var(--c-card-bg);
+                border: 1px solid var(--c-border-1);
               "
               @mouseenter="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#dfd2c6';
+                  e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
                 }
               "
               @mouseleave="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#efe7e0';
+                  e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                 }
               "
@@ -285,15 +282,15 @@
                   <!-- 标题行 -->
                   <div class="flex items-center gap-3 mb-2">
                     <span class="text-lg">{{ post.icon || "📖" }}</span>
-                    <h3 class="text-base font-light" style="color: #4f4842">
+                    <h3 class="text-base font-light" style="color: var(--c-text-1)">
                       {{ post.title }}
                     </h3>
                     <span
                       class="px-2 py-0.5 text-[10px] rounded-full"
                       style="
-                        background: rgba(236, 227, 219, 0.4);
-                        color: #6d6259;
-                        border: 1px solid #e7dbd0;
+                        background: var(--c-tag-bg);
+                        color: var(--c-text-2);
+                        border: 1px solid var(--c-border-2);
                         flex-shrink: 0;
                       "
                       >{{ post.category }}</span
@@ -302,7 +299,7 @@
                     <span
                       v-if="post.updatedAt && post.updatedAt !== post.createdAt"
                       class="text-[10px] font-light"
-                      style="color: #b8aa98"
+                      style="color: var(--c-text-4)"
                       >(已编辑)</span
                     >
                   </div>
@@ -310,7 +307,7 @@
                   <!-- 内容 -->
                   <p
                     class="text-sm font-light leading-relaxed whitespace-pre-line"
-                    style="color: #6d6259"
+                    style="color: var(--c-text-2)"
                   >
                     {{ truncateByLines(stripMarkdown(post.content), 3) }}
                   </p>
@@ -326,12 +323,12 @@
                     <button
                       @click="viewPostDetail(post.id)"
                       class="text-xs font-light transition-colors flex items-center gap-1"
-                      style="color: #8a7e74"
+                      style="color: var(--c-text-3)"
                       @mouseenter="
-                        (e) => (e.currentTarget.style.color = '#4f4842')
+                        (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
                       "
                       @mouseleave="
-                        (e) => (e.currentTarget.style.color = '#8a7e74')
+                        (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
                       "
                     >
                       查看详情 →
@@ -341,13 +338,13 @@
                   <!-- 底部信息 -->
                   <div
                     class="flex flex-wrap items-center gap-2 mt-3 pt-2"
-                    style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+                    style="border-top: 1px solid var(--c-divider)"
                   >
                     <img
                       :src="post.userAvatar || '/default-avatar.png'"
                       alt="头像"
                       class="w-5 h-5 rounded-full object-cover"
-                      style="border: 1px solid rgba(231, 219, 208, 0.3)"
+                      style="border: 1px solid var(--c-divider)"
                       @error="
                         (e) => {
                           (e.target as HTMLImageElement).src =
@@ -355,28 +352,29 @@
                         }
                       "
                     />
-                    <span class="text-xs font-light" style="color: #8a7e74">
+                    <span class="text-xs font-light" style="color: var(--c-text-3)">
                       {{ post.username || "匿名用户" }}</span
                     >
-                    <span class="text-xs font-light" style="color: #b8aa98">{{
+                    <span class="text-xs font-light" style="color: var(--c-text-4)">{{
                       formatTime(post.createdAt)
                     }}</span>
 
                     <button
                       @click="likePost(post.id)"
+                      :disabled="likedPosts.has(post.id)"
                       class="text-xs font-light transition-colors flex items-center gap-1"
-                      style="color: #8a7e74"
+                      :style="{ color: likedPosts.has(post.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedPosts.has(post.id) ? 'default' : 'pointer' }"
                       @mouseenter="
-                        (e) => (e.currentTarget.style.color = '#4f4842')
+                        (e) => { if (!likedPosts.has(post.id)) e.currentTarget.style.color = 'var(--c-text-1)' }
                       "
                       @mouseleave="
-                        (e) => (e.currentTarget.style.color = '#8a7e74')
+                        (e) => { if (!likedPosts.has(post.id)) e.currentTarget.style.color = 'var(--c-text-3)' }
                       "
                     >
-                      💛 {{ post.likes }}
+                      {{ likedPosts.has(post.id) ? '❤️' : '💛' }} {{ post.likes }}
                     </button>
 
-                    <span class="text-xs font-light" style="color: #8a7e74"
+                    <span class="text-xs font-light" style="color: var(--c-text-3)"
                       >💬 {{ post.comments || 0 }}</span
                     >
 
@@ -388,12 +386,12 @@
                       <button
                         @click="openEditModal(post)"
                         class="text-xs font-light transition-colors flex items-center gap-1"
-                        style="color: #8a7e74"
+                        style="color: var(--c-text-3)"
                         @mouseenter="
-                          (e) => (e.currentTarget.style.color = '#4f4842')
+                          (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
                         "
                         @mouseleave="
-                          (e) => (e.currentTarget.style.color = '#8a7e74')
+                          (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
                         "
                       >
                         ✏️ 编辑
@@ -401,12 +399,12 @@
                       <button
                         @click="confirmDeletePost(post.id)"
                         class="text-xs font-light transition-colors flex items-center gap-1"
-                        style="color: #b8aa98"
+                        style="color: var(--c-text-4)"
                         @mouseenter="
-                          (e) => (e.currentTarget.style.color = '#e85a65')
+                          (e) => (e.currentTarget.style.color = 'var(--c-danger)')
                         "
                         @mouseleave="
-                          (e) => (e.currentTarget.style.color = '#b8aa98')
+                          (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
                         "
                       >
                         🗑️ 删除
@@ -423,16 +421,16 @@
             v-if="showEditModal"
             class="fixed inset-0 z-50 flex items-center justify-center px-4"
             style="
-              background: rgba(44, 36, 28, 0.2);
+              background: var(--c-overlay);
               backdrop-filter: blur(4px);
             "
           >
             <div
               class="w-full max-w-lg p-8 rounded-[3rem]"
               style="
-                background: rgba(255, 250, 245, 0.95);
+                background: var(--c-card-solid);
                 backdrop-filter: blur(8px);
-                border: 1px solid rgba(230, 215, 200, 0.3);
+                border: 1px solid var(--c-border-1);
                 box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
                 max-height: 90vh;
                 overflow-y: auto;
@@ -441,16 +439,16 @@
               <div class="flex items-center justify-between mb-6">
                 <h2
                   class="text-xl font-light tracking-wide"
-                  style="color: #4f4842"
+                  style="color: var(--c-text-1)"
                 >
                   编辑帖子
                 </h2>
                 <button
                   @click="closeEditModal"
                   class="text-xl transition-colors"
-                  style="color: #b8aa98"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+                  style="color: var(--c-text-4)"
+                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
                 >
                   ✕
                 </button>
@@ -461,7 +459,7 @@
                 <div>
                   <label
                     class="text-xs font-light block mb-1.5"
-                    style="color: #6d6259"
+                    style="color: var(--c-text-2)"
                     >标题</label
                   >
                   <input
@@ -469,18 +467,18 @@
                     type="text"
                     class="w-full p-3 text-sm transition-all rounded-[1.5rem]"
                     style="
-                      background: rgba(245, 238, 232, 0.3);
-                      border: 1px solid #e7dbd0;
-                      color: #4b423c;
+                      background: var(--c-accent-soft);
+                      border: 1px solid var(--c-border-2);
+                      color: var(--c-text-content);
                       font-weight: 300;
                       font-family: &quot;Segoe UI&quot;, sans-serif;
                     "
                     placeholder="标题..."
                     @focus="
-                      (e) => (e.currentTarget.style.borderColor = '#dccfc4')
+                      (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) => (e.currentTarget.style.borderColor = '#e7dbd0')
+                      (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
                     "
                   />
                 </div>
@@ -489,25 +487,25 @@
                 <div>
                   <label
                     class="text-xs font-light block mb-1.5"
-                    style="color: #6d6259"
+                    style="color: var(--c-text-2)"
                     >分类</label
                   >
                   <select
                     v-model="editPostCategory"
                     class="w-full p-3 text-sm transition-all rounded-[1.5rem] appearance-none"
                     style="
-                      background: rgba(245, 238, 232, 0.3);
-                      border: 1px solid #e7dbd0;
-                      color: #4b423c;
+                      background: var(--c-accent-soft);
+                      border: 1px solid var(--c-border-2);
+                      color: var(--c-text-content);
                       font-weight: 300;
                       font-family: &quot;Segoe UI&quot;, sans-serif;
                       cursor: pointer;
                     "
                     @focus="
-                      (e) => (e.currentTarget.style.borderColor = '#dccfc4')
+                      (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) => (e.currentTarget.style.borderColor = '#e7dbd0')
+                      (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
                     "
                   >
                     <option value="心理调节">心理调节</option>
@@ -522,7 +520,7 @@
                 <div>
                   <label
                     class="text-xs font-light block mb-1.5"
-                    style="color: #6d6259"
+                    style="color: var(--c-text-2)"
                     >内容</label
                   >
                   <MarkdownEditor
@@ -538,23 +536,23 @@
                   :disabled="editing"
                   class="flex-1 py-2.5 text-sm font-light transition-all rounded-full disabled:opacity-50"
                   style="
-                    background: #ece3db;
-                    color: #4d443d;
-                    border: 1px solid #e2d5ca;
+                    background: var(--c-btn-bg);
+                    color: var(--c-text-btn);
+                    border: 1px solid var(--c-btn-border);
                   "
                   @mouseenter="
                     (e) => {
                       if (!editing) {
-                        e.currentTarget.style.background = '#e0d3c8';
-                        e.currentTarget.style.borderColor = '#cebdb0';
+                        e.currentTarget.style.background = 'var(--c-btn-hover)';
+                        e.currentTarget.style.borderColor = 'var(--c-accent-border)';
                       }
                     }
                   "
                   @mouseleave="
                     (e) => {
                       if (!editing) {
-                        e.currentTarget.style.background = '#ece3db';
-                        e.currentTarget.style.borderColor = '#e2d5ca';
+                        e.currentTarget.style.background = 'var(--c-btn-bg)';
+                        e.currentTarget.style.borderColor = 'var(--c-btn-border)';
                       }
                     }
                   "
@@ -566,19 +564,19 @@
                   class="px-6 py-2.5 text-sm font-light transition-all rounded-full"
                   style="
                     background: transparent;
-                    color: #8a7e74;
-                    border: 1px solid #e7dbd0;
+                    color: var(--c-text-3);
+                    border: 1px solid var(--c-border-2);
                   "
                   @mouseenter="
                     (e) => {
-                      e.currentTarget.style.borderColor = '#dccfc4';
-                      e.currentTarget.style.color = '#4f4842';
+                      e.currentTarget.style.borderColor = 'var(--c-accent)';
+                      e.currentTarget.style.color = 'var(--c-text-1)';
                     }
                   "
                   @mouseleave="
                     (e) => {
-                      e.currentTarget.style.borderColor = '#e7dbd0';
-                      e.currentTarget.style.color = '#8a7e74';
+                      e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                      e.currentTarget.style.color = 'var(--c-text-3)';
                     }
                   "
                 >
@@ -594,17 +592,17 @@
               @click="loadMore"
               :disabled="loadingMore"
               class="px-8 py-2 text-sm font-light transition-all rounded-full"
-              style="color: #8a7e74; border: 1px solid #e7dbd0"
+              style="color: var(--c-text-3); border: 1px solid var(--c-border-2)"
               @mouseenter="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#dccfc4';
-                  e.currentTarget.style.color = '#4f4842';
+                  e.currentTarget.style.borderColor = 'var(--c-accent)';
+                  e.currentTarget.style.color = 'var(--c-text-1)';
                 }
               "
               @mouseleave="
                 (e) => {
-                  e.currentTarget.style.borderColor = '#e7dbd0';
-                  e.currentTarget.style.color = '#8a7e74';
+                  e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                  e.currentTarget.style.color = 'var(--c-text-3)';
                 }
               "
             >
@@ -623,7 +621,7 @@
             <div
               class="w-6 h-6 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
             ></div>
-            <span class="text-xs font-light mt-2 block" style="color: #b8aa98"
+            <span class="text-xs font-light mt-2 block" style="color: var(--c-text-4)"
               >加载中...</span
             >
           </div>
@@ -634,12 +632,12 @@
             :key="item.id"
             class="p-3 transition-all rounded-2xl"
             :style="{
-              background: item.color || 'rgba(255, 250, 245, 0.6)',
-              border: '1px solid #efe7e0',
+              background: item.color || 'var(--c-card-bg)',
+              border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dfd2c6';
+                e.currentTarget.style.borderColor = 'var(--c-border-3)';
                 e.currentTarget.style.boxShadow =
                   '0 4px 16px rgba(150, 130, 110, 0.08)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -647,7 +645,7 @@
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#efe7e0';
+                e.currentTarget.style.borderColor = 'var(--c-border-1)';
                 e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
               }
@@ -655,31 +653,32 @@
           >
             <div class="flex items-start justify-between mb-1">
               <span class="text-sm">{{ item.icon || "📌" }}</span>
-              <span class="text-[10px] font-light" style="color: #b8aa98">{{
+              <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                 formatTime(item.createdAt)
               }}</span>
             </div>
             <p
               class="text-xs font-light leading-relaxed"
-              style="color: #4b423c; line-height: 1.5; word-break: break-word"
+              style="color: var(--c-text-content); line-height: 1.5; word-break: break-word"
             >
               {{ item.content }}
             </p>
             <div
               class="flex items-center justify-between mt-1.5 pt-1"
-              style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+              style="border-top: 1px solid var(--c-divider)"
             >
               <button
                 @click="likeSticky(item.id)"
+                :disabled="likedStickies.has(item.id)"
                 class="text-[10px] font-light transition-colors flex items-center gap-1"
-                style="color: #8a7e74"
-                @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+                :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
+                @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
+                @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
               >
-                💛 {{ item.likes }}
+                {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-light" style="color: #b8aa98">{{
+                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                   item.username || "匿名用户"
                 }}</span>
                 <!-- 删除按钮（仅自己的便签） -->
@@ -687,9 +686,9 @@
                   v-if="isMySticky(item)"
                   @click="confirmDeleteSticky(item.id)"
                   class="text-[10px] font-light transition-colors"
-                  style="color: #b8aa98"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#e85a65')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+                  style="color: var(--c-text-4)"
+                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
+                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
                 >
                   ✕
                 </button>
@@ -701,10 +700,10 @@
           <div
             v-if="!loading && rightStickies.length === 0"
             class="text-center py-6"
-            style="border: 1px dashed #e7dbd0; border-radius: 1.5rem"
+            style="border: 1px dashed var(--c-border-2); border-radius: 1.5rem"
           >
             <span class="text-2xl block mb-1">📌</span>
-            <span class="text-xs font-light" style="color: #b8aa98"
+            <span class="text-xs font-light" style="color: var(--c-text-4)"
               >便签会出现在这里</span
             >
           </div>
@@ -716,15 +715,15 @@
         <details class="group">
           <summary
             class="flex items-center gap-2 cursor-pointer text-sm font-light"
-            style="color: #8a7e74; list-style: none"
-            @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-            @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+            style="color: var(--c-text-3); list-style: none"
+            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >
             <span>📌</span> 查看便签
             <span class="text-xs transition-transform group-open:rotate-180"
               >▼</span
             >
-            <span class="text-xs font-light" style="color: #b8aa98">{{
+            <span class="text-xs font-light" style="color: var(--c-text-4)">{{
               filteredStickies.length
             }}</span>
           </summary>
@@ -734,49 +733,50 @@
               :key="item.id"
               class="p-3 transition-all rounded-2xl"
               :style="{
-                background: item.color || 'rgba(255, 250, 245, 0.6)',
-                border: '1px solid #efe7e0',
+                background: item.color || 'var(--c-card-bg)',
+                border: '1px solid var(--c-border-1)',
               }"
             >
               <div class="flex items-start justify-between mb-1">
                 <span class="text-sm">{{ item.icon || "📌" }}</span>
-                <span class="text-[10px] font-light" style="color: #b8aa98">{{
+                <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                   formatTime(item.createdAt)
                 }}</span>
               </div>
               <p
                 class="text-xs font-light leading-relaxed"
-                style="color: #4b423c; word-break: break-word"
+                style="color: var(--c-text-content); word-break: break-word"
               >
                 {{ item.content }}
               </p>
               <div
                 class="flex items-center justify-between mt-1.5 pt-1"
-                style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+                style="border-top: 1px solid var(--c-divider)"
               >
                 <button
                   @click="likeSticky(item.id)"
+                  :disabled="likedStickies.has(item.id)"
                   class="text-[10px] font-light transition-colors flex items-center gap-1"
-                  style="color: #8a7e74"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+                  :style="{ color: likedStickies.has(item.id) ? '#e8a0a0' : 'var(--c-text-3)', cursor: likedStickies.has(item.id) ? 'default' : 'pointer' }"
+                  @mouseenter="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-1)' }"
+                  @mouseleave="(e) => { if (!likedStickies.has(item.id)) e.currentTarget.style.color = 'var(--c-text-3)' }"
                 >
-                  💛 {{ item.likes }}
+                  {{ likedStickies.has(item.id) ? '❤️' : '💛' }} {{ item.likes }}
                 </button>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[10px] font-light" style="color: #b8aa98">{{
+                  <span class="text-[10px] font-light" style="color: var(--c-text-4)">{{
                     item.username || "匿名用户"
                   }}</span>
                   <button
                     v-if="isMySticky(item)"
                     @click="confirmDeleteSticky(item.id)"
                     class="text-[10px] font-light transition-colors"
-                    style="color: #b8aa98"
+                    style="color: var(--c-text-4)"
                     @mouseenter="
-                      (e) => (e.currentTarget.style.color = '#e85a65')
+                      (e) => (e.currentTarget.style.color = 'var(--c-danger)')
                     "
                     @mouseleave="
-                      (e) => (e.currentTarget.style.color = '#b8aa98')
+                      (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
                     "
                   >
                     ✕
@@ -793,29 +793,29 @@
     <div
       v-if="showCreateModal"
       class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style="background: rgba(44, 36, 28, 0.2); backdrop-filter: blur(4px)"
+      style="background: var(--c-overlay); backdrop-filter: blur(4px)"
     >
       <div
         class="w-full max-w-lg p-8 rounded-[3rem]"
         style="
-          background: rgba(255, 250, 245, 0.95);
+          background: var(--c-card-solid);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          border: 1px solid var(--c-border-1);
           box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
           max-height: 90vh;
           overflow-y: auto;
         "
       >
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
             分享你的方法
           </h2>
           <button
             @click="closeModal"
             class="text-xl transition-colors"
-            style="color: #b8aa98"
-            @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-            @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+            style="color: var(--c-text-4)"
+            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
           >
             ✕
           </button>
@@ -829,21 +829,21 @@
             class="flex-1 py-3 text-sm font-light transition-all rounded-full text-center"
             :style="
               shareType === type.value
-                ? 'background: rgba(236, 227, 219, 0.6); color: #4f4842; border: 1px solid #dccfc4;'
-                : 'background: transparent; color: #8a7e74; border: 1px solid #e7dbd0;'
+                ? 'background: var(--c-accent-light); color: var(--c-text-1); border: 1px solid var(--c-accent);'
+                : 'background: transparent; color: var(--c-text-3); border: 1px solid var(--c-border-2);'
             "
             @mouseenter="
               (e) => {
                 if (shareType !== type.value) {
-                  e.currentTarget.style.borderColor = '#dccfc4';
-                  e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)';
+                  e.currentTarget.style.borderColor = 'var(--c-accent)';
+                  e.currentTarget.style.background = 'var(--c-accent-soft)';
                 }
               }
             "
             @mouseleave="
               (e) => {
                 if (shareType !== type.value) {
-                  e.currentTarget.style.borderColor = '#e7dbd0';
+                  e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   e.currentTarget.style.background = 'transparent';
                 }
               }
@@ -858,7 +858,7 @@
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >便签内容</label
             >
             <textarea
@@ -866,21 +866,21 @@
               rows="4"
               class="w-full p-3 text-sm transition-all resize-none rounded-[1.5rem]"
               style="
-                background: rgba(245, 238, 232, 0.3);
-                border: 1px solid #e7dbd0;
-                color: #4b423c;
+                background: var(--c-accent-soft);
+                border: 1px solid var(--c-border-2);
+                color: var(--c-text-content);
                 font-weight: 300;
                 font-family: &quot;Segoe UI&quot;, sans-serif;
               "
               placeholder="写一个简短的小方法或暖心提醒..."
-              @focus="(e) => (e.currentTarget.style.borderColor = '#dccfc4')"
-              @blur="(e) => (e.currentTarget.style.borderColor = '#e7dbd0')"
+              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
             ></textarea>
           </div>
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >便签颜色</label
             >
             <div class="flex gap-3">
@@ -892,7 +892,7 @@
                   background: color,
                   border:
                     selectedColor === color
-                      ? '2px solid #4f4842'
+                      ? '2px solid var(--c-text-1)'
                       : '2px solid transparent',
                 }"
                 @click="selectedColor = color"
@@ -908,7 +908,7 @@
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >图标（可选）</label
             >
             <div class="flex gap-2 flex-wrap">
@@ -918,16 +918,16 @@
                 class="w-10 h-10 text-lg rounded-full transition-all"
                 :style="
                   selectedIcon === icon
-                    ? 'background: rgba(236, 227, 219, 0.6); border: 1px solid #dccfc4;'
+                    ? 'background: var(--c-accent-light); border: 1px solid var(--c-accent);'
                     : 'border: 1px solid transparent;'
                 "
                 @click="selectedIcon = icon"
                 @mouseenter="
                   (e) => {
                     if (selectedIcon !== icon) {
-                      e.currentTarget.style.borderColor = '#dccfc4';
+                      e.currentTarget.style.borderColor = 'var(--c-accent)';
                       e.currentTarget.style.background =
-                        'rgba(245, 238, 232, 0.3)';
+                        'var(--c-accent-soft)';
                     }
                   }
                 "
@@ -952,7 +952,7 @@
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >标题</label
             >
             <input
@@ -960,15 +960,15 @@
               type="text"
               class="w-full p-3 text-sm transition-all rounded-[1.5rem]"
               style="
-                background: rgba(245, 238, 232, 0.3);
-                border: 1px solid #e7dbd0;
-                color: #4b423c;
+                background: var(--c-accent-soft);
+                border: 1px solid var(--c-border-2);
+                color: var(--c-text-content);
                 font-weight: 300;
                 font-family: &quot;Segoe UI&quot;, sans-serif;
               "
               placeholder="给你的方法起个标题..."
-              @focus="(e) => (e.currentTarget.style.borderColor = '#dccfc4')"
-              @blur="(e) => (e.currentTarget.style.borderColor = '#e7dbd0')"
+              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
             />
           </div>
 
@@ -976,22 +976,22 @@
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >分类</label
             >
             <select
               v-model="postCategory"
               class="w-full p-3 text-sm transition-all rounded-[1.5rem] appearance-none"
               style="
-                background: rgba(245, 238, 232, 0.3);
-                border: 1px solid #e7dbd0;
-                color: #4b423c;
+                background: var(--c-accent-soft);
+                border: 1px solid var(--c-border-2);
+                color: var(--c-text-content);
                 font-weight: 300;
                 font-family: &quot;Segoe UI&quot;, sans-serif;
                 cursor: pointer;
               "
-              @focus="(e) => (e.currentTarget.style.borderColor = '#dccfc4')"
-              @blur="(e) => (e.currentTarget.style.borderColor = '#e7dbd0')"
+              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
             >
               <option value="心理调节">心理调节</option>
               <option value="生活习惯">生活习惯</option>
@@ -1005,7 +1005,7 @@
           <div>
             <label
               class="text-xs font-light block mb-1.5"
-              style="color: #6d6259"
+              style="color: var(--c-text-2)"
               >内容</label
             >
             <MarkdownEditor
@@ -1021,23 +1021,23 @@
             :disabled="submitting"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full disabled:opacity-50"
             style="
-              background: #ece3db;
-              color: #4d443d;
-              border: 1px solid #e2d5ca;
+              background: var(--c-btn-bg);
+              color: var(--c-text-btn);
+              border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
               (e) => {
                 if (!submitting) {
-                  e.currentTarget.style.background = '#e0d3c8';
-                  e.currentTarget.style.borderColor = '#cebdb0';
+                  e.currentTarget.style.background = 'var(--c-btn-hover)';
+                  e.currentTarget.style.borderColor = 'var(--c-accent-border)';
                 }
               }
             "
             @mouseleave="
               (e) => {
                 if (!submitting) {
-                  e.currentTarget.style.background = '#ece3db';
-                  e.currentTarget.style.borderColor = '#e2d5ca';
+                  e.currentTarget.style.background = 'var(--c-btn-bg)';
+                  e.currentTarget.style.borderColor = 'var(--c-btn-border)';
                 }
               }
             "
@@ -1049,19 +1049,19 @@
             class="px-6 py-2.5 text-sm font-light transition-all rounded-full"
             style="
               background: transparent;
-              color: #8a7e74;
-              border: 1px solid #e7dbd0;
+              color: var(--c-text-3);
+              border: 1px solid var(--c-border-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.color = '#4f4842';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.color = '#8a7e74';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
           >
@@ -1075,31 +1075,31 @@
     <div
       v-if="showDeletePostModal"
       class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px)"
+      style="background: var(--c-overlay-heavy); backdrop-filter: blur(4px)"
     >
       <div
         class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
         style="
-          background: rgba(255, 250, 245, 0.95);
+          background: var(--c-card-solid);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          border: 1px solid var(--c-border-1);
           box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
         "
       >
         <div class="text-4xl mb-4">🗑️</div>
-        <h3 class="text-lg font-light tracking-wide" style="color: #4f4842">
+        <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
           确认删除帖子
         </h3>
-        <p class="text-sm font-light mt-2" style="color: #6d6259">
+        <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
           确定要删除这篇帖子吗？此操作不可撤销。
         </p>
         <div class="flex gap-3 mt-6">
           <button
             @click="deletePost"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
-            style="background: #e85a65; color: white; border: 1px solid #e85a65"
-            @mouseenter="(e) => (e.currentTarget.style.background = '#cc404a')"
-            @mouseleave="(e) => (e.currentTarget.style.background = '#e85a65')"
+            style="background: var(--c-danger); color: white; border: 1px solid var(--c-danger)"
+            @mouseenter="(e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')"
+            @mouseleave="(e) => (e.currentTarget.style.background = 'var(--c-danger)')"
           >
             确认删除
           </button>
@@ -1108,19 +1108,19 @@
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
             style="
               background: transparent;
-              color: #8a7e74;
-              border: 1px solid #e7dbd0;
+              color: var(--c-text-3);
+              border: 1px solid var(--c-border-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.color = '#4f4842';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.color = '#8a7e74';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
           >
@@ -1134,31 +1134,31 @@
     <div
       v-if="showDeleteStickyModal"
       class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px)"
+      style="background: var(--c-overlay-heavy); backdrop-filter: blur(4px)"
     >
       <div
         class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
         style="
-          background: rgba(255, 250, 245, 0.95);
+          background: var(--c-card-solid);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          border: 1px solid var(--c-border-1);
           box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
         "
       >
         <div class="text-4xl mb-4">📌</div>
-        <h3 class="text-lg font-light tracking-wide" style="color: #4f4842">
+        <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
           确认删除便签
         </h3>
-        <p class="text-sm font-light mt-2" style="color: #6d6259">
+        <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
           确定要删除这条便签吗？此操作不可撤销。
         </p>
         <div class="flex gap-3 mt-6">
           <button
             @click="deleteSticky"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
-            style="background: #e85a65; color: white; border: 1px solid #e85a65"
-            @mouseenter="(e) => (e.currentTarget.style.background = '#cc404a')"
-            @mouseleave="(e) => (e.currentTarget.style.background = '#e85a65')"
+            style="background: var(--c-danger); color: white; border: 1px solid var(--c-danger)"
+            @mouseenter="(e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')"
+            @mouseleave="(e) => (e.currentTarget.style.background = 'var(--c-danger)')"
           >
             确认删除
           </button>
@@ -1167,19 +1167,19 @@
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
             style="
               background: transparent;
-              color: #8a7e74;
-              border: 1px solid #e7dbd0;
+              color: var(--c-text-3);
+              border: 1px solid var(--c-border-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.color = '#4f4842';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.color = '#8a7e74';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
           >
@@ -1206,6 +1206,28 @@ import MarkdownEditor from "@/components/MarkdownEditor.vue";
 
 const router = useRouter();
 const userStore = useUserStore();
+
+// ====== 点赞状态管理（localStorage 持久化） ======
+const LIKED_POSTS_KEY = "qisoul_liked_posts";
+const LIKED_STICKIES_KEY = "qisoul_liked_stickies";
+
+const loadLikedSet = (key: string): Set<string> => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+};
+
+const saveLikedSet = (key: string, set: Set<string>) => {
+  localStorage.setItem(key, JSON.stringify([...set]));
+};
+
+const likedPosts = ref<Set<string>>(loadLikedSet(LIKED_POSTS_KEY));
+const likedStickies = ref<Set<string>>(loadLikedSet(LIKED_STICKIES_KEY));
+const likingPosts = ref<Set<string>>(new Set());
+const likingStickies = ref<Set<string>>(new Set());
 
 // ====== 状态 ======
 const loading = ref(true);
@@ -1408,23 +1430,39 @@ watch(selectedCategory, (newVal) => {
 
 // ====== 点赞帖子 ======
 const likePost = async (id: string) => {
+  if (likedPosts.value.has(id) || likingPosts.value.has(id)) return;
+  likingPosts.value = new Set([...likingPosts.value, id]);
   try {
     const result = await postService.likePost(id);
     const post = posts.value.find((p) => p.id === id);
     if (post) post.likes = result.likes;
+    likedPosts.value = new Set([...likedPosts.value, id]);
+    saveLikedSet(LIKED_POSTS_KEY, likedPosts.value);
   } catch (error) {
     console.error("点赞失败:", error);
+  } finally {
+    const next = new Set(likingPosts.value);
+    next.delete(id);
+    likingPosts.value = next;
   }
 };
 
 // ====== 点赞便签 ======
 const likeSticky = async (id: string) => {
+  if (likedStickies.value.has(id) || likingStickies.value.has(id)) return;
+  likingStickies.value = new Set([...likingStickies.value, id]);
   try {
     const result = await stickyService.likeSticky(id);
     const sticky = stickies.value.find((s) => s.id === id);
     if (sticky) sticky.likes = result.likes;
+    likedStickies.value = new Set([...likedStickies.value, id]);
+    saveLikedSet(LIKED_STICKIES_KEY, likedStickies.value);
   } catch (error) {
     console.error("点赞便签失败:", error);
+  } finally {
+    const next = new Set(likingStickies.value);
+    next.delete(id);
+    likingStickies.value = next;
   }
 };
 
@@ -1605,7 +1643,7 @@ onMounted(() => {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dccfc4;
+  background: var(--c-accent);
   border-radius: 9999px;
 }
 

@@ -3,13 +3,13 @@
     <div class="max-w-6xl mx-auto px-6">
       <!-- 欢迎语 -->
       <div class="mb-8">
-        <h1 class="text-2xl font-light tracking-wide" style="color: #4f4842">
+        <h1 class="text-2xl font-light tracking-wide" style="color: var(--c-text-1)">
           {{ greeting }}，{{ userStore.getUsername }}
         </h1>
-        <p class="text-sm mt-1 font-light" style="color: #6d6259">
+        <p class="text-sm mt-1 font-light" style="color: var(--c-text-2)">
           今天的心情如何？记得给自己一些温柔的关照。
         </p>
-        <div class="w-12 h-px mt-3" style="background: #dccfc4"></div>
+        <div class="w-12 h-px mt-3" style="background: var(--c-accent)"></div>
       </div>
 
       <!-- 快捷操作 -->
@@ -18,26 +18,26 @@
           @click="showMoodModal = true"
           class="p-5 text-left transition-all rounded-[2.5rem]"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
           "
           @mouseenter="
             (e) => {
-              e.currentTarget.style.borderColor = '#dfd2c6';
+              e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.borderColor = '#efe7e0';
+              e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
           "
         >
           <div class="text-2xl mb-2">📝</div>
-          <div class="text-sm font-light" style="color: #4f4842">记录心情</div>
-          <div class="text-xs mt-0.5 font-light" style="color: #8a7e74">
+          <div class="text-sm font-light" style="color: var(--c-text-1)">记录心情</div>
+          <div class="text-xs mt-0.5 font-light" style="color: var(--c-text-3)">
             今日还未记录
           </div>
         </button>
@@ -46,27 +46,27 @@
           to="/community"
           class="p-5 text-left transition-all rounded-[2.5rem]"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
             display: block;
           "
           @mouseenter="
             (e) => {
-              e.currentTarget.style.borderColor = '#dfd2c6';
+              e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.borderColor = '#efe7e0';
+              e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
           "
         >
           <div class="text-2xl mb-2">💬</div>
-          <div class="text-sm font-light" style="color: #4f4842">温暖社区</div>
-          <div class="text-xs mt-0.5 font-light" style="color: #8a7e74">
+          <div class="text-sm font-light" style="color: var(--c-text-1)">温暖社区</div>
+          <div class="text-xs mt-0.5 font-light" style="color: var(--c-text-3)">
             看看大家的故事
           </div>
         </router-link>
@@ -75,27 +75,27 @@
           to="/resources"
           class="p-5 text-left transition-all rounded-[2.5rem]"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
             display: block;
           "
           @mouseenter="
             (e) => {
-              e.currentTarget.style.borderColor = '#dfd2c6';
+              e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.borderColor = '#efe7e0';
+              e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
           "
         >
           <div class="text-2xl mb-2">🧘</div>
-          <div class="text-sm font-light" style="color: #4f4842">舒缓资源</div>
-          <div class="text-xs mt-0.5 font-light" style="color: #8a7e74">
+          <div class="text-sm font-light" style="color: var(--c-text-1)">舒缓资源</div>
+          <div class="text-xs mt-0.5 font-light" style="color: var(--c-text-3)">
             温暖工具与陪伴
           </div>
         </router-link>
@@ -104,26 +104,26 @@
           @click="viewStats"
           class="p-5 text-left transition-all rounded-[2.5rem]"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
           "
           @mouseenter="
             (e) => {
-              e.currentTarget.style.borderColor = '#dfd2c6';
+              e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
             (e) => {
-              e.currentTarget.style.borderColor = '#efe7e0';
+              e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
           "
         >
           <div class="text-2xl mb-2">📊</div>
-          <div class="text-sm font-light" style="color: #4f4842">查看趋势</div>
-          <div class="text-xs mt-0.5 font-light" style="color: #8a7e74">
+          <div class="text-sm font-light" style="color: var(--c-text-1)">查看趋势</div>
+          <div class="text-xs mt-0.5 font-light" style="color: var(--c-text-3)">
             近7天情绪变化
           </div>
         </button>
@@ -135,23 +135,23 @@
         <div
           class="lg:col-span-2 p-6 rounded-[2.5rem]"
           style="
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #efe7e0;
+            background: var(--c-card-bg);
+            border: 1px solid var(--c-border-1);
           "
         >
           <div class="flex items-center justify-between mb-5">
-            <h2 class="text-lg font-light tracking-wide" style="color: #4f4842">
+            <h2 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
               近期心情
             </h2>
-            <span class="text-xs font-light" style="color: #8a7e74">近7天</span>
+            <span class="text-xs font-light" style="color: var(--c-text-3)">近7天</span>
           </div>
 
           <div v-if="recentMoods.length === 0" class="text-center py-8">
             <div class="text-4xl mb-3">🌱</div>
-            <p class="text-sm font-light" style="color: #8a7e74">
+            <p class="text-sm font-light" style="color: var(--c-text-3)">
               还没有心情记录
             </p>
-            <p class="text-xs mt-1 font-light" style="color: #b8aa98">
+            <p class="text-xs mt-1 font-light" style="color: var(--c-text-4)">
               点击「记录心情」开始你的第一次记录
             </p>
           </div>
@@ -162,11 +162,11 @@
               v-for="item in recentMoods"
               :key="item.id"
               class="flex items-center justify-between p-3 rounded-full transition-all group"
-              style="border-bottom: 1px solid rgba(231, 219, 208, 0.3)"
+              style="border-bottom: 1px solid var(--c-divider)"
               @mouseenter="
                 (e) =>
                   (e.currentTarget.style.background =
-                    'rgba(245, 238, 232, 0.3)')
+                    'var(--c-accent-soft)')
               "
               @mouseleave="
                 (e) => (e.currentTarget.style.background = 'transparent')
@@ -175,25 +175,25 @@
               <div class="flex items-center gap-3 flex-1">
                 <span class="text-xl">{{ getMoodIcon(item.moodType) }}</span>
                 <div>
-                  <div class="text-sm font-light" style="color: #4f4842">
+                  <div class="text-sm font-light" style="color: var(--c-text-1)">
                     {{ item.moodLabel }}
                   </div>
-                  <div class="text-xs font-light" style="color: #8a7e74">
+                  <div class="text-xs font-light" style="color: var(--c-text-3)">
                     {{ item.note || "无备注" }}
                   </div>
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-xs font-light" style="color: #b8aa98">{{
+                <span class="text-xs font-light" style="color: var(--c-text-4)">{{
                   formatTime(item.recordDate)
                 }}</span>
                 <!-- ✅ 删除按钮 -->
                 <button
                   @click="confirmDeleteMood(item.id)"
                   class="text-xs transition-colors opacity-0 group-hover:opacity-100"
-                  style="color: #b8aa98"
-                  @mouseenter="(e) => (e.currentTarget.style.color = '#e85a65')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+                  style="color: var(--c-text-4)"
+                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
+                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
                 >
                   ✕
                 </button>
@@ -206,22 +206,22 @@
         <div
           v-if="showDeleteMoodModal"
           class="fixed inset-0 z-50 flex items-center justify-center px-4"
-          style="background: rgba(44, 36, 28, 0.3); backdrop-filter: blur(4px)"
+          style="background: var(--c-overlay-heavy); backdrop-filter: blur(4px)"
         >
           <div
             class="w-full max-w-sm p-6 rounded-[2.5rem] text-center"
             style="
-              background: rgba(255, 250, 245, 0.95);
+              background: var(--c-card-solid);
               backdrop-filter: blur(8px);
-              border: 1px solid rgba(230, 215, 200, 0.3);
+              border: 1px solid var(--c-border-1);
               box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
             "
           >
             <div class="text-4xl mb-4">💭</div>
-            <h3 class="text-lg font-light tracking-wide" style="color: #4f4842">
+            <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
               确认删除
             </h3>
-            <p class="text-sm font-light mt-2" style="color: #6d6259">
+            <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
               确定要删除这条心情记录吗？此操作不可撤销。
             </p>
             <div class="flex gap-3 mt-6">
@@ -229,15 +229,15 @@
                 @click="deleteMood"
                 class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
                 style="
-                  background: #e85a65;
+                  background: var(--c-danger);
                   color: white;
-                  border: 1px solid #e85a65;
+                  border: 1px solid var(--c-danger);
                 "
                 @mouseenter="
-                  (e) => (e.currentTarget.style.background = '#cc404a')
+                  (e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.background = '#e85a65')
+                  (e) => (e.currentTarget.style.background = 'var(--c-danger)')
                 "
               >
                 确认删除
@@ -247,19 +247,19 @@
                 class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
                 style="
                   background: transparent;
-                  color: #8a7e74;
-                  border: 1px solid #e7dbd0;
+                  color: var(--c-text-3);
+                  border: 1px solid var(--c-border-2);
                 "
                 @mouseenter="
                   (e) => {
-                    e.currentTarget.style.borderColor = '#dccfc4';
-                    e.currentTarget.style.color = '#4f4842';
+                    e.currentTarget.style.borderColor = 'var(--c-accent)';
+                    e.currentTarget.style.color = 'var(--c-text-1)';
                   }
                 "
                 @mouseleave="
                   (e) => {
-                    e.currentTarget.style.borderColor = '#e7dbd0';
-                    e.currentTarget.style.color = '#8a7e74';
+                    e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                    e.currentTarget.style.color = 'var(--c-text-3)';
                   }
                 "
               >
@@ -274,39 +274,39 @@
           <div
             class="p-6 rounded-[2.5rem]"
             style="
-              background: rgba(255, 250, 245, 0.6);
-              border: 1px solid #efe7e0;
+              background: var(--c-card-bg);
+              border: 1px solid var(--c-border-1);
             "
           >
-            <h3 class="text-sm font-light tracking-wide" style="color: #4f4842">
+            <h3 class="text-sm font-light tracking-wide" style="color: var(--c-text-1)">
               本月概览
             </h3>
-            <div class="w-8 h-px mt-2 mb-4" style="background: #dccfc4"></div>
+            <div class="w-8 h-px mt-2 mb-4" style="background: var(--c-accent)"></div>
             <div class="space-y-3 text-sm font-light">
               <div class="flex items-center justify-between">
-                <span style="color: #6d6259">记录天数</span>
-                <span style="color: #4f4842"
+                <span style="color: var(--c-text-2)">记录天数</span>
+                <span style="color: var(--c-text-1)"
                   >{{ stats.totalDays || 0 }} 天</span
                 >
               </div>
               <div class="flex items-center justify-between">
-                <span style="color: #6d6259">总记录</span>
-                <span style="color: #4f4842"
+                <span style="color: var(--c-text-2)">总记录</span>
+                <span style="color: var(--c-text-1)"
                   >{{ stats.totalRecords || 0 }} 条</span
                 >
               </div>
               <div class="flex items-center justify-between">
-                <span style="color: #6d6259">今日心情</span>
-                <span style="color: #8a7e74">{{
+                <span style="color: var(--c-text-2)">今日心情</span>
+                <span style="color: var(--c-text-3)">{{
                   stats.todayMood || "未记录"
                 }}</span>
               </div>
               <div
                 class="flex items-center justify-between pt-2"
-                style="border-top: 1px dashed #e7dbd0"
+                style="border-top: 1px dashed var(--c-border-2)"
               >
-                <span style="color: #6d6259">连续记录</span>
-                <span style="color: #8a7e74"
+                <span style="color: var(--c-text-2)">连续记录</span>
+                <span style="color: var(--c-text-3)"
                   >{{ stats.streak || 0 }} 天 🔥</span
                 >
               </div>
@@ -316,16 +316,16 @@
           <div
             class="p-6 rounded-[3rem]"
             style="
-              background: rgba(245, 238, 232, 0.4);
+              background: var(--c-accent-soft);
               backdrop-filter: blur(2px);
-              border-left: 6px solid #dccfc4;
+              border-left: 6px solid var(--c-accent);
             "
           >
             <div class="flex items-start gap-3">
               <span class="text-xl">💛</span>
               <p
                 class="text-sm leading-relaxed font-light"
-                style="color: #4b423c; font-style: italic"
+                style="color: var(--c-text-content); font-style: italic"
               >
                 "{{ dailyReminder }}"
               </p>
@@ -337,49 +337,49 @@
       <!-- 社区动态 -->
       <div
         class="mt-8 p-6 rounded-[2.5rem]"
-        style="background: rgba(255, 250, 245, 0.6); border: 1px solid #efe7e0"
+        style="background: var(--c-card-bg); border: 1px solid var(--c-border-1)"
       >
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-sm font-light tracking-wide" style="color: #4f4842">
+          <h3 class="text-sm font-light tracking-wide" style="color: var(--c-text-1)">
             社区温暖动态
           </h3>
           <router-link
             to="/community"
             class="text-xs font-light transition-colors"
-            style="color: #8a7e74"
-            @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-            @mouseleave="(e) => (e.currentTarget.style.color = '#8a7e74')"
+            style="color: var(--c-text-3)"
+            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >
             查看全部 →
           </router-link>
         </div>
         <div v-if="communityPosts.length === 0" class="text-center py-4">
-          <p class="text-sm font-light" style="color: #8a7e74">暂无社区动态</p>
+          <p class="text-sm font-light" style="color: var(--c-text-3)">暂无社区动态</p>
         </div>
         <div v-else class="grid sm:grid-cols-2 gap-4">
           <div
             v-for="post in communityPosts"
             :key="post.id"
             class="p-3 rounded-[2rem] transition-all cursor-pointer"
-            style="border: 1px solid rgba(239, 231, 224, 0.6)"
-            @mouseenter="(e) => (e.currentTarget.style.borderColor = '#dfd2c6')"
+            style="border: 1px solid var(--c-border-1)"
+            @mouseenter="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-3)')"
             @mouseleave="
               (e) =>
-                (e.currentTarget.style.borderColor = 'rgba(239, 231, 224, 0.6)')
+                (e.currentTarget.style.borderColor = 'var(--c-border-1)')
             "
             @click="viewPostDetail(post.id)"
           >
             <p
               class="text-sm leading-relaxed font-light"
-              style="color: #4b423c"
+              style="color: var(--c-text-content)"
             >
               "{{ truncateText(stripMarkdown(post.content), 60) }}"
             </p>
             <div class="flex items-center justify-between mt-2">
-              <span class="text-xs font-light" style="color: #8a7e74">{{
+              <span class="text-xs font-light" style="color: var(--c-text-3)">{{
                 post.username || "匿名用户"
               }}</span>
-              <span class="text-xs font-light" style="color: #b8aa98">{{
+              <span class="text-xs font-light" style="color: var(--c-text-4)">{{
                 formatTime(post.createdAt)
               }}</span>
             </div>
@@ -392,27 +392,27 @@
     <div
       v-if="showMoodModal"
       class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style="background: rgba(44, 36, 28, 0.2); backdrop-filter: blur(4px)"
+      style="background: var(--c-overlay); backdrop-filter: blur(4px)"
     >
       <div
         class="w-full max-w-md p-8 rounded-[3rem]"
         style="
-          background: rgba(255, 250, 245, 0.95);
+          background: var(--c-card-solid);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(230, 215, 200, 0.3);
+          border: 1px solid var(--c-border-1);
           box-shadow: 0 12px 30px rgba(140, 120, 100, 0.08);
         "
       >
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-light tracking-wide" style="color: #4f4842">
+          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
             记录今天的心情
           </h2>
           <button
             @click="closeModal"
             class="text-xl transition-colors"
-            style="color: #b8aa98"
-            @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-            @mouseleave="(e) => (e.currentTarget.style.color = '#b8aa98')"
+            style="color: var(--c-text-4)"
+            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
           >
             ✕
           </button>
@@ -426,14 +426,14 @@
             class="py-3 text-center transition-all text-2xl rounded-full"
             :style="
               selectedMood === mood.value
-                ? 'background: rgba(236, 227, 219, 0.6); border: 1px solid #dccfc4;'
+                ? 'background: var(--c-accent-light); border: 1px solid var(--c-accent);'
                 : 'border: 1px solid transparent;'
             "
             @mouseenter="
               (e) => {
                 if (selectedMood !== mood.value) {
-                  e.currentTarget.style.borderColor = '#dccfc4';
-                  e.currentTarget.style.background = 'rgba(245, 238, 232, 0.3)';
+                  e.currentTarget.style.borderColor = 'var(--c-accent)';
+                  e.currentTarget.style.background = 'var(--c-accent-soft)';
                 }
               }
             "
@@ -457,20 +457,20 @@
             @click="addTag(tag)"
             class="px-3 py-1 text-xs rounded-full transition-all"
             style="
-              background: rgba(236, 227, 219, 0.3);
-              border: 1px solid #e7dbd0;
-              color: #6d6259;
+              background: var(--c-tag-bg);
+              border: 1px solid var(--c-border-2);
+              color: var(--c-text-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.background = 'rgba(236, 227, 219, 0.5)';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.background = 'var(--c-accent-light)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.background = 'rgba(236, 227, 219, 0.3)';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.background = 'var(--c-tag-bg)';
               }
             "
           >
@@ -483,15 +483,15 @@
           rows="3"
           class="w-full p-3 text-sm transition-all resize-none rounded-[1.5rem]"
           style="
-            background: rgba(245, 238, 232, 0.3);
-            border: 1px solid #e7dbd0;
-            color: #4b423c;
+            background: var(--c-accent-soft);
+            border: 1px solid var(--c-border-2);
+            color: var(--c-text-content);
             font-weight: 300;
             font-family: &quot;Segoe UI&quot;, sans-serif;
           "
           placeholder="今天的感受是..."
-          @focus="(e) => (e.currentTarget.style.borderColor = '#dccfc4')"
-          @blur="(e) => (e.currentTarget.style.borderColor = '#e7dbd0')"
+          @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+          @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
         ></textarea>
 
         <div class="flex gap-3 mt-6">
@@ -499,20 +499,20 @@
             @click="saveMood"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
             style="
-              background: #ece3db;
-              color: #4d443d;
-              border: 1px solid #e2d5ca;
+              background: var(--c-btn-bg);
+              color: var(--c-text-btn);
+              border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.background = '#e0d3c8';
-                e.currentTarget.style.borderColor = '#cebdb0';
+                e.currentTarget.style.background = 'var(--c-btn-hover)';
+                e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.background = '#ece3db';
-                e.currentTarget.style.borderColor = '#e2d5ca';
+                e.currentTarget.style.background = 'var(--c-btn-bg)';
+                e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
             "
           >
@@ -523,19 +523,19 @@
             class="px-6 py-2.5 text-sm font-light transition-all rounded-full"
             style="
               background: transparent;
-              color: #8a7e74;
-              border: 1px solid #e7dbd0;
+              color: var(--c-text-3);
+              border: 1px solid var(--c-border-2);
             "
             @mouseenter="
               (e) => {
-                e.currentTarget.style.borderColor = '#dccfc4';
-                e.currentTarget.style.color = '#4f4842';
+                e.currentTarget.style.borderColor = 'var(--c-accent)';
+                e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
               (e) => {
-                e.currentTarget.style.borderColor = '#e7dbd0';
-                e.currentTarget.style.color = '#8a7e74';
+                e.currentTarget.style.borderColor = 'var(--c-border-2)';
+                e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
           >

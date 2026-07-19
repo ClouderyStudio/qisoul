@@ -1,7 +1,7 @@
 <template>
   <div
     class="min-h-screen flex items-center justify-center px-4 py-8"
-    style="background: #f6f3f0"
+    style="background: var(--c-bg)"
   >
     <!-- 极柔背景装饰 -->
     <div
@@ -28,25 +28,25 @@
     <div
       class="w-full max-w-sm"
       style="
-        background: rgba(255, 250, 245, 0.75);
+        background: var(--c-nav-bg);
         backdrop-filter: blur(2px);
         border-radius: 3rem;
         padding: 2.8rem 2.5rem;
         box-shadow:
           0 12px 30px rgba(140, 120, 100, 0.08),
           0 4px 10px rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(230, 215, 200, 0.3);
+        border: 1px solid var(--c-border-1);
       "
     >
       <!-- Logo -->
       <div class="text-center mb-8">
         <div
           class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
-          style="background: rgba(236, 227, 219, 0.6)"
+          style="background: var(--c-accent-light)"
         >
           <svg
             class="w-8 h-8"
-            style="color: #8a7e74"
+            style="color: var(--c-text-3)"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -59,16 +59,16 @@
         </div>
         <h1
           class="text-3xl font-light tracking-wide"
-          style="color: #4f4842; letter-spacing: -0.5px"
+          style="color: var(--c-text-1); letter-spacing: -0.5px"
         >
           栖所
         </h1>
-        <p class="text-sm font-light mt-1" style="color: #8a7e74">
+        <p class="text-sm font-light mt-1" style="color: var(--c-text-3)">
           安静 · 温和 · 长久
         </p>
       </div>
 
-      <p class="text-sm text-center mb-6 font-light" style="color: #6d6259">
+      <p class="text-sm text-center mb-6 font-light" style="color: var(--c-text-2)">
         登录以继续
       </p>
 
@@ -76,27 +76,27 @@
         @click="loginWithCasdoor"
         :disabled="loading"
         class="w-full py-3.5 text-sm font-light transition-all rounded-full flex items-center justify-center gap-3 disabled:opacity-50"
-        style="background: #ece3db; color: #4d443d; border: 1px solid #e2d5ca"
+        style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
         @mouseenter="
           (e) => {
             if (!loading) {
-              e.currentTarget.style.background = '#e0d3c8';
-              e.currentTarget.style.borderColor = '#cebdb0';
+              e.currentTarget.style.background = 'var(--c-btn-hover)';
+              e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           }
         "
         @mouseleave="
           (e) => {
             if (!loading) {
-              e.currentTarget.style.background = '#ece3db';
-              e.currentTarget.style.borderColor = '#e2d5ca';
+              e.currentTarget.style.background = 'var(--c-btn-bg)';
+              e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }
           }
         "
       >
         <span
           v-if="loading"
-          class="w-4 h-4 border-2 border-[#4d443d]/30 border-t-[#4d443d] rounded-full animate-spin"
+          class="w-4 h-4 border-2 border-[var(--c-text-btn)]/30 border-t-[var(--c-text-btn)] rounded-full animate-spin"
         ></span>
         <template v-else>
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -110,12 +110,12 @@
 
       <div class="relative my-6">
         <div class="absolute inset-0 flex items-center">
-          <div class="w-full" style="border-top: 1px dashed #e7dbd0"></div>
+          <div class="w-full" style="border-top: 1px dashed var(--c-border-2)"></div>
         </div>
         <div class="relative flex justify-center">
           <span
             class="px-3 text-xs font-light"
-            style="background: rgba(255, 250, 245, 0.75); color: #8a7e74"
+            style="background: var(--c-nav-bg); color: var(--c-text-3)"
             >安全 · 温和</span
           >
         </div>
@@ -123,50 +123,50 @@
 
       <div
         class="flex items-center justify-center gap-5 text-xs font-light"
-        style="color: #8a7e74"
+        style="color: var(--c-text-3)"
       >
         <span class="flex items-center gap-1.5"
           ><span
             class="w-1.5 h-1.5 rounded-full"
-            style="background: #dccfc4"
+            style="background: var(--c-accent)"
           ></span
           >加密传输</span
         >
-        <span class="w-px h-4" style="background: #e7dbd0"></span>
+        <span class="w-px h-4" style="background: var(--c-border-2)"></span>
         <span class="flex items-center gap-1.5"
           ><span
             class="w-1.5 h-1.5 rounded-full"
-            style="background: #dccfc4"
+            style="background: var(--c-accent)"
           ></span
           >隐私保护</span
         >
-        <span class="w-px h-4" style="background: #e7dbd0"></span>
+        <span class="w-px h-4" style="background: var(--c-border-2)"></span>
         <span class="flex items-center gap-1.5"
           ><span
             class="w-1.5 h-1.5 rounded-full"
-            style="background: #dccfc4"
+            style="background: var(--c-accent)"
           ></span
           >用心守护</span
         >
       </div>
 
-      <p class="text-center text-xs font-light mt-6" style="color: #8a7e74">
+      <p class="text-center text-xs font-light mt-6" style="color: var(--c-text-3)">
         登录即表示你同意
         <a
           href="/terms"
           class="transition-colors"
-          style="color: #6d6259; border-bottom: 1px dotted #dccfc4"
-          @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-          @mouseleave="(e) => (e.currentTarget.style.color = '#6d6259')"
+          style="color: var(--c-text-2); border-bottom: 1px dotted var(--c-accent)"
+          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-2)')"
           >服务条款</a
         >
         <span class="mx-1">·</span>
         <a
           href="/privacy"
           class="transition-colors"
-          style="color: #6d6259; border-bottom: 1px dotted #dccfc4"
-          @mouseenter="(e) => (e.currentTarget.style.color = '#4f4842')"
-          @mouseleave="(e) => (e.currentTarget.style.color = '#6d6259')"
+          style="color: var(--c-text-2); border-bottom: 1px dotted var(--c-accent)"
+          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-2)')"
           >隐私政策</a
         >
       </p>
@@ -175,7 +175,7 @@
     <div class="fixed top-20 left-0 right-0 text-center pointer-events-none">
       <p
         class="text-xs tracking-widest font-light"
-        style="color: #b8aa98; letter-spacing: 0.15em"
+        style="color: var(--c-text-4); letter-spacing: 0.15em"
       >
         ✦ 在这里，你不必独自承受 ✦
       </p>
