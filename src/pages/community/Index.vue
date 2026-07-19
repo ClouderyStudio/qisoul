@@ -97,7 +97,7 @@
             :key="item.id"
             class="p-3 transition-all rounded-2xl"
             :style="{
-              background: item.color || 'var(--c-card-bg)',
+              background: displayStickyColor(item.color),
               border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
@@ -632,7 +632,7 @@
             :key="item.id"
             class="p-3 transition-all rounded-2xl"
             :style="{
-              background: item.color || 'var(--c-card-bg)',
+              background: displayStickyColor(item.color),
               border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
@@ -885,17 +885,17 @@
             >
             <div class="flex gap-3">
               <button
-                v-for="color in stickyColors"
+                v-for="(color, idx) in displayStickyColors"
                 :key="color"
                 class="w-8 h-8 rounded-full transition-all"
                 :style="{
                   background: color,
                   border:
-                    selectedColor === color
+                    selectedColor === stickyColors[idx]
                       ? '2px solid var(--c-text-1)'
                       : '2px solid transparent',
                 }"
-                @click="selectedColor = color"
+                @click="selectedColor = stickyColors[idx]"
                 @mouseenter="
                   (e) => (e.currentTarget.style.transform = 'scale(1.1)')
                 "
@@ -1203,9 +1203,34 @@ import {
 } from "@/services";
 import { truncateByLines, truncateSmart, stripMarkdown } from "@/utils/text";
 import MarkdownEditor from "@/components/MarkdownEditor.vue";
+import { useTheme } from "@/composables/useTheme";
 
 const router = useRouter();
 const userStore = useUserStore();
+const { theme } = useTheme();
+
+// ====== 便签深色模式颜色映射 ======
+const stickyColorDarkMap: Record<string, string> = {
+  "rgba(236, 227, 219, 0.45)": "rgba(90, 80, 68, 0.55)",
+  "rgba(215, 195, 180, 0.35)": "rgba(75, 65, 55, 0.45)",
+  "rgba(220, 207, 196, 0.4)": "rgba(85, 75, 62, 0.5)",
+  "rgba(200, 180, 165, 0.3)": "rgba(65, 55, 48, 0.4)",
+  "rgba(245, 230, 220, 0.4)": "rgba(95, 85, 72, 0.5)",
+};
+
+const displayStickyColor = (color?: string) => {
+  if (!color) return "var(--c-card-bg)";
+  if (theme.value === "dark" && stickyColorDarkMap[color]) {
+    return stickyColorDarkMap[color];
+  }
+  return color;
+};
+
+const displayStickyColors = computed(() =>
+  stickyColors.value.map((c) =>
+    theme.value === "dark" && stickyColorDarkMap[c] ? stickyColorDarkMap[c] : c,
+  ),
+);
 
 // ====== 点赞状态管理（localStorage 持久化） ======
 const LIKED_POSTS_KEY = "qisoul_liked_posts";
