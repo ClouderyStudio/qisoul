@@ -6,14 +6,19 @@
         <div
           class="w-10 h-10 border-2 border-t-warm-500 border-warm-200 rounded-full animate-spin mx-auto"
         ></div>
-        <p class="text-sm font-light mt-4" style="color: var(--c-text-3)">加载中...</p>
+        <p class="text-sm font-light mt-4" style="color: var(--c-text-3)">
+          加载中...
+        </p>
       </div>
 
       <!-- 帖子详情 -->
       <div
         v-else-if="post"
         class="p-8 rounded-[2.5rem]"
-        style="background: var(--c-card-bg); border: 1px solid var(--c-border-1)"
+        style="
+          background: var(--c-card-bg);
+          border: 1px solid var(--c-border-1);
+        "
       >
         <!-- 返回按钮 -->
         <button
@@ -29,7 +34,10 @@
         <!-- 帖子内容 -->
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">{{ post.icon || "📖" }}</span>
-          <h1 class="text-2xl font-light tracking-wide" style="color: var(--c-text-1)">
+          <h1
+            class="text-2xl font-light tracking-wide"
+            style="color: var(--c-text-1)"
+          >
             {{ post.title }}
           </h1>
           <span
@@ -84,11 +92,22 @@
             @click="likePost"
             :disabled="liked"
             class="text-sm font-light transition-colors flex items-center gap-2"
-            :style="{ color: liked ? '#e8a0a0' : 'var(--c-text-3)', cursor: liked ? 'default' : 'pointer' }"
-            @mouseenter="(e) => { if (!liked) e.currentTarget.style.color = 'var(--c-text-1)' }"
-            @mouseleave="(e) => { if (!liked) e.currentTarget.style.color = 'var(--c-text-3)' }"
+            :style="{
+              color: liked ? '#e8a0a0' : 'var(--c-text-3)',
+              cursor: liked ? 'default' : 'pointer',
+            }"
+            @mouseenter="
+              (e) => {
+                if (!liked) e.currentTarget.style.color = 'var(--c-text-1)';
+              }
+            "
+            @mouseleave="
+              (e) => {
+                if (!liked) e.currentTarget.style.color = 'var(--c-text-3)';
+              }
+            "
           >
-            {{ liked ? '❤️' : '💛' }} {{ post.likes }}
+            {{ liked ? "❤️" : "💛" }} {{ post.likes }}
           </button>
           <span class="text-sm font-light" style="color: var(--c-text-3)"
             >💬 {{ post.comments || 0 }}</span
@@ -100,8 +119,12 @@
               @click="openEditModal"
               class="text-sm font-light transition-colors flex items-center gap-1"
               style="color: var(--c-text-3)"
-              @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-              @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+              @mouseenter="
+                (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+              "
+              @mouseleave="
+                (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+              "
             >
               ✏️ 编辑
             </button>
@@ -109,8 +132,12 @@
               @click="confirmDelete"
               class="text-sm font-light transition-colors flex items-center gap-1"
               style="color: var(--c-text-4)"
-              @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
-              @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+              @mouseenter="
+                (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+              "
+              @mouseleave="
+                (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+              "
             >
               🗑️ 删除
             </button>
@@ -135,7 +162,11 @@
         <button
           @click="goBack"
           class="mt-4 px-6 py-2 text-sm font-light transition-all rounded-full"
-          style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
+          style="
+            background: var(--c-btn-bg);
+            color: var(--c-text-btn);
+            border: 1px solid var(--c-btn-border);
+          "
           @mouseenter="
             (e) => {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
@@ -151,6 +182,14 @@
         >
           返回社区
         </button>
+      </div>
+
+      <div
+        v-if="post"
+        class="mt-8 pt-6"
+        style="border-top: 1px solid rgba(231, 219, 208, 0.3)"
+      >
+        <CommentSection :postId="post.id" />
       </div>
     </div>
 
@@ -170,7 +209,10 @@
         "
       >
         <div class="text-4xl mb-4">🗑️</div>
-        <h3 class="text-lg font-light tracking-wide" style="color: var(--c-text-1)">
+        <h3
+          class="text-lg font-light tracking-wide"
+          style="color: var(--c-text-1)"
+        >
           确认删除
         </h3>
         <p class="text-sm font-light mt-2" style="color: var(--c-text-2)">
@@ -180,9 +222,18 @@
           <button
             @click="deletePost"
             class="flex-1 py-2.5 text-sm font-light transition-all rounded-full"
-            style="background: var(--c-danger); color: white; border: 1px solid var(--c-danger)"
-            @mouseenter="(e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')"
-            @mouseleave="(e) => (e.currentTarget.style.background = 'var(--c-danger)')"
+            style="
+              background: var(--c-danger);
+              color: white;
+              border: 1px solid var(--c-danger);
+            "
+            @mouseenter="
+              (e) =>
+                (e.currentTarget.style.background = 'var(--c-danger-hover)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+            "
           >
             确认删除
           </button>
@@ -231,15 +282,22 @@
         "
       >
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-light tracking-wide" style="color: var(--c-text-1)">
+          <h2
+            class="text-xl font-light tracking-wide"
+            style="color: var(--c-text-1)"
+          >
             编辑帖子
           </h2>
           <button
             @click="closeEditModal"
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+            @mouseenter="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+            "
+            @mouseleave="
+              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+            "
           >
             ✕
           </button>
@@ -265,8 +323,12 @@
                 font-family: &quot;Segoe UI&quot;, sans-serif;
               "
               placeholder="标题..."
-              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+              @focus="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              "
+              @blur="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              "
             />
           </div>
 
@@ -288,8 +350,12 @@
                 font-family: &quot;Segoe UI&quot;, sans-serif;
                 cursor: pointer;
               "
-              @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-              @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+              @focus="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              "
+              @blur="
+                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              "
             >
               <option value="心理调节">心理调节</option>
               <option value="生活习惯">生活习惯</option>
@@ -378,6 +444,7 @@ import { useUserStore } from "@/stores/user";
 import { postService, type PostResponse } from "@/services";
 import MarkdownEditor from "@/components/MarkdownEditor.vue";
 import { marked } from "marked";
+import CommentSection from "../../components/CommentSection.vue";
 import DOMPurify from "dompurify";
 
 const router = useRouter();
@@ -390,7 +457,8 @@ const showDeleteModal = ref(false);
 
 // ====== 渲染 Markdown ======
 const renderedHtml = computed(() => {
-  if (!post.value?.content) return '<p style="color: var(--c-text-4);">暂无内容</p>';
+  if (!post.value?.content)
+    return '<p style="color: var(--c-text-4);">暂无内容</p>';
   try {
     const rawHtml = marked(post.value.content);
     return DOMPurify.sanitize(rawHtml, {
@@ -503,7 +571,9 @@ const checkLiked = () => {
       const set = new Set(JSON.parse(raw));
       liked.value = set.has(post.value.id);
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 };
 
 // ====== 点赞 ======
@@ -520,7 +590,9 @@ const likePost = async () => {
       const set = raw ? new Set(JSON.parse(raw)) : new Set();
       set.add(post.value.id);
       localStorage.setItem(LIKED_POSTS_KEY, JSON.stringify([...set]));
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   } catch (error) {
     console.error("点赞失败:", error);
   } finally {
