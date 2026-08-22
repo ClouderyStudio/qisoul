@@ -34,13 +34,13 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
@@ -109,7 +109,7 @@
               border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-3)';
                 e.currentTarget.style.boxShadow =
                   '0 4px 16px rgba(150, 130, 110, 0.08)';
@@ -117,7 +117,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-1)';
                 e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -157,13 +157,13 @@
                   cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
                 }"
                 @mouseenter="
-                  (e) => {
+                  (e: any) => {
                     if (!likedStickies.has(item.id))
                       e.currentTarget.style.color = 'var(--c-text-1)';
                   }
                 "
                 @mouseleave="
-                  (e) => {
+                  (e: any) => {
                     if (!likedStickies.has(item.id))
                       e.currentTarget.style.color = 'var(--c-text-3)';
                   }
@@ -184,10 +184,10 @@
                   class="text-[10px] font-light transition-colors"
                   style="color: var(--c-text-4)"
                   @mouseenter="
-                    (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
                   "
                   @mouseleave="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
                   "
                 >
                   ✕
@@ -224,7 +224,7 @@
                   : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   if (selectedCategory !== cat.value) {
                     e.currentTarget.style.borderColor = 'var(--c-accent)';
                     e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -232,7 +232,7 @@
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   if (selectedCategory !== cat.value) {
                     e.currentTarget.style.borderColor = 'transparent';
                     e.currentTarget.style.background = 'transparent';
@@ -246,7 +246,7 @@
 
           <!-- 加载状态 -->
           <div
-            v-if="loading && filteredPosts.length === 0"
+            v-if="loading && posts.length === 0"
             class="text-center py-16"
             style="
               background: var(--c-card-alt);
@@ -264,7 +264,7 @@
 
           <!-- 空状态 -->
           <div
-            v-else-if="filteredPosts.length === 0"
+            v-else-if="posts.length === 0"
             class="text-center py-16"
             style="
               background: var(--c-card-alt);
@@ -290,7 +290,7 @@
           <!-- 帖子列表 -->
           <div v-else class="space-y-4">
             <div
-              v-for="post in filteredPosts"
+              v-for="post in posts"
               :key="post.id"
               class="p-6 transition-all rounded-[2.5rem]"
               style="
@@ -298,14 +298,14 @@
                 border: 1px solid var(--c-border-1);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                 }
@@ -362,10 +362,10 @@
                       class="text-xs font-light transition-colors flex items-center gap-1"
                       style="color: var(--c-text-3)"
                       @mouseenter="
-                        (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                       "
                       @mouseleave="
-                        (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
                       "
                     >
                       查看详情 →
@@ -383,7 +383,7 @@
                       class="w-5 h-5 rounded-full object-cover"
                       style="border: 1px solid var(--c-divider)"
                       @error="
-                        (e) => {
+                        (e: any) => {
                           (e.target as HTMLImageElement).src =
                             '/default-avatar.png';
                         }
@@ -412,13 +412,13 @@
                         cursor: likedPosts.has(post.id) ? 'default' : 'pointer',
                       }"
                       @mouseenter="
-                        (e) => {
+                        (e: any) => {
                           if (!likedPosts.has(post.id))
                             e.currentTarget.style.color = 'var(--c-text-1)';
                         }
                       "
                       @mouseleave="
-                        (e) => {
+                        (e: any) => {
                           if (!likedPosts.has(post.id))
                             e.currentTarget.style.color = 'var(--c-text-3)';
                         }
@@ -444,11 +444,11 @@
                         class="text-xs font-light transition-colors flex items-center gap-1"
                         style="color: var(--c-text-3)"
                         @mouseenter="
-                          (e) =>
+                          (e: any) =>
                             (e.currentTarget.style.color = 'var(--c-text-1)')
                         "
                         @mouseleave="
-                          (e) =>
+                          (e: any) =>
                             (e.currentTarget.style.color = 'var(--c-text-3)')
                         "
                       >
@@ -459,11 +459,11 @@
                         class="text-xs font-light transition-colors flex items-center gap-1"
                         style="color: var(--c-text-4)"
                         @mouseenter="
-                          (e) =>
+                          (e: any) =>
                             (e.currentTarget.style.color = 'var(--c-danger)')
                         "
                         @mouseleave="
-                          (e) =>
+                          (e: any) =>
                             (e.currentTarget.style.color = 'var(--c-text-4)')
                         "
                       >
@@ -505,10 +505,10 @@
                   class="text-xl transition-colors"
                   style="color: var(--c-text-4)"
                   @mouseenter="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                   "
                   @mouseleave="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
                   "
                 >
                   ✕
@@ -536,11 +536,11 @@
                     "
                     placeholder="标题..."
                     @focus="
-                      (e) =>
+                      (e: any) =>
                         (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) =>
+                      (e: any) =>
                         (e.currentTarget.style.borderColor =
                           'var(--c-border-2)')
                     "
@@ -566,11 +566,11 @@
                       cursor: pointer;
                     "
                     @focus="
-                      (e) =>
+                      (e: any) =>
                         (e.currentTarget.style.borderColor = 'var(--c-accent)')
                     "
                     @blur="
-                      (e) =>
+                      (e: any) =>
                         (e.currentTarget.style.borderColor =
                           'var(--c-border-2)')
                     "
@@ -608,7 +608,7 @@
                     border: 1px solid var(--c-btn-border);
                   "
                   @mouseenter="
-                    (e) => {
+                    (e: any) => {
                       if (!editing) {
                         e.currentTarget.style.background = 'var(--c-btn-hover)';
                         e.currentTarget.style.borderColor =
@@ -617,7 +617,7 @@
                     }
                   "
                   @mouseleave="
-                    (e) => {
+                    (e: any) => {
                       if (!editing) {
                         e.currentTarget.style.background = 'var(--c-btn-bg)';
                         e.currentTarget.style.borderColor =
@@ -637,13 +637,13 @@
                     border: 1px solid var(--c-border-2);
                   "
                   @mouseenter="
-                    (e) => {
+                    (e: any) => {
                       e.currentTarget.style.borderColor = 'var(--c-accent)';
                       e.currentTarget.style.color = 'var(--c-text-1)';
                     }
                   "
                   @mouseleave="
-                    (e) => {
+                    (e: any) => {
                       e.currentTarget.style.borderColor = 'var(--c-border-2)';
                       e.currentTarget.style.color = 'var(--c-text-3)';
                     }
@@ -666,13 +666,13 @@
                 border: 1px solid var(--c-border-2);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-accent)';
                   e.currentTarget.style.color = 'var(--c-text-1)';
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   e.currentTarget.style.color = 'var(--c-text-3)';
                 }
@@ -710,7 +710,7 @@
               border: '1px solid var(--c-border-1)',
             }"
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-3)';
                 e.currentTarget.style.boxShadow =
                   '0 4px 16px rgba(150, 130, 110, 0.08)';
@@ -718,7 +718,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-1)';
                 e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -758,13 +758,13 @@
                   cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
                 }"
                 @mouseenter="
-                  (e) => {
+                  (e: any) => {
                     if (!likedStickies.has(item.id))
                       e.currentTarget.style.color = 'var(--c-text-1)';
                   }
                 "
                 @mouseleave="
-                  (e) => {
+                  (e: any) => {
                     if (!likedStickies.has(item.id))
                       e.currentTarget.style.color = 'var(--c-text-3)';
                   }
@@ -785,10 +785,10 @@
                   class="text-[10px] font-light transition-colors"
                   style="color: var(--c-text-4)"
                   @mouseenter="
-                    (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
                   "
                   @mouseleave="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
                   "
                 >
                   ✕
@@ -818,10 +818,10 @@
             class="flex items-center gap-2 cursor-pointer text-sm font-light"
             style="color: var(--c-text-3); list-style: none"
             @mouseenter="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
             "
           >
             <span>📌</span> 查看便签
@@ -871,13 +871,13 @@
                     cursor: likedStickies.has(item.id) ? 'default' : 'pointer',
                   }"
                   @mouseenter="
-                    (e) => {
+                    (e: any) => {
                       if (!likedStickies.has(item.id))
                         e.currentTarget.style.color = 'var(--c-text-1)';
                     }
                   "
                   @mouseleave="
-                    (e) => {
+                    (e: any) => {
                       if (!likedStickies.has(item.id))
                         e.currentTarget.style.color = 'var(--c-text-3)';
                     }
@@ -898,10 +898,10 @@
                     class="text-[10px] font-light transition-colors"
                     style="color: var(--c-text-4)"
                     @mouseenter="
-                      (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                      (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
                     "
                     @mouseleave="
-                      (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                      (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
                     "
                   >
                     ✕
@@ -943,10 +943,10 @@
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
             @mouseenter="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
             "
           >
             ✕
@@ -965,7 +965,7 @@
                 : 'background: transparent; color: var(--c-text-3); border: 1px solid var(--c-border-2);'
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (shareType !== type.value) {
                   e.currentTarget.style.borderColor = 'var(--c-accent)';
                   e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -973,7 +973,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (shareType !== type.value) {
                   e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   e.currentTarget.style.background = 'transparent';
@@ -1006,10 +1006,10 @@
               "
               placeholder="写一个简短的小方法或暖心提醒..."
               @focus="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
               "
               @blur="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
               "
             ></textarea>
           </div>
@@ -1033,10 +1033,10 @@
                 }"
                 @click="selectedColor = stickyColors[idx]"
                 @mouseenter="
-                  (e) => (e.currentTarget.style.transform = 'scale(1.1)')
+                  (e: any) => (e.currentTarget.style.transform = 'scale(1.1)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.transform = 'scale(1)')
+                  (e: any) => (e.currentTarget.style.transform = 'scale(1)')
                 "
               ></button>
             </div>
@@ -1059,7 +1059,7 @@
                 "
                 @click="selectedIcon = icon"
                 @mouseenter="
-                  (e) => {
+                  (e: any) => {
                     if (selectedIcon !== icon) {
                       e.currentTarget.style.borderColor = 'var(--c-accent)';
                       e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -1067,7 +1067,7 @@
                   }
                 "
                 @mouseleave="
-                  (e) => {
+                  (e: any) => {
                     if (selectedIcon !== icon) {
                       e.currentTarget.style.borderColor = 'transparent';
                       e.currentTarget.style.background = 'transparent';
@@ -1103,10 +1103,10 @@
               "
               placeholder="给你的方法起个标题..."
               @focus="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
               "
               @blur="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
               "
             />
           </div>
@@ -1130,10 +1130,10 @@
                 cursor: pointer;
               "
               @focus="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
               "
               @blur="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
               "
             >
               <option value="心理调节">心理调节</option>
@@ -1169,7 +1169,7 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (!submitting) {
                   e.currentTarget.style.background = 'var(--c-btn-hover)';
                   e.currentTarget.style.borderColor = 'var(--c-accent-border)';
@@ -1177,7 +1177,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (!submitting) {
                   e.currentTarget.style.background = 'var(--c-btn-bg)';
                   e.currentTarget.style.borderColor = 'var(--c-btn-border)';
@@ -1196,13 +1196,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -1249,11 +1249,11 @@
               border: 1px solid var(--c-danger);
             "
             @mouseenter="
-              (e) =>
+              (e: any) =>
                 (e.currentTarget.style.background = 'var(--c-danger-hover)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+              (e: any) => (e.currentTarget.style.background = 'var(--c-danger)')
             "
           >
             确认删除
@@ -1267,13 +1267,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -1320,11 +1320,11 @@
               border: 1px solid var(--c-danger);
             "
             @mouseenter="
-              (e) =>
+              (e: any) =>
                 (e.currentTarget.style.background = 'var(--c-danger-hover)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+              (e: any) => (e.currentTarget.style.background = 'var(--c-danger)')
             "
           >
             确认删除
@@ -1338,13 +1338,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -1368,7 +1368,8 @@ import {
   type PostResponse,
   type StickyResponse,
 } from "@/services";
-import { truncateByLines, truncateSmart, stripMarkdown } from "@/utils/text";
+import { truncateByLines, stripMarkdown } from "@/utils/text";
+import { formatTime } from "@/utils/time";
 import MarkdownEditor from "@/components/MarkdownEditor.vue";
 import { useTheme } from "@/composables/useTheme";
 
@@ -1399,9 +1400,12 @@ const displayStickyColors = computed(() =>
   ),
 );
 
-// ====== 点赞状态管理（localStorage 持久化） ======
+// ====== 点赞状态管理（localStorage 持久化，按用户隔离，避免多账号串号） ======
 const LIKED_POSTS_KEY = "qisoul_liked_posts";
 const LIKED_STICKIES_KEY = "qisoul_liked_stickies";
+
+const likedKey = (baseKey: string) =>
+  `${baseKey}_${userStore.user?.username || "guest"}`;
 
 const loadLikedSet = (key: string): Set<string> => {
   try {
@@ -1416,8 +1420,8 @@ const saveLikedSet = (key: string, set: Set<string>) => {
   localStorage.setItem(key, JSON.stringify([...set]));
 };
 
-const likedPosts = ref<Set<string>>(loadLikedSet(LIKED_POSTS_KEY));
-const likedStickies = ref<Set<string>>(loadLikedSet(LIKED_STICKIES_KEY));
+const likedPosts = ref<Set<string>>(new Set());
+const likedStickies = ref<Set<string>>(new Set());
 const likingPosts = ref<Set<string>>(new Set());
 const likingStickies = ref<Set<string>>(new Set());
 
@@ -1466,13 +1470,6 @@ const rightStickies = computed(() => {
 });
 
 // ====== 帖子 ======
-const filteredPosts = computed(() => {
-  if (selectedCategory.value === "all") {
-    return posts.value;
-  }
-  return posts.value.filter((p) => p.category === selectedCategory.value);
-});
-
 const hasMore = computed(() => {
   return pagination.value.page < pagination.value.totalPages;
 });
@@ -1541,21 +1538,6 @@ const isMySticky = (sticky: StickyResponse): boolean => {
   return currentUser ? sticky.username === currentUser : false;
 };
 
-// ====== 时间格式化 ======
-const formatTime = (dateStr: string) => {
-  if (!dateStr) return "刚刚";
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-
-  if (diff < 60000) return "刚刚";
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
-  if (diff < 172800000) return "昨天";
-  if (diff < 259200000) return "前天";
-  return `${date.getMonth() + 1}月${date.getDate()}日`;
-};
-
 // ====== 加载数据 ======
 const loadData = async () => {
   loading.value = true;
@@ -1575,16 +1557,19 @@ const loadData = async () => {
 };
 
 const loadMore = async () => {
-  if (loadingMore.value || !hasMore.value) return;
+  if (loading.value || loadingMore.value || !hasMore.value) return;
 
   loadingMore.value = true;
   try {
+    // 以当前选中分类为准；若期间分类已切换，直接丢弃本次结果避免错页
+    const category = selectedCategory.value;
     const nextPage = pagination.value.page + 1;
     const result = await postService.getPosts(
-      selectedCategory.value === "all" ? undefined : selectedCategory.value,
+      category === "all" ? undefined : category,
       nextPage,
       pagination.value.pageSize,
     );
+    if (category !== selectedCategory.value) return;
     posts.value = [...posts.value, ...result.data];
     pagination.value = result.pagination;
   } catch (error) {
@@ -1629,7 +1614,7 @@ const likePost = async (id: string) => {
     const post = posts.value.find((p) => p.id === id);
     if (post) post.likes = result.likes;
     likedPosts.value = new Set([...likedPosts.value, id]);
-    saveLikedSet(LIKED_POSTS_KEY, likedPosts.value);
+    saveLikedSet(likedKey(LIKED_POSTS_KEY), likedPosts.value);
   } catch (error) {
     console.error("点赞失败:", error);
   } finally {
@@ -1648,7 +1633,7 @@ const likeSticky = async (id: string) => {
     const sticky = stickies.value.find((s) => s.id === id);
     if (sticky) sticky.likes = result.likes;
     likedStickies.value = new Set([...likedStickies.value, id]);
-    saveLikedSet(LIKED_STICKIES_KEY, likedStickies.value);
+    saveLikedSet(likedKey(LIKED_STICKIES_KEY), likedStickies.value);
   } catch (error) {
     console.error("点赞便签失败:", error);
   } finally {
@@ -1718,8 +1703,8 @@ const showCreateModal = ref(false);
 const shareType = ref<"sticky" | "post">("sticky");
 
 const shareTypes = ref([
-  { value: "sticky", icon: "📌", label: "便签" },
-  { value: "post", icon: "📖", label: "帖子" },
+  { value: "sticky" as const, icon: "📌", label: "便签" },
+  { value: "post" as const, icon: "📖", label: "帖子" },
 ]);
 
 const stickyContent = ref("");
@@ -1822,6 +1807,9 @@ const submitShare = async () => {
 // ====== 生命周期 ======
 onMounted(() => {
   userStore.restoreUser();
+  // 用户恢复后再加载点赞状态（按用户隔离）
+  likedPosts.value = loadLikedSet(likedKey(LIKED_POSTS_KEY));
+  likedStickies.value = loadLikedSet(likedKey(LIKED_STICKIES_KEY));
   loadData();
 });
 </script>
