@@ -78,7 +78,7 @@
         class="w-full py-3.5 text-sm font-light transition-all rounded-full flex items-center justify-center gap-3 disabled:opacity-50"
         style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
         @mouseenter="
-          (e) => {
+          (e: any) => {
             if (!loading) {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
               e.currentTarget.style.borderColor = 'var(--c-accent-border)';
@@ -86,7 +86,7 @@
           }
         "
         @mouseleave="
-          (e) => {
+          (e: any) => {
             if (!loading) {
               e.currentTarget.style.background = 'var(--c-btn-bg)';
               e.currentTarget.style.borderColor = 'var(--c-btn-border)';
@@ -156,8 +156,8 @@
           href="/terms"
           class="transition-colors"
           style="color: var(--c-text-2); border-bottom: 1px dotted var(--c-accent)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-2)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')"
           >服务条款</a
         >
         <span class="mx-1">·</span>
@@ -165,8 +165,8 @@
           href="/privacy"
           class="transition-colors"
           style="color: var(--c-text-2); border-bottom: 1px dotted var(--c-accent)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-2)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')"
           >隐私政策</a
         >
       </p>
@@ -185,21 +185,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { authService } from "@/services";
+import { CASDOOR_CONFIG } from "@/config/auth";
 
 const router = useRouter();
+const route = useRoute();
 const loading = ref(false);
 const checkingAuth = ref(true);
 const userStore = useUserStore();
-
-const CASDOOR_CONFIG = {
-  serverUrl: "https://auth.cldery.com",
-  clientId: "75c6718aad099242d03f",
-  appName: "iam",
-  organizationName: "iam",
-};
 
 const generateState = (): string => {
   const array = new Uint8Array(16);
@@ -220,6 +215,14 @@ const loginWithCasdoor = async () => {
     state = generateState();
   }
   sessionStorage.setItem("oauth_state", state);
+
+  // 保留登录前目标页面，回调成功后跳回（仅允许站内路径）
+  const redirect = route.query.redirect as string | undefined;
+  if (redirect && redirect.startsWith("/") && !redirect.startsWith("//")) {
+    sessionStorage.setItem("oauth_redirect", redirect);
+  } else {
+    sessionStorage.removeItem("oauth_redirect");
+  }
 
   const redirectUri = `${window.location.origin}/callback`;
 
@@ -244,8 +247,13 @@ const checkAuth = async () => {
       // 如果有本地缓存，再验证后端状态
       const isValid = await userStore.checkStatus();
       if (isValid) {
-        // 已登录，跳转到仪表盘
-        router.replace("/dashboard");
+        // 已登录，跳回原目标页（仅允许站内路径）
+        const redirect = route.query.redirect as string | undefined;
+        const target =
+          redirect && redirect.startsWith("/") && !redirect.startsWith("//")
+            ? redirect
+            : "/dashboard";
+        router.replace(target);
         return;
       }
     }
