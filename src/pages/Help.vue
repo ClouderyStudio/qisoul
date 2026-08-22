@@ -30,8 +30,8 @@
               font-weight: 300;
             "
             placeholder="搜索帮助内容..."
-            @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-            @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+            @focus="(e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+            @blur="(e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
           />
           <span
             class="absolute left-3 top-1/2 -translate-y-1/2 text-sm"
@@ -54,7 +54,7 @@
               : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               if (activeCategory !== cat.value) {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -62,7 +62,7 @@
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               if (activeCategory !== cat.value) {
                 e.currentTarget.style.borderColor = 'transparent';
                 e.currentTarget.style.background = 'transparent';
@@ -85,14 +85,14 @@
             border: 1px solid var(--c-border-1);
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.06)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
@@ -168,13 +168,13 @@
           class="inline-block mt-3 px-6 py-2 text-sm font-light transition-all rounded-full"
           style="background: var(--c-btn-bg); color: var(--c-text-btn); border: 1px solid var(--c-btn-border)"
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
               e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-bg)';
               e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }

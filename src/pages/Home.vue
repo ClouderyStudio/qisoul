@@ -51,13 +51,13 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
@@ -70,13 +70,13 @@
             class="px-7 py-2.5 text-sm font-light transition-all rounded-full"
             style="color: var(--c-text-3); border: 1px solid var(--c-border-2)"
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.color = 'var(--c-text-1)';
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.color = 'var(--c-text-3)';
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
               }
@@ -137,7 +137,7 @@
               border: 1px solid var(--c-border-1);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-card-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-border-3)';
                 e.currentTarget.style.boxShadow =
@@ -146,7 +146,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-card-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-border-1)';
                 e.currentTarget.style.boxShadow = 'none';
@@ -257,8 +257,8 @@
               to="/community"
               class="inline-flex items-center gap-2 mt-4 text-sm font-light transition-colors"
               style="color: var(--c-text-3)"
-              @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-              @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+              @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+              @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
             >
               进入社区 →
             </router-link>
@@ -273,14 +273,14 @@
                 border: 1px solid var(--c-border-1);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.04)';
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                 }
@@ -322,13 +322,13 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }

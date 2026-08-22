@@ -223,8 +223,8 @@
               href="mailto:admin@cldery.com"
               class="transition-colors"
               style="color: var(--c-text-3); border-bottom: 1px dotted var(--c-accent)"
-              @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-              @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+              @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+              @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
               >admin@cldery.com</a
             >
             联系我们。
