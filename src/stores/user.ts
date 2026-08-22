@@ -68,9 +68,15 @@ export const useUserStore = defineStore('user', () => {
         clearUser()
         return false
       }
-    } catch {
-      clearUser()
-      return false
+    } catch (error: any) {
+      // 服务端明确拒绝（401/403）：会话已失效，登出
+      const status = error?.response?.status
+      if (status === 401 || status === 403) {
+        clearUser()
+        return false
+      }
+      // 网络异常等：保留本地缓存状态，避免把用户误登出
+      return isAuthenticated.value
     }
   }
 
