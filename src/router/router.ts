@@ -11,7 +11,10 @@ const routes = [
     path: "/callback",
     name: "回调",
     component: () => import("../pages/Callback.vue"),
-    props: (route) => ({ code: route.query.code, state: route.query.state }),
+    props: (route: { query: Record<string, unknown> }) => ({
+      code: route.query.code,
+      state: route.query.state,
+    }),
   },
   {
     path: "/login",
@@ -69,26 +72,25 @@ export const router = createRouter({
 });
 
 // 全局路由守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   const userStore = useUserStore()
 
-  // 尝试从 localStorage 恢复用户状态
+  // 尝试从 localStorage 恢复用户状态（同步、快速）
   if (!userStore.isAuthenticated) {
     userStore.restoreUser()
   }
 
-  // 需要认证的路由
+  // 需要认证的路由：以服务端 Cookie 校验结果为准，不能只信 localStorage
   if (to.meta.requiresAuth) {
-    if (!userStore.isAuthenticated) {
-      // 保存目标路径，登录后跳转回来
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath },
-      })
-    } else {
-      next()
+    if (userStore.isAuthenticated) {
+      const valid = await userStore.checkStatus()
+      if (valid) return true
     }
-  } else {
-    next()
+    // 保存目标路径，登录后跳转回来
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath },
+    }
   }
+  return true
 })
