@@ -139,13 +139,13 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
@@ -162,13 +162,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -240,9 +240,14 @@ const handleCallback = async () => {
       user.value = result.user;
       status.value = "success";
 
-      // 4. 延迟跳转
+      // 4. 延迟跳转（仅允许站内路径，防止 open redirect）
       setTimeout(() => {
-        const redirect = (route.query.redirect as string) || "/dashboard";
+        const raw =
+          (route.query.redirect as string) ||
+          sessionStorage.getItem("oauth_redirect") ||
+          "/dashboard";
+        sessionStorage.removeItem("oauth_redirect");
+        const redirect = raw.startsWith("/") && !raw.startsWith("//") ? raw : "/dashboard";
         router.replace(redirect);
       }, 1500);
     }
