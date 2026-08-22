@@ -40,7 +40,7 @@
               : 'background: transparent; color: var(--c-text-3); border: 1px solid transparent;'
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               if (activeCategory !== cat.value) {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -48,7 +48,7 @@
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               if (activeCategory !== cat.value) {
                 e.currentTarget.style.borderColor = 'transparent';
                 e.currentTarget.style.background = 'transparent';
@@ -88,7 +88,7 @@
                 border: 1px solid var(--c-border-1);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
@@ -96,7 +96,7 @@
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
@@ -135,10 +135,10 @@
                   border-bottom: 1px dotted var(--c-accent);
                 "
                 @mouseenter="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
                 "
               >
                 访问网站 →
@@ -171,7 +171,7 @@
                 border: 1px solid var(--c-border-1);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
@@ -179,7 +179,7 @@
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
@@ -240,10 +240,10 @@
                     border-bottom: 1px dotted var(--c-accent);
                   "
                   @mouseenter="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                   "
                   @mouseleave="
-                    (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                    (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
                   "
                 >
                   了解 →
@@ -277,7 +277,7 @@
                 border: 1px solid var(--c-border-1);
               "
               @mouseenter="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-3)';
                   e.currentTarget.style.boxShadow =
                     '0 8px 20px rgba(150, 130, 110, 0.06)';
@@ -285,7 +285,7 @@
                 }
               "
               @mouseleave="
-                (e) => {
+                (e: any) => {
                   e.currentTarget.style.borderColor = 'var(--c-border-1)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
@@ -323,14 +323,14 @@
                   border: 1px solid var(--c-border-2);
                 "
                 @mouseenter="
-                  (e) => {
+                  (e: any) => {
                     e.currentTarget.style.background = 'var(--c-btn-hover)';
                     e.currentTarget.style.borderColor =
                       'var(--c-accent-border)';
                   }
                 "
                 @mouseleave="
-                  (e) => {
+                  (e: any) => {
                     e.currentTarget.style.background = 'var(--c-tag-bg)';
                     e.currentTarget.style.borderColor = 'var(--c-border-2)';
                   }
@@ -394,10 +394,10 @@
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
             @mouseenter="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
             "
           >
             ✕
@@ -454,13 +454,13 @@
             border: 1px solid var(--c-btn-border);
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
               e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-bg)';
               e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }
@@ -525,7 +525,7 @@ const websites = ref([
   {
     id: 5,
     icon: "📊",
-    title: "",
+    title: "专业心理测评",
     description:
       "提供 PHQ-9、GAD-7、SDS、SAS 等专业心理测评量表，科学评估心理健康状态。",
     url: "https://pt.cldery.com",
