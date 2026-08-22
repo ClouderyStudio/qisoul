@@ -228,9 +228,13 @@ const handleCallback = async () => {
   }
 
   try {
-    // 3. 调用后端 API 完成登录
+    // 3. 调用后端 API 完成登录（携带 state 供 CSRF 校验：Casdoor 回传的优先，其次 sessionStorage）
     const redirectUri = `${window.location.origin}/callback`;
-    const result = await userStore.login(code, redirectUri);
+    const state =
+      (route.query.state as string) ||
+      sessionStorage.getItem("oauth_state") ||
+      undefined;
+    const result = await userStore.login(code, redirectUri, state);
 
     if (result.success) {
       user.value = result.user;

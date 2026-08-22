@@ -39,10 +39,10 @@ export const useUserStore = defineStore('user', () => {
   }
 
   // 登录（OAuth2 回调）
-  async function login(code: string, redirectUri: string) {
+  async function login(code: string, redirectUri: string, state?: string) {
     loading.value = true
     try {
-      const result = await authService.callback(code, redirectUri)
+      const result = await authService.callback(code, redirectUri, state)
       if (result.success && result.user) {
         setUser(result.user)
         return { success: true, user: result.user }

@@ -187,6 +187,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import { authService } from "@/services";
 
 const router = useRouter();
 const loading = ref(false);
@@ -206,11 +207,21 @@ const generateState = (): string => {
   return Array.from(array, (b) => b.toString(16).padStart(2, "0")).join("");
 };
 
-const loginWithCasdoor = () => {
+const loginWithCasdoor = async () => {
   loading.value = true;
-  const redirectUri = `${window.location.origin}/callback`;
-  const state = generateState();
+
+  // 优先从服务端获取 state（服务端会种入 HttpOnly Cookie，回调时后端据此校验防 CSRF 登录）
+  let state: string;
+  try {
+    const res = await authService.getOAuthState();
+    state = res.state;
+  } catch {
+    // 服务端不可用时回退到本地生成（后端对缺失 state 的请求兼容放行）
+    state = generateState();
+  }
   sessionStorage.setItem("oauth_state", state);
+
+  const redirectUri = `${window.location.origin}/callback`;
 
   const params = new URLSearchParams({
     client_id: CASDOOR_CONFIG.clientId,

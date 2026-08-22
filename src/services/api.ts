@@ -15,10 +15,22 @@ export const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        const status = error.response?.status
+        const serverMsg = error.response?.data?.message as string | undefined
+
+        if (status === 401) {
             // 未登录，可以触发跳转到登录页
             console.warn('未登录，请重新登录')
+        } else if (status === 403) {
+            // 例如 CSRF Origin 校验拒绝（跨站请求被拒绝）
+            console.warn(serverMsg || '请求被拒绝')
         }
+
+        // 透传服务端错误消息，便于调用方展示真实原因
+        if (serverMsg) {
+            error.message = serverMsg
+        }
+
         return Promise.reject(error)
     }
 )
