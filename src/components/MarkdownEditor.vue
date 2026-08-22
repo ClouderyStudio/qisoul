@@ -26,9 +26,9 @@
         class="p-1.5 rounded-lg transition-all text-xs"
         style="color: var(--c-text-3)"
         @mouseenter="
-          (e) => (e.currentTarget.style.background = 'var(--c-tag-bg)')
+          (e: any) => (e.currentTarget.style.background = 'var(--c-tag-bg)')
         "
-        @mouseleave="(e) => (e.currentTarget.style.background = 'transparent')"
+        @mouseleave="(e: any) => (e.currentTarget.style.background = 'transparent')"
       >
         {{ isPreview ? "✏️ 编辑" : "👁️ 预览" }}
       </button>
@@ -82,8 +82,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from "vue";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
+import { renderMarkdown } from "@/utils/markdown";
 
 const props = defineProps<{
   modelValue: string;
@@ -103,11 +102,7 @@ const renderedHtml = computed(() => {
   if (!props.modelValue)
     return '<p style="color: var(--c-text-4); font-style: italic;">没有内容可预览</p>';
   try {
-    const rawHtml = marked(props.modelValue);
-    return DOMPurify.sanitize(rawHtml, {
-      ADD_TAGS: ["iframe"],
-      ADD_ATTR: ["target", "rel", "class"],
-    });
+    return renderMarkdown(props.modelValue);
   } catch {
     return '<p style="color: var(--c-text-4);">预览渲染失败</p>';
   }
