@@ -35,10 +35,10 @@
             }"
             placeholder="写下你的想法..."
             @focus="
-              (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+              (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
             "
             @blur="
-              (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+              (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
             "
             @keydown.ctrl.enter="submitComment"
           ></textarea>
@@ -52,7 +52,7 @@
               border: '1px solid var(--c-btn-border)',
             }"
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (!submitting && newComment.trim()) {
                   e.currentTarget.style.background = 'var(--c-btn-hover)';
                   e.currentTarget.style.borderColor =
@@ -61,7 +61,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (!submitting) {
                   e.currentTarget.style.background = 'var(--c-btn-bg)';
                   e.currentTarget.style.borderColor = 'var(--c-btn-border)';
@@ -95,8 +95,8 @@
             color: var(--c-text-1);
             border-bottom: 1px dotted var(--c-accent);
           "
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
         >
           登录
         </router-link>
@@ -133,7 +133,7 @@
             class="w-7 h-7 rounded-full object-cover flex-shrink-0"
             :style="{ border: '1px solid ' + getVar('--c-border-2') }"
             @error="
-              (e) => {
+              (e: any) => {
                 (e.target as HTMLImageElement).src = '/default-avatar.png';
               }
             "
@@ -161,10 +161,10 @@
                 class="font-light transition-colors flex items-center gap-1"
                 style="color: var(--c-text-2)"
                 @mouseenter="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-2)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')
                 "
               >
                 💛 {{ comment.likes }}
@@ -175,10 +175,10 @@
                 class="font-light transition-colors"
                 style="color: var(--c-text-2)"
                 @mouseenter="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-2)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')
                 "
               >
                 回复
@@ -189,10 +189,10 @@
                 class="font-light transition-colors"
                 style="color: var(--c-text-3)"
                 @mouseenter="
-                  (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
                 "
               >
                 删除
@@ -222,11 +222,11 @@
                   }"
                   :placeholder="'回复 @' + comment.username + '...'"
                   @focus="
-                    (e) =>
+                    (e: any) =>
                       (e.currentTarget.style.borderColor = 'var(--c-accent)')
                   "
                   @blur="
-                    (e) =>
+                    (e: any) =>
                       (e.currentTarget.style.borderColor = 'var(--c-border-2)')
                   "
                   @keydown.enter="submitReply(comment)"
@@ -241,7 +241,7 @@
                     border: '1px solid var(--c-btn-border)',
                   }"
                   @mouseenter="
-                    (e) => {
+                    (e: any) => {
                       if (!replying && replyContent.trim()) {
                         e.currentTarget.style.background = 'var(--c-btn-hover)';
                         e.currentTarget.style.borderColor =
@@ -250,7 +250,7 @@
                     }
                   "
                   @mouseleave="
-                    (e) => {
+                    (e: any) => {
                       if (!replying) {
                         e.currentTarget.style.background = 'var(--c-btn-bg)';
                         e.currentTarget.style.borderColor =
@@ -270,14 +270,14 @@
                     border: '1px solid var(--c-border-2)',
                   }"
                   @mouseenter="
-                    (e) => {
+                    (e: any) => {
                       e.currentTarget.style.borderColor =
                         'var(--c-accent-border)';
                       e.currentTarget.style.color = 'var(--c-text-1)';
                     }
                   "
                   @mouseleave="
-                    (e) => {
+                    (e: any) => {
                       e.currentTarget.style.borderColor = 'var(--c-border-2)';
                       e.currentTarget.style.color = 'var(--c-text-2)';
                     }
@@ -305,7 +305,7 @@
                   class="w-6 h-6 rounded-full object-cover flex-shrink-0"
                   :style="{ border: '1px solid ' + getVar('--c-border-2') }"
                   @error="
-                    (e) => {
+                    (e: any) => {
                       (e.target as HTMLImageElement).src =
                         '/default-avatar.png';
                     }
@@ -336,10 +336,10 @@
                       class="font-light transition-colors flex items-center gap-1"
                       style="color: var(--c-text-2)"
                       @mouseenter="
-                        (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
                       "
                       @mouseleave="
-                        (e) => (e.currentTarget.style.color = 'var(--c-text-2)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')
                       "
                     >
                       💛 {{ reply.likes }}
@@ -350,10 +350,10 @@
                       class="font-light transition-colors"
                       style="color: var(--c-text-3)"
                       @mouseenter="
-                        (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
                       "
                       @mouseleave="
-                        (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
                       "
                     >
                       删除
@@ -366,19 +366,6 @@
         </div>
       </div>
     </div>
-
-    <!-- 加载更多回复 -->
-    <div v-if="hasMore && !loading" class="text-center mt-3">
-      <button
-        @click="loadMore"
-        class="text-xs font-light transition-colors"
-        style="color: var(--c-text-2)"
-        @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-        @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-2)')"
-      >
-        加载更多评论
-      </button>
-    </div>
   </div>
 </template>
 
@@ -386,6 +373,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { commentService, type CommentResponse } from "@/services/comment";
+import { formatTime } from "@/utils/time";
 
 const props = defineProps<{
   postId: string;
@@ -401,9 +389,6 @@ const replying = ref(false);
 const newComment = ref("");
 const replyContent = ref("");
 const replyingTo = ref<string | null>(null);
-const page = ref(1);
-const pageSize = ref(20);
-const total = ref(0);
 
 // ====== 计算属性 ======
 const commentCount = computed(() => {
@@ -411,10 +396,6 @@ const commentCount = computed(() => {
     (acc, c) => acc + 1 + (c.replies?.length || 0),
     0,
   );
-});
-
-const hasMore = computed(() => {
-  return comments.value.length < total.value;
 });
 
 // ====== 辅助方法 - 获取 CSS 变量值 ======
@@ -425,21 +406,7 @@ const getVar = (varName: string): string => {
     .trim();
 };
 
-// ====== 方法 ======
-const formatTime = (dateStr: string) => {
-  if (!dateStr) return "刚刚";
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-
-  if (diff < 60000) return "刚刚";
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
-  if (diff < 172800000) return "昨天";
-  if (diff < 259200000) return "前天";
-  return `${date.getMonth() + 1}月${date.getDate()}日`;
-};
-
+// ====== 判断是否自己的评论（仅用于隐藏按钮，授权以服务端为准） ======
 const isMyComment = (comment: CommentResponse): boolean => {
   const currentUser = userStore.user?.username;
   return currentUser ? comment.username === currentUser : false;
@@ -451,16 +418,11 @@ const loadComments = async () => {
   try {
     const data = await commentService.getCommentsByPost(props.postId);
     comments.value = data;
-    total.value = data.length;
   } catch (error) {
     console.error("加载评论失败:", error);
   } finally {
     loading.value = false;
   }
-};
-
-const loadMore = async () => {
-  await loadComments();
 };
 
 // ====== 提交评论 ======
