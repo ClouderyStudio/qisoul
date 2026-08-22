@@ -17,6 +17,7 @@ export interface PostResponse {
     likes: number
     comments: number
     createdAt: string
+    updatedAt?: string
     username: string
     userAvatar?: string
 }
