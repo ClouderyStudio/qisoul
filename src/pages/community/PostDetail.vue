@@ -25,8 +25,8 @@
           @click="goBack"
           class="text-sm font-light transition-colors flex items-center gap-2 mb-6"
           style="color: var(--c-text-3)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
         >
           ← 返回
         </button>
@@ -62,7 +62,7 @@
             class="w-5 h-5 rounded-full object-cover"
             style="border: 1px solid var(--c-divider)"
             @error="
-              (e) => {
+              (e: any) => {
                 (e.target as HTMLImageElement).src = '/default-avatar.png';
               }
             "
@@ -97,12 +97,12 @@
               cursor: liked ? 'default' : 'pointer',
             }"
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (!liked) e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (!liked) e.currentTarget.style.color = 'var(--c-text-3)';
               }
             "
@@ -120,10 +120,10 @@
               class="text-sm font-light transition-colors flex items-center gap-1"
               style="color: var(--c-text-3)"
               @mouseenter="
-                (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
               "
               @mouseleave="
-                (e) => (e.currentTarget.style.color = 'var(--c-text-3)')
+                (e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')
               "
             >
               ✏️ 编辑
@@ -133,10 +133,10 @@
               class="text-sm font-light transition-colors flex items-center gap-1"
               style="color: var(--c-text-4)"
               @mouseenter="
-                (e) => (e.currentTarget.style.color = 'var(--c-danger)')
+                (e: any) => (e.currentTarget.style.color = 'var(--c-danger)')
               "
               @mouseleave="
-                (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+                (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
               "
             >
               🗑️ 删除
@@ -168,13 +168,13 @@
             border: 1px solid var(--c-btn-border);
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-hover)';
               e.currentTarget.style.borderColor = 'var(--c-accent-border)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.background = 'var(--c-btn-bg)';
               e.currentTarget.style.borderColor = 'var(--c-btn-border)';
             }
@@ -228,11 +228,11 @@
               border: 1px solid var(--c-danger);
             "
             @mouseenter="
-              (e) =>
+              (e: any) =>
                 (e.currentTarget.style.background = 'var(--c-danger-hover)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+              (e: any) => (e.currentTarget.style.background = 'var(--c-danger)')
             "
           >
             确认删除
@@ -246,13 +246,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -293,10 +293,10 @@
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
             @mouseenter="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-1)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
             "
             @mouseleave="
-              (e) => (e.currentTarget.style.color = 'var(--c-text-4)')
+              (e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')
             "
           >
             ✕
@@ -324,10 +324,10 @@
               "
               placeholder="标题..."
               @focus="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
               "
               @blur="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
               "
             />
           </div>
@@ -351,10 +351,10 @@
                 cursor: pointer;
               "
               @focus="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')
               "
               @blur="
-                (e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
+                (e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')
               "
             >
               <option value="心理调节">心理调节</option>
@@ -390,7 +390,7 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (!editing) {
                   e.currentTarget.style.background = 'var(--c-btn-hover)';
                   e.currentTarget.style.borderColor = 'var(--c-accent-border)';
@@ -398,7 +398,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (!editing) {
                   e.currentTarget.style.background = 'var(--c-btn-bg)';
                   e.currentTarget.style.borderColor = 'var(--c-btn-border)';
@@ -417,13 +417,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -443,9 +443,9 @@ import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { postService, type PostResponse } from "@/services";
 import MarkdownEditor from "@/components/MarkdownEditor.vue";
-import { marked } from "marked";
 import CommentSection from "../../components/CommentSection.vue";
-import DOMPurify from "dompurify";
+import { renderMarkdown } from "@/utils/markdown";
+import { formatTime } from "@/utils/time";
 
 const router = useRouter();
 const route = useRoute();
@@ -460,11 +460,7 @@ const renderedHtml = computed(() => {
   if (!post.value?.content)
     return '<p style="color: var(--c-text-4);">暂无内容</p>';
   try {
-    const rawHtml = marked(post.value.content);
-    return DOMPurify.sanitize(rawHtml, {
-      ADD_TAGS: ["iframe"],
-      ADD_ATTR: ["target", "rel", "class"],
-    });
+    return renderMarkdown(post.value.content);
   } catch (error) {
     console.error("Markdown 渲染失败:", error);
     return '<p style="color: var(--c-text-4);">内容渲染失败</p>';
@@ -523,21 +519,6 @@ const isMyPost = computed(() => {
   return currentUser ? post.value.username === currentUser : false;
 });
 
-// ====== 时间格式化 ======
-const formatTime = (dateStr: string) => {
-  if (!dateStr) return "刚刚";
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-
-  if (diff < 60000) return "刚刚";
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
-  if (diff < 172800000) return "昨天";
-  if (diff < 259200000) return "前天";
-  return `${date.getMonth() + 1}月${date.getDate()}日`;
-};
-
 // ====== 加载帖子 ======
 const loadPost = async () => {
   const id = route.params.id as string;
@@ -559,14 +540,15 @@ const loadPost = async () => {
 };
 
 // ====== 点赞状态 ======
-const LIKED_POSTS_KEY = "qisoul_liked_posts";
+const likedKey = () =>
+  `qisoul_liked_posts_${userStore.user?.username || "guest"}`;
 const liked = ref(false);
 const liking = ref(false);
 
 const checkLiked = () => {
   if (!post.value) return;
   try {
-    const raw = localStorage.getItem(LIKED_POSTS_KEY);
+    const raw = localStorage.getItem(likedKey());
     if (raw) {
       const set = new Set(JSON.parse(raw));
       liked.value = set.has(post.value.id);
@@ -586,10 +568,10 @@ const likePost = async () => {
     liked.value = true;
     // 持久化
     try {
-      const raw = localStorage.getItem(LIKED_POSTS_KEY);
+      const raw = localStorage.getItem(likedKey());
       const set = raw ? new Set(JSON.parse(raw)) : new Set();
       set.add(post.value.id);
-      localStorage.setItem(LIKED_POSTS_KEY, JSON.stringify([...set]));
+      localStorage.setItem(likedKey(), JSON.stringify([...set]));
     } catch {
       /* ignore */
     }
