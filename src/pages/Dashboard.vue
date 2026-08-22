@@ -22,14 +22,14 @@
             border: 1px solid var(--c-border-1);
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
@@ -51,14 +51,14 @@
             display: block;
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
@@ -80,14 +80,14 @@
             display: block;
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
@@ -108,14 +108,14 @@
             border: 1px solid var(--c-border-1);
           "
           @mouseenter="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-3)';
               e.currentTarget.style.boxShadow =
                 '0 8px 20px rgba(150, 130, 110, 0.04)';
             }
           "
           @mouseleave="
-            (e) => {
+            (e: any) => {
               e.currentTarget.style.borderColor = 'var(--c-border-1)';
               e.currentTarget.style.boxShadow = 'none';
             }
@@ -164,12 +164,12 @@
               class="flex items-center justify-between p-3 rounded-full transition-all group"
               style="border-bottom: 1px solid var(--c-divider)"
               @mouseenter="
-                (e) =>
+                (e: any) =>
                   (e.currentTarget.style.background =
                     'var(--c-accent-soft)')
               "
               @mouseleave="
-                (e) => (e.currentTarget.style.background = 'transparent')
+                (e: any) => (e.currentTarget.style.background = 'transparent')
               "
             >
               <div class="flex items-center gap-3 flex-1">
@@ -192,8 +192,8 @@
                   @click="confirmDeleteMood(item.id)"
                   class="text-xs transition-colors opacity-0 group-hover:opacity-100"
                   style="color: var(--c-text-4)"
-                  @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-danger)')"
-                  @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+                  @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-danger)')"
+                  @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')"
                 >
                   ✕
                 </button>
@@ -234,10 +234,10 @@
                   border: 1px solid var(--c-danger);
                 "
                 @mouseenter="
-                  (e) => (e.currentTarget.style.background = 'var(--c-danger-hover)')
+                  (e: any) => (e.currentTarget.style.background = 'var(--c-danger-hover)')
                 "
                 @mouseleave="
-                  (e) => (e.currentTarget.style.background = 'var(--c-danger)')
+                  (e: any) => (e.currentTarget.style.background = 'var(--c-danger)')
                 "
               >
                 确认删除
@@ -251,13 +251,13 @@
                   border: 1px solid var(--c-border-2);
                 "
                 @mouseenter="
-                  (e) => {
+                  (e: any) => {
                     e.currentTarget.style.borderColor = 'var(--c-accent)';
                     e.currentTarget.style.color = 'var(--c-text-1)';
                   }
                 "
                 @mouseleave="
-                  (e) => {
+                  (e: any) => {
                     e.currentTarget.style.borderColor = 'var(--c-border-2)';
                     e.currentTarget.style.color = 'var(--c-text-3)';
                   }
@@ -272,6 +272,7 @@
         <!-- 右侧统计 -->
         <div class="space-y-6">
           <div
+            id="stats-overview"
             class="p-6 rounded-[2.5rem]"
             style="
               background: var(--c-card-bg);
@@ -347,8 +348,8 @@
             to="/community"
             class="text-xs font-light transition-colors"
             style="color: var(--c-text-3)"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+            @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >
             查看全部 →
           </router-link>
@@ -362,9 +363,9 @@
             :key="post.id"
             class="p-3 rounded-[2rem] transition-all cursor-pointer"
             style="border: 1px solid var(--c-border-1)"
-            @mouseenter="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-3)')"
+            @mouseenter="(e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-3)')"
             @mouseleave="
-              (e) =>
+              (e: any) =>
                 (e.currentTarget.style.borderColor = 'var(--c-border-1)')
             "
             @click="viewPostDetail(post.id)"
@@ -411,8 +412,8 @@
             @click="closeModal"
             class="text-xl transition-colors"
             style="color: var(--c-text-4)"
-            @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-            @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-4)')"
+            @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+            @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-4)')"
           >
             ✕
           </button>
@@ -430,7 +431,7 @@
                 : 'border: 1px solid transparent;'
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 if (selectedMood !== mood.value) {
                   e.currentTarget.style.borderColor = 'var(--c-accent)';
                   e.currentTarget.style.background = 'var(--c-accent-soft)';
@@ -438,7 +439,7 @@
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 if (selectedMood !== mood.value) {
                   e.currentTarget.style.borderColor = 'transparent';
                   e.currentTarget.style.background = 'transparent';
@@ -462,13 +463,13 @@
               color: var(--c-text-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.background = 'var(--c-accent-light)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.background = 'var(--c-tag-bg)';
               }
@@ -490,8 +491,8 @@
             font-family: &quot;Segoe UI&quot;, sans-serif;
           "
           placeholder="今天的感受是..."
-          @focus="(e) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
-          @blur="(e) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
+          @focus="(e: any) => (e.currentTarget.style.borderColor = 'var(--c-accent)')"
+          @blur="(e: any) => (e.currentTarget.style.borderColor = 'var(--c-border-2)')"
         ></textarea>
 
         <div class="flex gap-3 mt-6">
@@ -504,13 +505,13 @@
               border: 1px solid var(--c-btn-border);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-hover)';
                 e.currentTarget.style.borderColor = 'var(--c-accent-border)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.background = 'var(--c-btn-bg)';
                 e.currentTarget.style.borderColor = 'var(--c-btn-border)';
               }
@@ -527,13 +528,13 @@
               border: 1px solid var(--c-border-2);
             "
             @mouseenter="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-accent)';
                 e.currentTarget.style.color = 'var(--c-text-1)';
               }
             "
             @mouseleave="
-              (e) => {
+              (e: any) => {
                 e.currentTarget.style.borderColor = 'var(--c-border-2)';
                 e.currentTarget.style.color = 'var(--c-text-3)';
               }
@@ -560,6 +561,7 @@ import {
   type StatsResponse,
 } from "../services";
 import { truncateText, stripMarkdown } from "../utils/text";
+import { formatTime } from "../utils/time";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -657,19 +659,6 @@ const getMoodIcon = (moodType: string) => {
   return found?.icon || "😐";
 };
 
-const formatTime = (dateStr: string) => {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-
-  if (diff < 60000) return "刚刚";
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
-  if (diff < 172800000) return "昨天";
-  if (diff < 259200000) return "前天";
-  return `${date.getMonth() + 1}月${date.getDate()}日`;
-};
-
 const addTag = (tag: string) => {
   if (!selectedTags.value.includes(tag)) {
     selectedTags.value.push(tag);
@@ -728,8 +717,9 @@ const saveMood = async () => {
 };
 
 const viewStats = () => {
-  // TODO: 跳转到统计页面
-  console.log("查看统计");
+  document
+    .getElementById("stats-overview")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
 const closeModal = () => {
