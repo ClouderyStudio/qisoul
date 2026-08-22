@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 
 const THEME_KEY = 'qisoul_theme'
 
