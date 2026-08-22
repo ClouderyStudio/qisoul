@@ -7,38 +7,38 @@
       class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm font-light"
       style="color: var(--c-text-3)"
     >
-      <span>© 2026 栖所 · 柔和叙事实验室</span>
+      <span>© {{ currentYear }} 栖所 · 柔和叙事实验室</span>
       <div class="flex items-center gap-6">
         <router-link
           to="/about"
           class="transition-colors"
           style="color: var(--c-text-3)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >关于</router-link
         >
         <router-link
           to="/privacy"
           class="transition-colors"
           style="color: var(--c-text-3)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >隐私</router-link
         >
         <router-link
           to="/terms"
           class="transition-colors"
           style="color: var(--c-text-3)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >条款</router-link
         >
         <router-link
           to="/help"
           class="transition-colors"
           style="color: var(--c-text-3)"
-          @mouseenter="(e) => (e.currentTarget.style.color = 'var(--c-text-1)')"
-          @mouseleave="(e) => (e.currentTarget.style.color = 'var(--c-text-3)')"
+          @mouseenter="(e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')"
+          @mouseleave="(e: any) => (e.currentTarget.style.color = 'var(--c-text-3)')"
           >帮助</router-link
         >
       </div>
@@ -48,3 +48,7 @@
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const currentYear = new Date().getFullYear();
+</script>
