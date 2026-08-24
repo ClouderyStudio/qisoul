@@ -5,9 +5,9 @@
  */
 export const CASDOOR_CONFIG = {
   serverUrl:
-    import.meta.env.VITE_CASDOOR_SERVER_URL || 'https://auth.cldery.com',
+    import.meta.env.VITE_CASDOOR_SERVER_URL || '',
   clientId:
-    import.meta.env.VITE_CASDOOR_CLIENT_ID || '75c6718aad099242d03f',
-  appName: import.meta.env.VITE_CASDOOR_APP_NAME || 'iam',
-  organizationName: import.meta.env.VITE_CASDOOR_ORG_NAME || 'iam',
+    import.meta.env.VITE_CASDOOR_CLIENT_ID || '',
+  appName: import.meta.env.VITE_CASDOOR_APP_NAME || '',
+  organizationName: import.meta.env.VITE_CASDOOR_ORG_NAME || '',
 }

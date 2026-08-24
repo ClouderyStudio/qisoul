@@ -55,13 +55,13 @@ pnpm preview
 
 ## 🔧 环境变量
 
-| 变量                      | 必填     | 默认值                    | 说明                                       |
-| ------------------------- | -------- | ------------------------- | ------------------------------------------ |
-| `VITE_API_BASE_URL`       | 生产必填 | 无（缺省发往同源并告警）  | 后端 API 地址，如 `https://localhost:7288` |
-| `VITE_CASDOOR_SERVER_URL` | 否       | `https://auth.cldery.com` | Casdoor 单点登录服务地址                   |
-| `VITE_CASDOOR_CLIENT_ID`  | 否       | `75c6718aad099242d03f`    | Casdoor 应用公开 client_id                 |
-| `VITE_CASDOOR_ORG_NAME`   | 否       | `iam`                     | Casdoor 组织名                             |
-| `VITE_CASDOOR_APP_NAME`   | 否       | `iam`                     | Casdoor 应用名                             |
+| 变量                      | 必填     | 默认值                   | 说明                                       |
+| ------------------------- | -------- | ------------------------ | ------------------------------------------ |
+| `VITE_API_BASE_URL`       | 生产必填 | 无（缺省发往同源并告警） | 后端 API 地址，如 `https://localhost:7288` |
+| `VITE_CASDOOR_SERVER_URL` | 否       | 无                       | Casdoor 单点登录服务地址                   |
+| `VITE_CASDOOR_CLIENT_ID`  | 否       | 无                       | Casdoor 应用公开 client_id                 |
+| `VITE_CASDOOR_ORG_NAME`   | 否       | 无                       | Casdoor 组织名                             |
+| `VITE_CASDOOR_APP_NAME`   | 否       | 无                       | Casdoor 应用名                             |
 
 > `.env` 已被 `.gitignore` 忽略，请勿把真实密钥提交到仓库；模板见 `.env.example`。Casdoor 的 `clientId` 属 OAuth 公开标识，非机密。生产环境务必注入 `VITE_API_BASE_URL`，缺省时请求会发往站点同源路径。
 
