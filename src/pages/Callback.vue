@@ -229,11 +229,17 @@ const handleCallback = async () => {
 
   try {
     // 3. 调用后端 API 完成登录（携带 state 供 CSRF 校验：Casdoor 回传的优先，其次 sessionStorage）
+    //    后端已强制校验 state，缺失/不匹配会被拒绝，因此这里直接判缺失为错误而非发起调用。
     const redirectUri = `${window.location.origin}/callback`;
     const state =
       (route.query.state as string) ||
       sessionStorage.getItem("oauth_state") ||
-      undefined;
+      "";
+    if (!state) {
+      status.value = "error";
+      errorMessage.value = "缺少登录校验凭证(state)，请重新登录";
+      return;
+    }
     const result = await userStore.login(code, redirectUri, state);
 
     if (result.success) {

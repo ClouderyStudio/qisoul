@@ -38,8 +38,8 @@ export const useUserStore = defineStore('user', () => {
     return false
   }
 
-  // 登录（OAuth2 回调）
-  async function login(code: string, redirectUri: string, state?: string) {
+  // 登录（OAuth2 回调）；state 必须由登录发起时从服务端 /identity/auth/state 获取（后端已强制校验）
+  async function login(code: string, redirectUri: string, state: string) {
     loading.value = true
     try {
       const result = await authService.callback(code, redirectUri, state)

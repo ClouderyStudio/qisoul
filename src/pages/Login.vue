@@ -196,23 +196,20 @@ const loading = ref(false);
 const checkingAuth = ref(true);
 const userStore = useUserStore();
 
-const generateState = (): string => {
-  const array = new Uint8Array(16);
-  crypto.getRandomValues(array);
-  return Array.from(array, (b) => b.toString(16).padStart(2, "0")).join("");
-};
-
 const loginWithCasdoor = async () => {
   loading.value = true;
 
-  // 优先从服务端获取 state（服务端会种入 HttpOnly Cookie，回调时后端据此校验防 CSRF 登录）
+  // 从服务端获取 state（服务端会种入 HttpOnly Cookie，回调时后端据此校验防 CSRF 登录）。
+  // 后端已改为强制校验：state 必须与 oauth_state Cookie 一致，缺少/伪造都会被拒绝，
+  // 因此不再本地生成一个必然被拒的 fallback，拿不到就直接提示中止。
   let state: string;
   try {
     const res = await authService.getOAuthState();
     state = res.state;
   } catch {
-    // 服务端不可用时回退到本地生成（后端对缺失 state 的请求兼容放行）
-    state = generateState();
+    loading.value = false;
+    alert("无法获取登录凭证，请检查网络后重试");
+    return;
   }
   sessionStorage.setItem("oauth_state", state);
 

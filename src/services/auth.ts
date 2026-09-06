@@ -33,12 +33,12 @@ export const authService = {
     },
 
     // OAuth2 回调登录
-    async callback(code: string, redirectUri: string, state?: string): Promise<LoginResponse> {
+    // state 由登录发起时从服务端获取（/identity/auth/state），回调时必须携带：
+    // 后端现已强制校验 state 与 oauth_state Cookie 一致，缺少/不匹配会拒绝登录（防 CSRF）。
+    async callback(code: string, redirectUri: string, state: string): Promise<LoginResponse> {
         const response = await api.post('/identity/auth/callback', {
             code,
             redirectUri,
-            // state 由登录发起时从服务端获取（/identity/auth/state），
-            // 回调时带上，后端与 Cookie 比对；缺省时后端兼容放行
             state,
         })
         return response.data
