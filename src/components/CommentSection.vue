@@ -158,16 +158,31 @@
             <div class="flex items-center gap-4 mt-1 text-xs">
               <button
                 @click="likeComment(comment.id)"
+                :disabled="likedCommentIds.has(comment.id)"
                 class="font-light transition-colors flex items-center gap-1"
-                style="color: var(--c-text-2)"
+                :style="{
+                  color: likedCommentIds.has(comment.id)
+                    ? 'var(--c-accent)'
+                    : 'var(--c-text-2)',
+                  cursor: likedCommentIds.has(comment.id)
+                    ? 'default'
+                    : 'pointer',
+                }"
                 @mouseenter="
-                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                  (e: any) => {
+                    if (!likedCommentIds.has(comment.id))
+                      e.currentTarget.style.color = 'var(--c-text-1)';
+                  }
                 "
                 @mouseleave="
-                  (e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')
+                  (e: any) => {
+                    if (!likedCommentIds.has(comment.id))
+                      e.currentTarget.style.color = 'var(--c-text-2)';
+                  }
                 "
               >
-                💛 {{ comment.likes }}
+                {{ likedCommentIds.has(comment.id) ? '❤️' : '💛' }}
+                {{ comment.likes }}
               </button>
               <button
                 v-if="userStore.isAuthenticated"
@@ -333,16 +348,31 @@
                   <div class="flex items-center gap-3 mt-1 text-xs">
                     <button
                       @click="likeComment(reply.id)"
+                      :disabled="likedCommentIds.has(reply.id)"
                       class="font-light transition-colors flex items-center gap-1"
-                      style="color: var(--c-text-2)"
+                      :style="{
+                        color: likedCommentIds.has(reply.id)
+                          ? 'var(--c-accent)'
+                          : 'var(--c-text-2)',
+                        cursor: likedCommentIds.has(reply.id)
+                          ? 'default'
+                          : 'pointer',
+                      }"
                       @mouseenter="
-                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-1)')
+                        (e: any) => {
+                          if (!likedCommentIds.has(reply.id))
+                            e.currentTarget.style.color = 'var(--c-text-1)';
+                        }
                       "
                       @mouseleave="
-                        (e: any) => (e.currentTarget.style.color = 'var(--c-text-2)')
+                        (e: any) => {
+                          if (!likedCommentIds.has(reply.id))
+                            e.currentTarget.style.color = 'var(--c-text-2)';
+                        }
                       "
                     >
-                      💛 {{ reply.likes }}
+                      {{ likedCommentIds.has(reply.id) ? '❤️' : '💛' }}
+                      {{ reply.likes }}
                     </button>
                     <button
                       v-if="isMyComment(reply)"
@@ -389,6 +419,26 @@ const replying = ref(false);
 const newComment = ref("");
 const replyContent = ref("");
 const replyingTo = ref<string | null>(null);
+
+// ====== 已赞视觉态（与帖子/便签一致：localStorage 记录，点赞后禁点） ======
+const likedCommentIds = ref<Set<string>>(new Set());
+
+const likedCommentKey = () =>
+  `qisoul_liked_comments_${userStore.user?.username || "guest"}`;
+
+const saveLikedComments = (set: Set<string>) => {
+  localStorage.setItem(likedCommentKey(), JSON.stringify([...set]));
+};
+
+const loadLikedComments = () => {
+  try {
+    const raw = localStorage.getItem(likedCommentKey());
+    likedCommentIds.value =
+      raw ? new Set(JSON.parse(raw) as string[]) : new Set();
+  } catch {
+    likedCommentIds.value = new Set();
+  }
+};
 
 // ====== 计算属性 ======
 const commentCount = computed(() => {
@@ -480,6 +530,7 @@ const submitReply = async (parent: CommentResponse) => {
 
 // ====== 点赞 ======
 const likeComment = async (id: string) => {
+  if (likedCommentIds.value.has(id)) return; // 已赞则不再点赞（与帖子/便签一致）
   try {
     const result = await commentService.likeComment(id);
     const updateLikes = (comment: CommentResponse) => {
@@ -500,6 +551,9 @@ const likeComment = async (id: string) => {
     for (const comment of comments.value) {
       if (updateLikes(comment)) break;
     }
+    // 服务端确认后标记为已赞
+    likedCommentIds.value.add(id);
+    saveLikedComments(likedCommentIds.value);
   } catch (error) {
     console.error("点赞失败:", error);
   }
@@ -542,6 +596,7 @@ const deleteComment = async (id: string) => {
 // ====== 生命周期 ======
 onMounted(() => {
   loadComments();
+  loadLikedComments();
 });
 </script>
 
