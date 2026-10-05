@@ -20,7 +20,7 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         const status = error.response?.status
-        const serverMsg = error.response?.data?.message as string | undefined
+        const serverMsg = (error.response?.data?.detail || error.response?.data?.message) as string | undefined
 
         if (status === 401) {
             // 会话失效：清除本地缓存并跳转登录页（登录/回调页自身不跳转，避免死循环）
